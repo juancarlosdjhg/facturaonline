@@ -146,12 +146,12 @@
 
           var img = new Image();
           img.onload = function dimension() {
-            if (this.width.toFixed(0) != width && this.height.toFixed(0) != height) {
-              alert('Las medidas deben ser: ' + width + ' x ' + height);
-            } else {
+            // if (this.width.toFixed(0) != width && this.height.toFixed(0) != height) {
+            //   alert('Las medidas deben ser: ' + width + ' x ' + height);
+            // } else {
               // El tamaño de la imagen fue validado
               isValid = true;
-            }
+            // }
           };
           img.src = URL.createObjectURL(image);
           
