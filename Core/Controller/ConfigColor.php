@@ -150,6 +150,10 @@ class ConfigColor extends Controller
             fwrite($archivo, "  color: ".$this->tertiaryColor." !important;\n");
             fwrite($archivo, "}\n");
 
+            fwrite($archivo, "a.btn-success > i, a.btn-success > span{\n");
+            fwrite($archivo, "  color: #fff\n");
+            fwrite($archivo, "}\n");
+
             // Legends
             fwrite($archivo, ".text-info {\n");
             fwrite($archivo, "  color: ".$this->tertiaryColor." !important;\n");
