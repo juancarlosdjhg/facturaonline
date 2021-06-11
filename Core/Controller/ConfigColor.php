@@ -197,6 +197,20 @@ class ConfigColor extends Controller
             fwrite($archivo, "  border-color: ".$this->primaryColor." !important;\n");
             fwrite($archivo, "}\n");
 
+            // JivoChat
+            fwrite($archivo, "#jvlabelWrap {\n");
+            fwrite($archivo, "  background: ".$this->primaryColor." !important;\n");
+            fwrite($archivo, "}\n");
+
+            fwrite($archivo, ".cssLeaf_1483 {\n");
+            fwrite($archivo, "  background: ".$this->primaryColor." !important;\n");
+            fwrite($archivo, "  background-image: \"\" !important;\n");
+            fwrite($archivo, "}\n");
+
+            fwrite($archivo, ".headerBox_4768 {\n");
+            fwrite($archivo, "  background: ".$this->primaryColor." !important;\n");
+            fwrite($archivo, "}\n");
+
             // Css por default
             fwrite($archivo, $cssDefault);           
 
@@ -210,9 +224,9 @@ class ConfigColor extends Controller
             $moved = move_uploaded_file($this->logo->getPathname(), $targetPath);
 
             if (!$moved) {
-                echo 'Error';
+                // echo 'Error';
             } else {
-                echo 'Ok';
+                // echo 'Ok';
             }
 
             @chmod($targetPath, 0666 & ~umask());
@@ -223,9 +237,9 @@ class ConfigColor extends Controller
             $moved = move_uploaded_file($this->favicon->getPathname(), $targetPath);
 
             if (!$moved) {
-                echo 'Error';
+                // echo 'Error';
             } else {
-                echo 'Ok';
+                // echo 'Ok';
             }
 
             @chmod($targetPath, 0666 & ~umask());
@@ -236,9 +250,9 @@ class ConfigColor extends Controller
             $moved = move_uploaded_file($this->login->getPathname(), $targetPath);
 
             if (!$moved) {
-                echo 'Error';
+                // echo 'Error';
             } else {
-                echo 'Ok';
+                // echo 'Ok';
             }
 
             @chmod($targetPath, 0666 & ~umask());
