@@ -1,0 +1,162 @@
+{#
+    /**
+     * This file is part of FacturaScripts
+     * Copyright (C) 2017-2020 Carlos Garcia Gomez <carlos@facturascripts.com>
+     *
+     * This program is free software: you can redistribute it and/or modify
+     * it under the terms of the GNU Lesser General Public License as
+     * published by the Free Software Foundation, either version 3 of the
+     * License, or (at your option) any later version.
+     *
+     * This program is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+     * GNU Lesser General Public License for more details.
+     *
+     * You should have received a copy of the GNU Lesser General Public License
+     * along with this program. If not, see http://www.gnu.org/licenses/.
+     */
+#}
+{% extends "Master/MenuTemplate.html.twig" %}
+
+{% block body %}
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <form
+                  action="{{ fsc.url() }}"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="form">
+                  <div class="form-group">
+                    <label for="logo">Logo:</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="logo"
+                      name="logo"
+                      value="{{ fsc.logo }}"
+                      onChange="validateImage('logo', 500, 550, 'png')">
+                    <span class="text-muted">Ingrese el logo de su empresa</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="favicon">Favicon:</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="favicon"
+                      name="favicon"
+                      value="{{ fsc.favicon }}"
+                      onChange="validateImage('favicon', 100, 100, 'ico')">
+                    <span class="text-muted">Ingrese el favicon</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="login">Logo en login:</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="login"
+                      name="login"
+                      value="{{ fsc.login }}"
+                      onChange="validateImage('login', 1800, 1200, 'png')">
+                    <span class="text-muted">Ingrese una imagen para el login</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="primaryColor">Color primario:</label>
+                    <input
+                      type="color"
+                      class="form-control"
+                      id="primaryColor"
+                      name="primaryColor"
+                      value="{{ fsc.primaryColor }}"
+                      placeholder="Ejemplo: #ffffff">
+                    <span class="text-muted">Ingrese el color primario</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="secundaryColor">Color secundario:</label>
+                    <input
+                      type="color"
+                      class="form-control"
+                      id="secundaryColor"
+                      name="secundaryColor"
+                      value="{{ fsc.secundaryColor }}"
+                      placeholder="Ejemplo: #ffffff">
+                    <span class="text-muted">Ingrese el color secundario</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="tertiaryColor">Color terciario:</label>
+                    <input
+                      type="color"
+                      class="form-control"
+                      id="tertiaryColor"
+                      name="tertiaryColor"
+                      value="{{ fsc.tertiaryColor }}"
+                      placeholder="Ejemplo: #ffffff">
+                    <span class="text-muted">Ingrese el color terciario</span>
+                  </div>
+                    
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="btnSubmit">
+                    Guardar
+                  </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <style>
+        body {
+            background-color: #FAFBFC;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var isValid = false;
+
+        function validateExtension(type, name) {
+          return type === 'png' ? !(/\.(png)$/i).test(name) : !(/\.(ico)$/i).test(name)
+        }
+
+        function validateImage(elemt, width, height, type) {
+          var input = document.getElementById(elemt);
+          var image = input.files[0];
+          var c = 0;
+
+          if (input.files.length == 0 || validateExtension(type, image.name)) {
+            alert('Ingrese una imagen con el formato '+ type +'.');
+            return false;
+          }
+          
+          // Si el tamaño de la imagen fue validado
+          if (isValid) {
+            return true;
+          }
+
+          var img = new Image();
+          img.onload = function dimension() {
+            if (this.width.toFixed(0) > width || this.height.toFixed(0) > height) {
+              alert('Las medidas no deben superar: ' + width + ' x ' + height);
+            } else {
+              // El tamaño de la imagen fue validado
+              isValid = true;
+            }
+          };
+          img.src = URL.createObjectURL(image);
+          
+          // Devolvemos false porque falta validar el tamaño de la imagen
+          return false;
+        }
+    </script>
+{% endblock %}
