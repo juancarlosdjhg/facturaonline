@@ -1,0 +1,57 @@
+Pantalla Almacén->Productos:
+- Añadir campo 'description' para descripción en ingles. 
+- Añadir los campos 'PVPs', incluyendo campos de calculos de % de margenes. (Pvp1-5, %M.Obj, %M.Act, PvpEst)
+- Quitar submenú 'Variantes', incluír campos (Referencia, Cod.Barras, Precio de coste, Stock) en submenú 'Producto'.
+- Añadir submenús de movimientos de documentos Compras y Ventas (Presupuestos y Facturas).
+- Añadir checkbox para habilitar 'Trazabilidad' al producto.
+- Añadir submenú de Trazabilidad 
+    - CRUD para lotes 
+    - Asociar los productos a un lote.
+
+Pantalla Ventas->Clientes:
+- Grupos de clientes con el mismo CIF (--analizar).
+- Añadir parámetro 'Pvp por defecto', relacionado a los PVPs de los artículos.
+- Añadir nuevo campo en la tabla Clientes '% descuento por defecto', cargar este descuento en el campo 'Descuento global' en la pantalla de Ventas->Presupuestos, arrastrar a ->Albarán->Factura.
+- Añadir lista de precios personalizada por cliente.
+    - Añadir artículos con precio personalizado
+    - Copiar lista de precios de un cliente a otro
+    - Añadir campo 'Código externo' a productos en la lista.
+
+Pantalla Ventas->Presupuestos:
+- Mostrar 'Precio de coste' de los productos que se cargan.
+- Calcular 'Margen de ganancia' a los artículos cargados (PrecioCoste - Pvp), margen editable y vinculado al total del Presupuesto.
+- Añadir un desplegable 'Proveedor a Comprar' para seleccionar el proveedor por cada línea.
+- Añadir Checkbox de control 'Pedir' para saber si el producto está Ok o Pedir.
+- Añadir campo 'Número de Pedido Externo' en la cabecera del Presupuesto.
+- Añadir campo 'Fecha de Entrega - timestamp' en la cabecera del Presupuesto.
+- Imprimir el Presupuesto en Español / Inglés
+- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+
+NUEVA Pantalla Ventas->Mis Pedidos (PedidosPorCliente):
+- Añadir esta pantalla para que los Clientes puedan hacer pedidos y consultar sus pedidos realizados directamente en Factura Online. (--analizar)
+
+NUEVA Pantalla Ventas->Mis Facturas(FacturasPorCliente):
+- Añadir esta pantalla para que los Clientes puedan visualizar todas las facturas a su nombre directamente en Factura Online. (--analizar)
+
+Pantalla Ventas->Pedidos:
+- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+
+Pantalla Ventas->Presupuestos:
+- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+
+Pantalla Ventas->Albaranes:
+- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+
+Pantalla Ventas->Facturas:
+- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+- Imprimir el Documento en Español / Inglés
+
+Pantalla Compras->Pedido:
+- Poder cargar pedidos asociados al proveedor seleccionado (Selección múltiple para poder seleccionar uno o varios presupuestos APROBADOS donde esté incluído el Proveedor cargado en las líneas de presupuesto).
+
+Informes:
+- Presupuestos 
+- Albaranes 
+- Facturas de Ventas
+- Ventas por Cliente / Grupo de Clientes
+- Facturas de Compras
