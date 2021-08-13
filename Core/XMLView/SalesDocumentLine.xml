@@ -34,6 +34,9 @@
         <column name="description" order="120">
             <widget type="text" fieldname="descripcion"/>
         </column>
+        <column name="english-description" order="125">
+            <widget type="text" fieldname="description"/>
+        </column>
         <column name="quantity" display="right" order="130">
             <widget type="number" fieldname="cantidad"/>
         </column>

@@ -173,6 +173,16 @@ class Variante extends Base\ModelClass
                 $description
         );
     }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function description_eng()
+    {
+        $description = $this->getProducto()->description;
+        return $description;
+    }
 
     /**
      * 
