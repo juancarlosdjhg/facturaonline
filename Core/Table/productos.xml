@@ -100,6 +100,11 @@
         <type>boolean</type>
         <default>false</default>
     </column>
+    <column>
+        <name>trazabilidad</name>
+        <type>boolean</type>
+        <default>false</default>
+    </column>
     <constraint>
         <name>productos_pkey</name>
         <type>PRIMARY KEY (idproducto)</type>
