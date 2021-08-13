@@ -123,6 +123,10 @@
         <name>fechaentregaprevista</name>
         <type>date</type>
     </column>
+    <column>
+        <name>codproveedor</name>
+        <type>character varying(10)</type>
+    </column>
     <constraint>
         <name>lineaspresupuestoscli_pkey</name>
         <type>PRIMARY KEY (idlinea)</type>
@@ -138,5 +142,9 @@
     <constraint>
         <name>ca_lineaspresupuestoscli_productos</name>
         <type>FOREIGN KEY (idproducto) REFERENCES productos (idproducto) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>ca_lineaspresupuestoscli_proveedores</name>
+        <type>FOREIGN KEY (codproveedor) REFERENCES proveedores (codproveedor) ON DELETE CASCADE ON UPDATE CASCADE</type>
     </constraint>
 </table>

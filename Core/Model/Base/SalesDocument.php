@@ -220,6 +220,8 @@ abstract class SalesDocument extends TransformerDocument
             $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
             $newLine->recargo = $product->getTax()->recargo;
             $newLine->referencia = $variant->referencia;
+            $newLine->coste = $variant->coste;
+            $newLine->margen = $variant->margen;
 
             /// allow extensions
             $this->pipe('getNewProductLine', $newLine, $variant, $product);
