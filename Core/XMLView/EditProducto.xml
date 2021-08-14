@@ -68,9 +68,6 @@
             <column name="publico" title="public" order="160">
                 <widget type="checkbox" fieldname="publico" />
             </column>
-            <column name="trazabilidad" title="traceability" order="170">
-                <widget type="checkbox" fieldname="trazabilidad"/>
-            </column>
         </group>
         <group name="observations" numcolumns="9">
             <column name="observations" numcolumns="12" order="100">
