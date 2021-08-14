@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <column name="code" order="100">
+            <widget type="text" fieldname="codtrazabilidad" />
+        </column>
+        <column name="partity" order="110">
+            <widget type="text" fieldname="partida" />
+        </column>
+        <column name="lot" order="120">
+            <widget type="text" fieldname="lote" />
+        </column>
+        <column name="description" order="130">
+            <widget type="text" fieldname="descripcion" />
+        </column>
+        <column name="origin" order="140">
+            <widget type="text" fieldname="procedencia" />
+        </column>
+        <column name="production-date" order="150" display="right">
+            <widget type="date" fieldname="fechaproduccion" />
+        </column>
+        <column name="expiration-date" order="160" display="right">
+            <widget type="date" fieldname="fechacaducidad" />
+        </column>
+    </columns>
+</view>
