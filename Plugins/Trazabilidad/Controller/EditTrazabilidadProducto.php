@@ -8,9 +8,9 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
 use FacturaScripts\Dinamic\Model\TrazabilidadProd;
 use FacturaScripts\Dinamic\Model\Producto;
 
-class EditTrazabilidad extends EditController {
+class EditTrazabilidadProducto extends EditController {
     public function getModelClassName() {
-        return 'Trazabilidad';
+        return 'TrazabilidadProducto';
     }
 
     public function getPageData() {
@@ -74,7 +74,7 @@ class EditTrazabilidad extends EditController {
      * 
      * @param string $viewName
      */
-    protected function createViewProducts(string $viewName = 'ListProductoTrazabilidad')
+    protected function createViewProducts(string $viewName = 'ListTrazabilidadProducto')
     {
         $this->addListView($viewName, 'Producto', 'products', 'fas fa-list');
         $this->createViewCommon($viewName);
@@ -93,7 +93,7 @@ class EditTrazabilidad extends EditController {
      * 
      * @param string $viewName
      */
-    protected function createViewNewProducts(string $viewName = 'ListProductoTrazabilidad-new')
+    protected function createViewNewProducts(string $viewName = 'ListTrazabilidadProducto-new')
     {
         $this->addListView($viewName, 'Producto', 'add-products', 'fas fa-plus-square');
         $this->createViewCommon($viewName);
@@ -136,19 +136,17 @@ class EditTrazabilidad extends EditController {
      */
     protected function loadData($viewName, $view)
     {
-        $codtrazabilidad = $this->getViewModelValue('EditTrazabilidad', 'codtrazabilidad');
+        $codtrazabilidad = $this->getViewModelValue('EditTrazabilidadProducto', 'codtrazabilidad');
         $where = [new DataBaseWhere('codtrazabilidad', $codtrazabilidad)];
         
         switch ($viewName) {
-            case 'ListProductoTrazabilidad':
+            case 'ListTrazabilidadProducto':
                 $inSQL = 'SELECT idproducto FROM trazabilidadesprod WHERE codtrazabilidad = ' . $this->dataBase->var2str($codtrazabilidad);
                 $where = [new DataBaseWhere('idproducto', $inSQL, 'IN')];
                 $view->loadData('', $where);
                 break;
                 
-            case 'ListProductoTrazabilidad-new':
-                //$where = [new DataBaseWhere('referencia', null, 'IS')];
-                //$view->loadData('', $where);
+            case 'ListTrazabilidadProducto-new':
                 $dataBase = new DataBase();
                 $data = $dataBase->select('SELECT DISTINCT referencia, descripcion FROM productos WHERE trazabilidad=1;');
                 $view->loadData($data);
@@ -159,55 +157,6 @@ class EditTrazabilidad extends EditController {
                 break;
         }
     }
-
-/* 
-    protected function loadData($viewName, $view)
-    {
-        $codproveedor = $this->getViewModelValue('EditProveedor', 'codproveedor');
-        $where = [new DataBaseWhere('codproveedor', $codproveedor)];
-
-        switch ($viewName) {
-            case 'EditCuentaBancoProveedor':
-                $view->loadData('', $where, ['codcuenta' => 'DESC']);
-                break;
-
-            case 'EditDireccionContacto':
-                $view->loadData('', $where, ['idcontacto' => 'DESC']);
-                break;
-
-            case 'ListAlbaranProveedor':
-            case 'ListFacturaProveedor':
-            case 'ListPedidoProveedor':
-            case 'ListPresupuestoProveedor':
-            case 'ListProductoProveedor':
-            case 'ListReciboProveedor':
-                $view->loadData('', $where);
-                break;
-
-            case 'ListLineaFacturaProveedor':
-                $inSQL = 'SELECT idfactura FROM facturasprov WHERE codproveedor = ' . $this->dataBase->var2str($codproveedor);
-                $where = [new DataBaseWhere('idfactura', $inSQL, 'IN')];
-                $view->loadData('', $where);
-                break;
-
-            default:
-                parent::loadData($viewName, $view);
-                break;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
- */
 
     protected function removeProductAction()
     {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table>
+    <column>
+        <name>codtrazabilidadprod</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>codtrazabilidad</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idproducto</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>trazabilidadesprod_pkey</name>
+        <type>PRIMARY KEY (codtrazabilidadprod)</type>
+    </constraint>
+    <constraint>
+        <name>ca_trazabilidadesprod_productos</name>
+        <type>FOREIGN KEY (idproducto) REFERENCES productos (idproducto) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>ca_trazabilidadesprod_trazabilidades</name>
+        <type>FOREIGN KEY (codtrazabilidad) REFERENCES trazabilidades (codtrazabilidad) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+</table>

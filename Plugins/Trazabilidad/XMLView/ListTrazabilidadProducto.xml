@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <view>
     <columns>
+        <column name="codtrazabilidadprod" order="85" display="none">
+            <widget type="hidden" fieldname="codtrazabilidadprod" readonly="true"/>
+        </column>
         <column name="product" order="90">
             <widget type="text" fieldname="referencia" />
         </column>
