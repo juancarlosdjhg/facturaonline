@@ -26,6 +26,10 @@
         <type>text</type>
     </column>
     <column>
+        <name>description</name>
+        <type>text</type>
+    </column>
+    <column>
         <name>dtopor</name>
         <type>double precision</type>
         <null>NO</null>
