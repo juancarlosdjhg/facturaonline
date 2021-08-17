@@ -28,6 +28,14 @@
             <column name="name" order="110">
                 <widget type="text" fieldname="nombre" maxlength="100" required="true" />
             </column>
+            <column name="fiscal-id" titleurl="ListIdentificadorFiscal" numcolumns="2" order="110">
+                <widget type="select" fieldname="tipoidfiscal" required="true">
+                    <values source="idsfiscales" fieldcode="tipoidfiscal" fieldtitle="tipoidfiscal" />
+                </widget>
+            </column>
+            <column name="fiscal-number" numcolumns="2" order="115">
+                <widget type="text" fieldname="cifnif" maxlength="30" icon="fas fa-id-card"/>
+            </column>
             <column name="rate" titleurl="ListTarifa" numcolumns="3" order="120">
                 <widget type="select" fieldname="codtarifa" onclick="EditTarifa">
                     <values source="tarifas" fieldcode="codtarifa" fieldtitle="nombre" />

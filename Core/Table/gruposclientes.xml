@@ -12,6 +12,11 @@
         <null>NO</null>
     </column>
     <column>
+        <name>cifnif</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <column>
         <name>codsubcuenta</name>
         <type>character varying(15)</type>
     </column>
@@ -23,6 +28,10 @@
         <name>nombre</name>
         <type>character varying(100)</type>
         <null>NO</null>
+    </column>
+    <column>
+        <name>tipoidfiscal</name>
+        <type>character varying(25)</type>
     </column>
     <constraint>
         <name>gruposclientes_pkey</name>
