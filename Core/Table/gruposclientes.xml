@@ -41,4 +41,8 @@
         <name>ca_gruposclientes_tarifas</name>
         <type>FOREIGN KEY (codtarifa) REFERENCES tarifas (codtarifa) ON DELETE SET NULL ON UPDATE CASCADE</type>
     </constraint>
+    <constraint>
+        <name>Ya_existe_el_Grupo_Cliente_con_ese_Numero_Fiscal</name>
+        <type>UNIQUE (tipoidfiscal, cifnif)</type>
+    </constraint>
 </table>
