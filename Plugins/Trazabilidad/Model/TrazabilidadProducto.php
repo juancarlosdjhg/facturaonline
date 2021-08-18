@@ -3,7 +3,6 @@
 namespace FacturaScripts\Plugins\Trazabilidad\Model;
 
 use FacturaScripts\Core\Model\Base\JoinModel;
-use FacturaScripts\Plugins\Trazabilidad\Model\Trazabilidad;
 
 class TrazabilidadProducto extends JoinModel
 {
@@ -21,8 +20,7 @@ class TrazabilidadProducto extends JoinModel
             'procedencia' => 'trazabilidades.procedencia',
             'fechaproduccion' => 'trazabilidades.fechaproduccion',
             'fechacaducidad' => 'trazabilidades.fechacaducidad',
-            'descripciontrazabilidad' => 'trazabilidades.descripcion',
-            'codtrazabilidadprod' => 'trazabilidadesprod.codtrazabilidadprod'
+            'descripciontrazabilidad' => 'trazabilidades.descripcion'
         ];
     }
 
@@ -34,11 +32,6 @@ class TrazabilidadProducto extends JoinModel
     protected function getTables(): array
     {
         return ['trazabilidades','trazabilidadesprod','productos'];
-    }
-
-    public function primaryColumnValue()
-    {
-        return $this->codtrazabilidadesprod;
     }
 
 }
