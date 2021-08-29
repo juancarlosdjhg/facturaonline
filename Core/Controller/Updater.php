@@ -71,6 +71,7 @@ class Updater extends Controller
         $data['submenu'] = 'control-panel';
         $data['title'] = 'updater';
         $data['icon'] = 'fas fa-cloud-download-alt';
+        $data['showonmenu'] = false;
         return $data;
     }
 

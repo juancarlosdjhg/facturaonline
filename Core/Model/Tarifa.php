@@ -117,7 +117,28 @@ class Tarifa extends Base\ModelClass
      */
     public function applyTo($variant, $product)
     {
-        return $this->apply($variant->coste, $variant->precio);
+        $defaultpvp = $variant->defaultPvp();
+        switch ($defaultpvp) {
+            case 'pvp1': 
+                return $this->apply($variant->coste, $variant->pvp1);
+                break;
+
+            case 'pvp2': 
+                return $this->apply($variant->coste, $variant->pvp2);
+                break;
+
+            case 'pvp3': 
+                return $this->apply($variant->coste, $variant->pvp3);
+                break;
+
+            case 'pvp4': 
+                return $this->apply($variant->coste, $variant->pvp4);
+                break;
+
+            case 'pvp5': 
+                return $this->apply($variant->coste, $variant->pvp5);
+                break;
+        }
     }
 
     /**

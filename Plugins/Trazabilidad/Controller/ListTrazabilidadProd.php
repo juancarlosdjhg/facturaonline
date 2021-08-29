@@ -1,20 +1,21 @@
 <?php
+
 namespace FacturaScripts\Plugins\Trazabilidad\Controller;
 
 use FacturaScripts\Core\Lib\ExtendedController\ListController;
-use FacturaScripts\Plugins\Trazabilidad\Controller\ListTrazabilidadProducto;
 
-class ListTrazabilidad extends ListController {
-
-        public function getPageData() {
+class ListTrazabilidadProd extends ListController {
+    
+    public function getPageData() {
         $pageData = parent::getPageData();
+        $pageData['menu'] = 'warehouse';
         $pageData['title'] = 'Trazabilidad';
         $pageData['icon'] = 'fas fa-tasks';
         $pageData['showonmenu'] = false;
 
         return $pageData;
     }
-    
+
     protected function createViews() {
         $this->addView('ListTrazabilidadProducto', 'TrazabilidadProducto');
         $this->addSearchFields('ListTrazabilidadProducto', ['productos.referencia','productos.descripcion', 'productos.description','trazabilidades.codtrazabilidad', 'lote', 'partida', 'trazabilidades.descripcion', 'procedencia', 'fechaproduccion', 'fechacaducidad']);
@@ -29,4 +30,10 @@ class ListTrazabilidad extends ListController {
         $this->addOrderBy('ListTrazabilidadProducto', ['fechaproduccion'], 'production-date');
         $this->addOrderBy('ListTrazabilidadProducto', ['fechacaducidad'], 'expiration-date');
     }
+/* 
+    public function redirect() {
+        $url='ListTrazabilidadProducto';
+        $this->redirect($url, 0);
+    }
+ */
 }

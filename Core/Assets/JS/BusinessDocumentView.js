@@ -64,6 +64,7 @@ function businessDocViewSubjectChanged() {
         success: function (results) {
             $("#doc_codpago").val(results.codpago);
             $("#doc_codserie").val(results.codserie);
+            $("#doc_dtopor2").val(results.defaultdescuento);
             /**
              * Review the doc_codsubtipodoc existence, 
              * if it exist we put the value from the customer data
@@ -256,7 +257,7 @@ $(document).ready(function () {
         hsTable.render();
     });
 
-    $("#doc_codserie, #doc_dtopor1, #doc_dtopor2").change(function () {
+    $("#doc_codserie, #doc_dtopor1, #doc_dtopor2, #doc_defaultdescuento").change(function () {
         businessDocViewRecalculate();
     });
 

@@ -59,7 +59,7 @@
             <widget type="checkbox" fieldname="bloqueado"/>
         </column>
         <column name="trazabilidad" title="traceability" display="center" order="205">
-            <widget type="checkbox" fieldname="trazabilidad" onclick="ListTrazabilidad"/>
+            <widget type="checkbox" fieldname="trazabilidad"/>
         </column>
         <column name="ventasinstock" title="allow-sale-without-stock" display="none" order="210">
             <widget type="checkbox" fieldname="ventasinstock"/>

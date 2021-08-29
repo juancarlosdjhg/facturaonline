@@ -20,6 +20,7 @@ namespace FacturaScripts\Core\Model;
 
 use FacturaScripts\Dinamic\Model\AtributoValor as DinAtributoValor;
 use FacturaScripts\Dinamic\Model\Producto as DinProducto;
+use FacturaScripts\Dinamic\Model\Cliente;
 use FacturaScripts\Dinamic\Model\Stock as DinStock;
 
 /**
@@ -90,11 +91,134 @@ class Variante extends Base\ModelClass
     public $margen;
 
     /**
+     *
+     * @var float
+     */
+    public $margen1;
+
+    /**
      * Price of the variant. Without tax.
      *
      * @var int|float
      */
-    public $precio;
+    public $pvp1;
+
+    /**
+     *
+     * @var float
+     */
+    public $margenobjetivo1;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $preciorecomendado1;
+
+    /**
+     *
+     * @var float
+     */
+    public $margen2;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $pvp2;
+
+    /**
+     *
+     * @var float
+     */
+    public $margenobjetivo2;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $preciorecomendado2;
+
+    /**
+     *
+     * @var float
+     */
+    public $margen3;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $pvp3;
+
+    /**
+     *
+     * @var float
+     */
+    public $margenobjetivo3;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $preciorecomendado3;
+
+    /**
+     *
+     * @var float
+     */
+    public $margen4;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $pvp4;
+
+    /**
+     *
+     * @var float
+     */
+    public $margenobjetivo4;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $preciorecomendado4;
+
+    /**
+     *
+     * @var float
+     */
+    public $margen5;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $pvp5;
+
+    /**
+     *
+     * @var float
+     */
+    public $margenobjetivo5;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
+    public $preciorecomendado5;
 
     /**
      * Reference of the variant. Maximun 30 characteres.
@@ -102,6 +226,13 @@ class Variante extends Base\ModelClass
      * @var string
      */
     public $referencia;
+
+    /**
+     * Reference of the variant. Maximun 30 characteres.
+     *
+     * @var string
+     */
+    public $defaultpvp;
 
     /**
      * Physical stock.
@@ -118,8 +249,28 @@ class Variante extends Base\ModelClass
         parent::clear();
         $this->coste = 0.0;
         $this->margen = 0.0;
-        $this->precio = 0.0;
+        $this->margen1 = 0.0;
+        $this->pvp1 = 0.0;
+        $this->margen2 = 0.0;
+        $this->pvp2 = 0.0;
+        $this->margen3 = 0.0;
+        $this->pvp3 = 0.0;
+        $this->margen4 = 0.0;
+        $this->pvp4 = 0.0;
+        $this->margen5 = 0.0;
+        $this->pvp5 = 0.0;
+        $this->margenobjetivo1 = 0.0;
+        $this->preciorecomendado1 = 0.0;
+        $this->margenobjetivo2 = 0.0;
+        $this->preciorecomendado2 = 0.0;
+        $this->margenobjetivo3 = 0.0;
+        $this->preciorecomendado3 = 0.0;
+        $this->margenobjetivo4 = 0.0;
+        $this->preciorecomendado4 = 0.0;
+        $this->margenobjetivo5 = 0.0;
+        $this->preciorecomendado5 = 0.0;
         $this->stockfis = 0.0;
+        $this->defaultpvp = 'pvp1';
     }
 
     /**
@@ -249,7 +400,32 @@ class Variante extends Base\ModelClass
      */
     public function priceWithTax()
     {
-        return $this->precio * (100 + $this->getProducto()->getTax()->iva) / 100;
+//        $defaultpvp = $this->defaultPvp();
+
+        $customer = new Cliente();
+        $defaultpvpcustomer = $customer->defaultPvp();
+
+        switch ($defaultpvpcustomer) {
+            case 'pvp1': 
+                return $this->pvp1 * (100 + $this->getProducto()->getTax()->iva) / 100;
+                break;
+
+            case 'pvp2': 
+                return $this->pvp2 * (100 + $this->getProducto()->getTax()->iva) / 100;
+                break;
+
+            case 'pvp3': 
+                return $this->pvp3 * (100 + $this->getProducto()->getTax()->iva) / 100;
+                break;
+
+            case 'pvp4': 
+                return $this->pvp4 * (100 + $this->getProducto()->getTax()->iva) / 100;
+                break;
+
+            case 'pvp5': 
+                return $this->pvp5 * (100 + $this->getProducto()->getTax()->iva) / 100;
+                break;
+        }
     }
 
     /**
@@ -260,6 +436,11 @@ class Variante extends Base\ModelClass
     public static function primaryColumn()
     {
         return 'idvariante';
+    }
+
+    public function defaultPvp()
+    {
+        return $this->defaultpvp;
     }
 
     /**
@@ -277,17 +458,45 @@ class Variante extends Base\ModelClass
      */
     public function save()
     {
-        if ($this->margen > 0) {
-            $newPrice = $this->coste * (100 + $this->margen) / 100;
-            $this->precio = \round($newPrice, DinProducto::ROUND_DECIMALS);
-        }
 
-        if (parent::save()) {
-            $this->getProducto()->update();
-            return true;
-        }
-
+                if ($this->margen1 > 0) {
+                    $newPrice = $this->coste * (100 + $this->margen1) / 100;
+                    $newMargen = $this->margen1;
+                    $this->pvp1 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+                    $this->margen = $newMargen;
+                }
+                if ($this->margen2 > 0) {
+                    $newPrice = $this->coste * (100 + $this->margen2) / 100;
+                    $newMargen = $this->margen2;
+                    $this->pvp2 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+                    $this->margen = $newMargen;
+                }
+                if ($this->margen3 > 0) {
+                    $newPrice = $this->coste * (100 + $this->margen3) / 100;
+                    $newMargen = $this->margen3;
+                    $this->pvp3 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+                    $this->margen = $newMargen;
+                }
+                if ($this->margen4 > 0) {
+                    $newPrice = $this->coste * (100 + $this->margen4) / 100;
+                    $newMargen = $this->margen4;
+                    $this->pvp4 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+                    $this->margen = $newMargen;
+                }
+                if ($this->margen5 > 0) {
+                    $newPrice = $this->coste * (100 + $this->margen5) / 100;
+                    $newMargen = $this->margen5;
+                    $this->pvp5 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+                    $this->margen = $newMargen;
+                }
+        
+                if (parent::save()) {
+                    $this->getProducto()->update();
+                    return true;
+                }
+        
         return false;
+
     }
 
     /**
@@ -297,7 +506,12 @@ class Variante extends Base\ModelClass
     public function setPriceWithTax($price)
     {
         $newPrice = (100 * $price) / (100 + $this->getProducto()->getTax()->iva);
-        $this->precio = \round($newPrice, DinProducto::ROUND_DECIMALS);
+        $this->pvp1 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+        $this->pvp2 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+        $this->pvp3 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+        $this->pvp4 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+        $this->pvp5 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+
     }
 
     /**

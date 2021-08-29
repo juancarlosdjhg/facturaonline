@@ -130,7 +130,6 @@
     <column>
         <name>defaultpvp</name>
         <type>character varying(100)</type>
-        <default>1</default>
     </column>
     <column>
         <name>defaultdescuento</name>

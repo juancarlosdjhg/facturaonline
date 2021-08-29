@@ -102,25 +102,22 @@ class ReciboCliente extends Base\Receipt
     {
         parent::setExpiration($date);
 
-        $days = $this->getSubject()->getPaymentDays();
-        if (empty($days)) {
             return;
-        }
 
         /// try to select consumer defined days for expiration date
-        $newDates = [];
-        $maxDay = \date('t', \strtotime($this->vencimiento));
-        foreach ($days as $numDay) {
-            $day = min([$numDay, $maxDay]);
-            for ($num = 0; $num < 30; $num++) {
-                $newDay = \date('d', \strtotime($this->vencimiento . ' +' . $num . ' days'));
-                if ($newDay == $day) {
-                    $newDates[] = \strtotime($this->vencimiento . ' +' . $num . ' days');
-                }
-            }
-        }
+        //$newDates = [];
+        //$maxDay = \date('t', \strtotime($this->vencimiento));
+        //foreach ($days as $numDay) {
+        //    $day = min([$numDay, $maxDay]);
+        //    for ($num = 0; $num < 30; $num++) {
+        //        $newDay = \date('d', \strtotime($this->vencimiento . ' +' . $num . ' days'));
+        //        if ($newDay == $day) {
+        //            $newDates[] = \strtotime($this->vencimiento . ' +' . $num . ' days');
+        //        }
+        //    }
+        
 
-        $this->vencimiento = \date(self::DATE_STYLE, min($newDates));
+        //$this->vencimiento = \date(self::DATE_STYLE, min($newDates));
     }
 
     /**

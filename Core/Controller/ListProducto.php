@@ -49,7 +49,6 @@ class ListProducto extends ListController
     protected function createViews()
     {
         $this->createViewProducto();
-        $this->createViewVariante();
         $this->createViewStock();
     }
 

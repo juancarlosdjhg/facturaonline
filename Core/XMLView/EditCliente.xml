@@ -83,12 +83,12 @@
                 </widget>
             </column>
             <column name="default-pvp" numcolumns="3" order="130">
-                <widget type="select" fieldname="defaultpvp" icon="fas fa-tags">
-                    <values title="PVP 1">1</values>
-                    <values title="PVP 2">2</values>
-                    <values title="PVP 3">3</values>
-                    <values title="PVP 4">4</values>
-                    <values title="PVP 5">5</values>
+                <widget type="select" fieldname="defaultpvp" icon="fas fa-tags" required="true">
+                    <values title="PVP 1">pvp1</values>
+                    <values title="PVP 2">pvp2</values>
+                    <values title="PVP 3">pvp3</values>
+                    <values title="PVP 4">pvp4</values>
+                    <values title="PVP 5">pvp5</values>
                 </widget>
             </column>
             <column name="payment-method" titleurl="ListFormaPago" numcolumns="3" order="140">

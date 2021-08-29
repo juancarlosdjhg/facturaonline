@@ -253,7 +253,11 @@ class Producto extends Base\ModelClass
         $newPrice = (100 * $price) / (100 + $this->getTax()->iva);
         foreach ($this->getVariants() as $variant) {
             if ($variant->referencia == $this->referencia) {
-                $variant->precio = \round($newPrice, self::ROUND_DECIMALS);
+                $variant->pvp1 = \round($newPrice, self::ROUND_DECIMALS);
+                $variant->pvp2 = \round($newPrice, self::ROUND_DECIMALS);
+                $variant->pvp3 = \round($newPrice, self::ROUND_DECIMALS);
+                $variant->pvp4 = \round($newPrice, self::ROUND_DECIMALS);
+                $variant->pvp5 = \round($newPrice, self::ROUND_DECIMALS);
                 return $variant->save();
             }
         }
@@ -321,9 +325,34 @@ class Producto extends Base\ModelClass
 
         foreach ($this->getVariants() as $variant) {
             if ($variant->referencia == $this->referencia || \is_null($newReferencia)) {
-                $newPrecio = $variant->precio;
-                $newReferencia = $variant->referencia;
-                break;
+                
+                $defaultpvp = $variant->defaultPvp();
+                switch ($defaultpvp) {
+                    case 'pvp1': 
+                        $newPrecio = $variant->pvp1;
+                        $newReferencia = $variant->referencia;
+                        break;
+        
+                    case 'pvp2': 
+                        $newPrecio = $variant->pvp2;
+                        $newReferencia = $variant->referencia;
+                        break;
+        
+                    case 'pvp3': 
+                        $newPrecio = $variant->pvp3;
+                        $newReferencia = $variant->referencia;
+                        break;
+        
+                    case 'pvp4': 
+                        $newPrecio = $variant->pvp4;
+                        $newReferencia = $variant->referencia;
+                        break;
+        
+                    case 'pvp5': 
+                        $newPrecio = $variant->pvp5;
+                        $newReferencia = $variant->referencia;
+                        break;
+                }
             }
         }
 

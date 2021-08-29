@@ -79,9 +79,6 @@
         <column name="provider" display="none" order="250">
             <widget type="text" fieldname="proveedor"/>
         </column>
-        <column name="estimateddeliverydate" display="right" order="260">
-            <widget type="text" fieldname="fechaentregaprevista"/>
-        </column>
     </columns>
     <rows>
         <row type="business">

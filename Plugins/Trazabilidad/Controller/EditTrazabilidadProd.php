@@ -8,9 +8,9 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
 use FacturaScripts\Dinamic\Model\TrazabilidadProd;
 use FacturaScripts\Dinamic\Model\Producto;
 
-class EditTrazabilidad extends EditController {
+class EditTrazabilidadProd extends EditController {
     public function getModelClassName() {
-        return 'Trazabilidad';
+        return 'TrazabilidadProducto';
     }
 
     public function getPageData() {
@@ -25,7 +25,7 @@ class EditTrazabilidad extends EditController {
     protected function addProductAction()
     {
         $codes = $this->request->request->get('code', []);
-        $trazabilidad = $this->request->request->get('codtrazabilidad');
+        $trazabilidad = $this->request->request->get('codtrazabilidad', []);
         var_dump($codes);
         var_dump($trazabilidad);
         if (false === \is_array($codes)) {
@@ -33,10 +33,13 @@ class EditTrazabilidad extends EditController {
         }
 
         $num = 0;
+        $producto = new TrazabilidadProd();
         foreach ($codes as $code) {
-            $producto = new TrazabilidadProd();
-            $producto->codtrazabilidad = $trazabilidad->codtrazabilidad;
-            $producto->idproducto = $code->code;
+            if (false === $producto->loadFromCode($code)) {
+                return;
+            }
+            
+            $producto->idproducto = $this->request->query->get('code');
             if ($producto->save()) {
                 $num++;
             }
@@ -71,7 +74,7 @@ class EditTrazabilidad extends EditController {
      * 
      * @param string $viewName
      */
-    protected function createViewProducts(string $viewName = 'ListProducto')
+    protected function createViewProducts(string $viewName = 'ListTrazabilidadProducto')
     {
         $this->addListView($viewName, 'Producto', 'products', 'fas fa-list');
         $this->createViewCommon($viewName);
@@ -90,7 +93,7 @@ class EditTrazabilidad extends EditController {
      * 
      * @param string $viewName
      */
-    protected function createViewNewProducts(string $viewName = 'ListProducto-new')
+    protected function createViewNewProducts(string $viewName = 'ListTrazabilidadProducto-new')
     {
         $this->addListView($viewName, 'Producto', 'add-products', 'fas fa-plus-square');
         $this->createViewCommon($viewName);
@@ -133,20 +136,20 @@ class EditTrazabilidad extends EditController {
      */
     protected function loadData($viewName, $view)
     {
-        $codtrazabilidad = $this->getViewModelValue('EditTrazabilidad', 'codtrazabilidad');
+        $codtrazabilidad = $this->getViewModelValue('EditTrazabilidadProducto', 'codtrazabilidad');
         $where = [new DataBaseWhere('codtrazabilidad', $codtrazabilidad)];
         
         switch ($viewName) {
-            case 'ListProducto':
-                $inSQL = 'SELECT idproducto FROM trazabilidadesprod WHERE codtrazabilidad = ' . $this->dataBase->var2str($codtrazabilidad);
-                $where = [new DataBaseWhere('idproducto', $inSQL, 'IN')];
+            case 'ListTrazabilidadProducto':
+                $inSQL = 'SELECT * FROM trazabilidadesprod WHERE codtrazabilidad = ' . $this->dataBase->var2str($codtrazabilidad);
+                $where = [new DataBaseWhere('codtrazabilidad', $inSQL, 'IN')];
                 $view->loadData('', $where);
                 break;
                 
-            case 'ListProducto-new':
-                $inSQL = 'SELECT idproducto FROM trazabilidadesprod WHERE codtrazabilidad = ' . $this->dataBase->var2str($codtrazabilidad);
-                $where = [new DataBaseWhere('idproducto', $inSQL, 'NOT IN')];
-                $view->loadData('', $where);
+            case 'ListTrazabilidadProducto-new':
+                $dataBase = new DataBase();
+                $data = $dataBase->select('SELECT DISTINCT referencia, descripcion FROM productos WHERE trazabilidad=1;');
+                $view->loadData($data);
                 break;
 
             default:
@@ -154,55 +157,6 @@ class EditTrazabilidad extends EditController {
                 break;
         }
     }
-
-/* 
-    protected function loadData($viewName, $view)
-    {
-        $codproveedor = $this->getViewModelValue('EditProveedor', 'codproveedor');
-        $where = [new DataBaseWhere('codproveedor', $codproveedor)];
-
-        switch ($viewName) {
-            case 'EditCuentaBancoProveedor':
-                $view->loadData('', $where, ['codcuenta' => 'DESC']);
-                break;
-
-            case 'EditDireccionContacto':
-                $view->loadData('', $where, ['idcontacto' => 'DESC']);
-                break;
-
-            case 'ListAlbaranProveedor':
-            case 'ListFacturaProveedor':
-            case 'ListPedidoProveedor':
-            case 'ListPresupuestoProveedor':
-            case 'ListProductoProveedor':
-            case 'ListReciboProveedor':
-                $view->loadData('', $where);
-                break;
-
-            case 'ListLineaFacturaProveedor':
-                $inSQL = 'SELECT idfactura FROM facturasprov WHERE codproveedor = ' . $this->dataBase->var2str($codproveedor);
-                $where = [new DataBaseWhere('idfactura', $inSQL, 'IN')];
-                $view->loadData('', $where);
-                break;
-
-            default:
-                parent::loadData($viewName, $view);
-                break;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
- */
 
     protected function removeProductAction()
     {
