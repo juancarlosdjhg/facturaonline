@@ -24,14 +24,14 @@ class TrazabilidadProducto extends JoinModel
             'referencia' => 'productos.referencia',
             'descripcionproducto' => 'productos.descripcion',
             'description' => 'productos.description',
-            'codtrazabilidad' => static::MAIN_TABLE .'codtrazabilidad',
+            'codtrazabilidad' => static::MAIN_TABLE .'.codtrazabilidad',
             'partida' => 'trazabilidades.partida',
             'lote' => 'trazabilidades.lote',
             'procedencia' => 'trazabilidades.procedencia',
             'fechaproduccion' => 'trazabilidades.fechaproduccion',
             'fechacaducidad' => 'trazabilidades.fechacaducidad',
             'descripciontrazabilidad' => 'trazabilidades.descripcion',
-            'codtrazabilidadesprod' => static::MAIN_TABLE .'codtrazabilidadesprod'
+            'codtrazabilidadesprod' => static::MAIN_TABLE .'.codtrazabilidadesprod'
         ];
     }
 
@@ -46,7 +46,7 @@ class TrazabilidadProducto extends JoinModel
     }
 
     public static function primaryColumn(): string {
-        return static::MAIN_TABLE .'codtrazabilidadesprod';
+        return static::MAIN_TABLE .'.codtrazabilidadesprod';
     }
 
     public static function primaryDescription(): string {
