@@ -3,6 +3,7 @@
 namespace FacturaScripts\Plugins\Trazabilidad\Controller;
 
 use FacturaScripts\Core\Lib\ExtendedController\ListController;
+use FacturaScripts\Plugins\Trazabilidad\Controller\ListTrazabilidadesProd;
 
 class ListTrazabilidadProducto extends ListController {
     
@@ -11,7 +12,7 @@ class ListTrazabilidadProducto extends ListController {
         $pageData['menu'] = 'warehouse';
         $pageData['title'] = 'Trazabilidad';
         $pageData['icon'] = 'fas fa-tasks';
-
+        $pageData['showonmenu'] = false;
         return $pageData;
     }
 

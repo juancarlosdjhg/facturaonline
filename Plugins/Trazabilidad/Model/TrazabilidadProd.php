@@ -7,24 +7,20 @@ class TrazabilidadProd extends Base\ModelClass {
 
     use Base\ModelTrait;
 
+    public $codtrazabilidadesprod;
     public $codtrazabilidad;
-    public $partida;
-    public $lote;
-    public $procedencia;
-    public $fechaproduccion;
-    public $fechacaducidad;
-    public $descripcion;
+    public $idproducto;
 
     public function clear() {
         parent::clear();
     }
 
     public static function primaryColumn(): string {
-        return 'codtrazabilidad';
+        return 'codtrazabilidadesprod';
     }
 
     public static function tableName(): string{
-        return 'trazabilidades';
+        return 'trazabilidadesprod';
     }
 /* 
     public function save(): string{

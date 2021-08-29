@@ -8,9 +8,9 @@ use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
 use FacturaScripts\Dinamic\Model\TrazabilidadProd;
 use FacturaScripts\Dinamic\Model\Producto;
 
-class EditTrazabilidadProd extends EditController {
+class EditTrazabilidadesProd extends EditController {
     public function getModelClassName() {
-        return 'TrazabilidadProducto';
+        return 'TrazabilidadProd';
     }
 
     public function getPageData() {
@@ -136,7 +136,7 @@ class EditTrazabilidadProd extends EditController {
      */
     protected function loadData($viewName, $view)
     {
-        $codtrazabilidad = $this->getViewModelValue('EditTrazabilidadProducto', 'codtrazabilidad');
+        $codtrazabilidad = $this->getViewModelValue('esucto', 'codtrazabilidad');
         $where = [new DataBaseWhere('codtrazabilidad', $codtrazabilidad)];
         
         switch ($viewName) {

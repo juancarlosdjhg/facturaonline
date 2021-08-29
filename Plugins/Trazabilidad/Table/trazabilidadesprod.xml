@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <table>
     <column>
-        <name>codtrazabilidadprod</name>
+        <name>codtrazabilidadesprod</name>
         <type>serial</type>
         <null>NO</null>
     </column>
@@ -17,7 +17,7 @@
     </column>
     <constraint>
         <name>trazabilidadesprod_pkey</name>
-        <type>PRIMARY KEY (codtrazabilidadprod)</type>
+        <type>PRIMARY KEY (codtrazabilidadesprod)</type>
     </constraint>
     <constraint>
         <name>ca_trazabilidadesprod_productos</name>
