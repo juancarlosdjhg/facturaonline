@@ -5,7 +5,7 @@ use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Base\DataBase;
 use FacturaScripts\Dinamic\Lib\ExtendedController\BaseView;
 use FacturaScripts\Dinamic\Lib\ExtendedController\EditController;
-use FacturaScripts\Dinamic\Model\TrazabilidadProd;
+use FacturaScripts\Plugins\Trazabilidad\Model\TrazabilidadProd;
 use FacturaScripts\Dinamic\Model\Producto;
 
 class EditTrazabilidad extends EditController {
@@ -25,24 +25,52 @@ class EditTrazabilidad extends EditController {
     protected function addProductAction()
     {
         $codes = $this->request->request->get('code', []);
-        $trazabilidad = $this->request->request->get('codtrazabilidad');
-        var_dump($codes);
-        var_dump($trazabilidad);
+        $codtrazabilidad = $this->request->query->get('code');
         if (false === \is_array($codes)) {
             return;
         }
 
         $num = 0;
         foreach ($codes as $code) {
-            $producto = new TrazabilidadProd();
-            $producto->codtrazabilidad = $trazabilidad->codtrazabilidad;
-            $producto->idproducto = $code->code;
-            if ($producto->save()) {
+            $trazabilidadprod = new TrazabilidadProd();
+            $trazabilidadprod->codtrazabilidadprod = $trazabilidadprod->newCode('codtrazabilidadprod');
+            $trazabilidadprod->codtrazabilidad = $codtrazabilidad;
+            $trazabilidadprod->idproducto = $code;
+
+            if ($trazabilidadprod->save($trazabilidadprod)) {
                 $num++;
             }
         }
 
         $this->toolBox()->i18nLog()->notice('items-added-correctly', ['%num%' => $num]);
+    }
+
+    protected function removeProductAction()
+    {
+        $codes = $this->request->request->get('code', []);
+        $codtrazabilidad = $this->request->query->get('code');
+        if (false === \is_array($codes)) {
+            return;
+        }
+
+        $num = 0;
+        foreach ($codes as $code) {
+            $trazabilidadprod = new TrazabilidadProd();
+            $trazabilidadprod->codtrazabilidad = $codtrazabilidad;
+            $trazabilidadprod->idproducto = $code;
+          
+            $dataBase = new DataBase();
+            $array = $dataBase->select('SELECT codtrazabilidadprod FROM trazabilidadesprod where codtrazabilidad='.$codtrazabilidad.' and idproducto='.$code.';');
+            $codtrazabilidadprod = $array[0];
+
+            if ($trazabilidadprod->loadFromCode($codtrazabilidadprod['codtrazabilidadprod'])) {
+                $trazabilidadprod->delete($trazabilidadprod->codtrazabilidadprod);
+                $num++;
+            }
+
+        }
+
+        $this->toolBox()->i18nLog()->notice('items-removed-correctly', ['%num%' => $num]);
     }
 
     protected function createViews()
@@ -144,87 +172,18 @@ class EditTrazabilidad extends EditController {
                 break;
                 
             case 'ListProducto-new':
-                $inSQL = 'SELECT idproducto FROM trazabilidadesprod WHERE codtrazabilidad = ' . $this->dataBase->var2str($codtrazabilidad);
-                $where = [new DataBaseWhere('idproducto', $inSQL, 'NOT IN')];
-                $view->loadData('', $where);
+                 $inSQL = 'SELECT idproducto FROM trazabilidadesprod WHERE codtrazabilidad = ' . $this->dataBase->var2str($codtrazabilidad);
+                 $where = [
+                    new DataBaseWhere('trazabilidad', '1'),
+                    new DataBaseWhere('idproducto', $inSQL, 'NOT IN')
+                ];
+                $view->loadData('', $where);                
                 break;
 
             default:
                 parent::loadData($viewName, $view);
                 break;
         }
-    }
-
-/* 
-    protected function loadData($viewName, $view)
-    {
-        $codproveedor = $this->getViewModelValue('EditProveedor', 'codproveedor');
-        $where = [new DataBaseWhere('codproveedor', $codproveedor)];
-
-        switch ($viewName) {
-            case 'EditCuentaBancoProveedor':
-                $view->loadData('', $where, ['codcuenta' => 'DESC']);
-                break;
-
-            case 'EditDireccionContacto':
-                $view->loadData('', $where, ['idcontacto' => 'DESC']);
-                break;
-
-            case 'ListAlbaranProveedor':
-            case 'ListFacturaProveedor':
-            case 'ListPedidoProveedor':
-            case 'ListPresupuestoProveedor':
-            case 'ListProductoProveedor':
-            case 'ListReciboProveedor':
-                $view->loadData('', $where);
-                break;
-
-            case 'ListLineaFacturaProveedor':
-                $inSQL = 'SELECT idfactura FROM facturasprov WHERE codproveedor = ' . $this->dataBase->var2str($codproveedor);
-                $where = [new DataBaseWhere('idfactura', $inSQL, 'IN')];
-                $view->loadData('', $where);
-                break;
-
-            default:
-                parent::loadData($viewName, $view);
-                break;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
- */
-
-    protected function removeProductAction()
-    {
-        $codes = $this->request->request->get('idproducto', []);
-        if (false === \is_array($codes)) {
-            return;
-        }
-
-        $num = 0;
-        $producto = new Producto();
-        foreach ($codes as $code) {
-            if (false === $producto->loadFromCode($code)) {
-                return;
-            }
-
-            $producto->codgrupo = null;
-            if ($producto->save()) {
-                $num++;
-            }
-        }
-
-        $this->toolBox()->i18nLog()->notice('items-removed-correctly', ['%num%' => $num]);
     }
 
 }

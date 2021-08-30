@@ -7,31 +7,47 @@ class TrazabilidadProd extends Base\ModelClass {
 
     use Base\ModelTrait;
 
-    public $codtrazabilidadesprod;
+    public $codtrazabilidadprod;
     public $codtrazabilidad;
     public $idproducto;
 
     public function clear() {
         parent::clear();
     }
-
+    
     public static function primaryColumn(): string {
-        return 'codtrazabilidadesprod';
+        return 'codtrazabilidadprod';
     }
-
+    
     public static function tableName(): string{
         return 'trazabilidadesprod';
     }
-/* 
-    public function save(): string{
-        if ($trazabilidadprod->save($trazabilidadprod)) {
-            return true;
-        }
-
-        $this->delete($values);
-        return false;
+    
+    public function save()
+    {
+        $this->codtrazabilidadprod = (string) $this->newCode('codtrazabilidadprod');
+        return parent::saveInsert();
     }
- */
+    //public function guardarProductos(array $values = [])
+    //{
+    //    $num = 0;
+    //    foreach ($values as $valores){
+    //        if (true === $dataBase->exec("insert into trazabilidadesprod values (". $valores->codtrazabilidadprod[$num] .", ". $valores->codtrazabilidad[$num] .", ". $valores->code[$num] . ");")){
+    //            $num++;
+    //        }
+//
+    //        return true 
+    //    }
+    //}
+
+    //public function save(): string{
+    //    if ($trazabilidadprod->save($trazabilidadprod)) {
+    //        return true;
+    //    }
+//
+    //    $this->delete($values);
+    //    return false;
+    //}
 
 /*     use Base\ModelTrait;
 

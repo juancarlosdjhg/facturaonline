@@ -2,6 +2,9 @@
 <view>
     <columns>
         <group name="edit">
+            <column name="code" order="95" display="none" readonly="true">
+                <widget type="text" fieldname="codtrazabilidad" readonly="true" />
+            </column>
             <column name="partity" order="100">
                 <widget type="text" fieldname="partida" />
             </column>
@@ -19,6 +22,13 @@
             </column>
             <column name="expiration-date" order="160" display="right">
                 <widget type="date" fieldname="fechacaducidad" />
+            </column>
+            <column name="status" order="165" display="center">
+                <widget type="select" fieldname="estado" required="true">
+                        <values title="Activo">Activo</values>
+                        <values title="Bloqueado">Bloqueado</values>
+                        <values title="Caducado">Caducado</values>
+                </widget>
             </column>
         </group>
     </columns>

@@ -28,5 +28,15 @@
         <column name="expiration-date" order="160" display="right">
             <widget type="date" fieldname="fechacaducidad" />
         </column>
+        <column name="status" order="165" display="center">
+            <widget type="text" fieldname="estado" />
+        </column>
     </columns>
+    <rows>
+        <row type="status">
+            <option color="warning" title="locked" fieldname="estado">Bloqueado</option>
+            <option color="" title="active" fieldname="estado">Activo</option>
+            <option color="light" title="expired" fieldname="estado">Caducado</option>
+        </row>
+    </rows>
 </view>

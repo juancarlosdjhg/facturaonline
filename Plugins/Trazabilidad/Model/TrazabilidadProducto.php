@@ -8,9 +8,6 @@ use FacturaScripts\Plugins\Trazabilidad\Model\Trazabilidad;
 
 class TrazabilidadProducto extends JoinModel
 {
-    const DOC_TABLE = 'trazabilidades';
-    const MAIN_TABLE = 'trazabilidadesprod';
-
     public function __construct($data = [])
     {
        parent::__construct($data);
@@ -24,29 +21,30 @@ class TrazabilidadProducto extends JoinModel
             'referencia' => 'productos.referencia',
             'descripcionproducto' => 'productos.descripcion',
             'description' => 'productos.description',
-            'codtrazabilidad' => static::MAIN_TABLE .'.codtrazabilidad',
+            'codtrazabilidad' => 'trazabilidades.codtrazabilidad',
             'partida' => 'trazabilidades.partida',
             'lote' => 'trazabilidades.lote',
             'procedencia' => 'trazabilidades.procedencia',
             'fechaproduccion' => 'trazabilidades.fechaproduccion',
             'fechacaducidad' => 'trazabilidades.fechacaducidad',
             'descripciontrazabilidad' => 'trazabilidades.descripcion',
-            'codtrazabilidadesprod' => static::MAIN_TABLE .'.codtrazabilidadesprod'
+            'estado' => 'trazabilidades.estado',
+            'codtrazabilidadprod' => 'trazabilidadesprod.codtrazabilidadprod'
         ];
     }
 
     protected function getSQLFrom(): string
     {
-        return 'trazabilidades left join '. static::MAIN_TABLE .' on trazabilidades.codtrazabilidad = '. static::MAIN_TABLE .'.codtrazabilidad left join productos on productos.idproducto = '. static::MAIN_TABLE .'.idproducto';
+        return 'trazabilidades left join trazabilidadesprod on trazabilidades.codtrazabilidad = trazabilidadesprod.codtrazabilidad left join productos on productos.idproducto = trazabilidadesprod.idproducto';
     }
 
     protected function getTables(): array
     {
-        return ['trazabilidades', static::MAIN_TABLE ,'productos'];
+        return ['trazabilidades','trazabilidadesprod','productos'];
     }
 
     public static function primaryColumn(): string {
-        return static::MAIN_TABLE .'.codtrazabilidadesprod';
+        return 'trazabilidadesprod.codtrazabilidadprod';
     }
 
     public static function primaryDescription(): string {
@@ -61,6 +59,7 @@ class TrazabilidadProducto extends JoinModel
         $trazabilidad->fechaproduccion = $this->fechaproduccion;
         $trazabilidad->fechacaducidad = $this->fechacaducidad;
         $trazabilidad->descripcion = $this->descripcion;
+
 
         if ($trazabilidad->save($trazabilidad)) {
             return true;

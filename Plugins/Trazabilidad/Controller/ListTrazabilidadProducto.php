@@ -3,7 +3,6 @@
 namespace FacturaScripts\Plugins\Trazabilidad\Controller;
 
 use FacturaScripts\Core\Lib\ExtendedController\ListController;
-use FacturaScripts\Plugins\Trazabilidad\Controller\ListTrazabilidadesProd;
 
 class ListTrazabilidadProducto extends ListController {
     
@@ -21,7 +20,7 @@ class ListTrazabilidadProducto extends ListController {
         $this->addSearchFields('ListTrazabilidadProducto', ['productos.referencia','productos.descripcion', 'productos.description','trazabilidades.codtrazabilidad', 'lote', 'partida', 'trazabilidades.descripcion', 'procedencia', 'fechaproduccion', 'fechacaducidad']);
         $this->addOrderBy('ListTrazabilidadProducto', ['productos.referencia'], 'product');
         $this->addOrderBy('ListTrazabilidadProducto', ['productos.descripcion'], 'description');
-        $this->addOrderBy('ListTrazabilidadProducto', ['productos.description'], 'description_eng');
+        $this->addOrderBy('ListTrazabilidadProducto', ['productos.description'], 'english-description');
         $this->addOrderBy('ListTrazabilidadProducto', ['trazabilidades.codtrazabilidad'], 'code');
         $this->addOrderBy('ListTrazabilidadProducto', ['partida'], 'partity');
         $this->addOrderBy('ListTrazabilidadProducto', ['lote'], 'lot');

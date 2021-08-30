@@ -30,6 +30,10 @@
         <type>character varying(250)</type>
     </column>
     <column>
+        <name>estado</name>
+        <type>character varying(250)</type>
+    </column>
+    <column>
         <name>idproducto</name>
         <type>integer</type>
     </column>
