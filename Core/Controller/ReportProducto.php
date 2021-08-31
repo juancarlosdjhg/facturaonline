@@ -40,6 +40,7 @@ class ReportProducto extends ListController
         $data['menu'] = 'reports';
         $data['title'] = 'products';
         $data['icon'] = 'fas fa-cubes';
+        $data['showonmenu'] = false;
         return $data;
     }
 
