@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table>
+    <column>
+        <name>codcustomerpricelist</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>codcliente</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>fechacaducidad</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>estado</name>
+        <type>character varying(250)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idproducto</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>pvp</name>
+        <type>double precision</type>
+    </column>
+    <column>
+        <name>codigoexterno</name>
+        <type>character varying(250)</type>
+    </column>
+    <constraint>
+        <name>customerpricelists_pkey</name>
+        <type>PRIMARY KEY (codcustomerpricelist)</type>
+    </constraint>
+</table>

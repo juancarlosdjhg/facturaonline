@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <group name="data" numcolumns="12">
+            <column name="code" display="none" order="100" >
+                <widget type="text" fieldname="codcustomerpricelist" required="true" readonly="true"/>
+            </column>
+            <column name="customer" display="none" order="105">
+                <widget type="autocomplete" fieldname="codcliente" onclick="EditCliente">
+                    <values source="clientes" fieldcode="codcliente" fieldtitle="nombre" />
+                </widget>
+            </column>
+            <column name="product" display="none" order="110">
+                <widget type="autocomplete" fieldname="idproducto" required="true">
+                    <values source="productos" fieldcode="idproducto" fieldtitle="producto" />
+                </widget>
+            </column>
+            <column name="expiration-date" display="center" order="115">
+                <widget type="date" fieldname="fechacaducidad" />
+            </column>
+            <column name="status" order="120">
+                <widget type="select" fieldname="estado" required="true" >
+                        <values title="Activa">Activa</values>
+                        <values title="Bloqueada">Bloqueada</values>
+                        <values title="Caducada">Caducada</values>
+                </widget>
+            </column>
+            <column name="pvp" order="130" required="true">
+                <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-money" />
+            </column>
+            <column name="external-code"  order="140" >
+                <widget type="text" fieldname="codigoexterno" maxlength="50"  />
+            </column>
+        </group>
+    </columns>
+</view>
