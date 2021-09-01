@@ -208,7 +208,7 @@ class EditCliente extends ComercialContactController
                 $view->loadData('', $where);
                 break;
 
-            case 'EditCustomerPriceList':
+            case 'ListCustomerPriceList':
                 $inSQL = 'SELECT codcustomerpricelist FROM customerpricelists WHERE codcliente = ' . $this->dataBase->var2str($codcliente);
                 $where = [new DataBaseWhere('codcustomerpricelist', $inSQL, 'IN')];
                 $view->loadData('', $where);
