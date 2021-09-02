@@ -3,7 +3,7 @@ namespace FacturaScripts\Plugins\CustomerPriceList\Model;
 
 use FacturaScripts\Core\Model\Base;
 
-use FacturaScripts\Dinamic\Model\Cliente as DinCliente;
+use FacturaScripts\Core\Model\Cliente as DinCliente;
 
 class CustomerPriceList extends Base\ModelClass {
 
@@ -19,6 +19,7 @@ class CustomerPriceList extends Base\ModelClass {
     public function clear() {
         parent::clear();
         $this->codcustomerpricelist = (string) $this->newCode('codcustomerpricelist');
+
     }
 
     public static function primaryColumn(): string {
@@ -28,6 +29,17 @@ class CustomerPriceList extends Base\ModelClass {
     public static function tableName(): string{
         return 'customerpricelists';
     }
+
+    public function save()
+    {
+        if (parent::save()) {
+            return true;
+        }
+
+        $this->toolBox()->log()->warning('Ya existe el producto indicado en la lista de precios.');
+        return false;
+    }
+
 
     public function install()
     {
@@ -47,6 +59,7 @@ class CustomerPriceList extends Base\ModelClass {
         $customer->loadFromCode($this->codcliente);
         return $customer;
     }
+
     public function url(string $type = 'auto', string $list = 'List'): string
     {
         return empty($this->codcliente) || $type == 'list' ? parent::url($type, $list) : $this->getSubject()->url();

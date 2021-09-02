@@ -5,13 +5,11 @@
             <column name="code" display="none" order="100" >
                 <widget type="text" fieldname="codcustomerpricelist" required="true" readonly="true"/>
             </column>
-            <column name="customer" display="center" order="105">
-                <widget type="autocomplete" fieldname="codcliente" onclick="EditCliente" required="true">
-                    <values source="clientes" fieldcode="codcliente" fieldtitle="nombre" />
-                </widget>
+            <column name="customer" display="center" order="110" readonly="true">
+                <widget type="text" fieldname="code" />
             </column>
             <column name="product" order="110">
-                <widget type="autocomplete" fieldname="idproducto" required="true">
+                <widget type="autocomplete" fieldname="idproducto">
                     <values source="Variante" fieldcode="referencia"/>
                 </widget>
             </column>

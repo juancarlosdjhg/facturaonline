@@ -23,7 +23,6 @@ use FacturaScripts\Core\Lib\ExtendedController\BaseView;
 use FacturaScripts\Core\Lib\ExtendedController\ComercialContactController;
 use FacturaScripts\Dinamic\Lib\CustomerRiskTools;
 use FacturaScripts\Dinamic\Lib\RegimenIVA;
-use FacturaScripts\Plugins\CustomerPriceList\Controller\EditCustomerPriceList;
 
 /**
  * Controller to edit a single item from the Cliente model
@@ -125,7 +124,7 @@ class EditCliente extends ComercialContactController
     protected function createViews()
     {
         parent::createViews();
-        $this->addEditListView('ListCustomerPriceList', 'CustomerPriceList', 'customer-price-list', 'fas fa-tasks');
+        $this->addEditListView('EditCustomerPriceList', 'CustomerPriceList', 'customer-price-list', 'fas fa-tasks');
         $this->createContactsView();
         $this->addEditListView('EditCuentaBancoCliente', 'CuentaBancoCliente', 'customer-banking-accounts', 'fas fa-piggy-bank');
         $this->createSubaccountsView();
@@ -208,7 +207,7 @@ class EditCliente extends ComercialContactController
                 $view->loadData('', $where);
                 break;
 
-            case 'ListCustomerPriceList':
+            case 'EditCustomerPriceList':
                 $inSQL = 'SELECT codcustomerpricelist FROM customerpricelists WHERE codcliente = ' . $this->dataBase->var2str($codcliente);
                 $where = [new DataBaseWhere('codcustomerpricelist', $inSQL, 'IN')];
                 $view->loadData('', $where);

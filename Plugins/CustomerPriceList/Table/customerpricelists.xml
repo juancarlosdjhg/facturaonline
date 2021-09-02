@@ -34,4 +34,8 @@
         <name>customerpricelists_pkey</name>
         <type>PRIMARY KEY (codcustomerpricelist)</type>
     </constraint>
+    <constraint>
+        <name>uniq_codcliente_idproducto</name>
+        <type>UNIQUE (codcliente,idproducto)</type>
+    </constraint>
 </table>
