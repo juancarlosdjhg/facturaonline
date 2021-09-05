@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <column name="codtrazabilidadprod" order="85" display="none">
+            <widget type="hidden" fieldname="codtrazabilidadprod" readonly="true"/>
+        </column>
+        <column name="product" order="90">
+            <widget type="text" fieldname="referencia" />
+        </column>
+        <column name="product-description" order="100">
+            <widget type="text" fieldname="descripcionproducto" />
+        </column>
+        <column name="code" order="105" display="none">
+            <widget type="text" fieldname="codtrazabilidad" />
+        </column>
+        <column name="partity" order="110">
+            <widget type="text" fieldname="partida" />
+        </column>
+        <column name="lot" order="120">
+            <widget type="text" fieldname="lote" />
+        </column>
+        <column name="traceability-description" order="130">
+            <widget type="text" fieldname="descripciontrazabilidad" />
+        </column>
+        <column name="origin" order="140">
+            <widget type="text" fieldname="procedencia" />
+        </column>
+        <column name="production-date" order="150" display="right">
+            <widget type="date" fieldname="fechaproduccion" />
+        </column>
+        <column name="expiration-date" order="160" display="right">
+            <widget type="date" fieldname="fechacaducidad" />
+        </column>
+    </columns>
+</view>

@@ -12,6 +12,11 @@
         <null>NO</null>
     </column>
     <column>
+        <name>cifnif</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <column>
         <name>codsubcuenta</name>
         <type>character varying(15)</type>
     </column>
@@ -24,6 +29,10 @@
         <type>character varying(100)</type>
         <null>NO</null>
     </column>
+    <column>
+        <name>tipoidfiscal</name>
+        <type>character varying(25)</type>
+    </column>
     <constraint>
         <name>gruposclientes_pkey</name>
         <type>PRIMARY KEY (codgrupo)</type>
@@ -31,5 +40,9 @@
     <constraint>
         <name>ca_gruposclientes_tarifas</name>
         <type>FOREIGN KEY (codtarifa) REFERENCES tarifas (codtarifa) ON DELETE SET NULL ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>Ya_existe_el_Grupo_Cliente_con_ese_Numero_Fiscal</name>
+        <type>UNIQUE (tipoidfiscal, cifnif)</type>
     </constraint>
 </table>

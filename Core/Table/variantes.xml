@@ -47,9 +47,108 @@
         <default>0</default>
     </column>
     <column>
-        <name>precio</name>
+        <name>margen1</name>
         <type>double precision</type>
         <default>0</default>
+    </column>
+    <column>
+        <name>margenobjetivo1</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>pvp1</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>preciorecomendado1</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margen2</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margenobjetivo2</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>pvp2</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>preciorecomendado2</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margen3</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margenobjetivo3</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>pvp3</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>preciorecomendado3</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margen4</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margenobjetivo4</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>pvp4</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>preciorecomendado4</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margen5</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>margenobjetivo5</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>pvp5</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>preciorecomendado5</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
+    <column>
+        <name>defaultpvp</name>
+        <type>character varying(4)</type>
     </column>
     <column>
         <name>referencia</name>

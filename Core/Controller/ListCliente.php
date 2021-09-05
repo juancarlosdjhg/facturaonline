@@ -164,8 +164,10 @@ class ListCliente extends ListController
     protected function createViewGroups(string $viewName = 'ListGrupoClientes')
     {
         $this->addView($viewName, 'GrupoClientes', 'groups', 'fas fa-users-cog');
-        $this->addSearchFields($viewName, ['nombre', 'codgrupo']);
+        $this->addSearchFields($viewName, ['nombre', 'codgrupo', 'tipoidfiscal', 'cifnif']);
         $this->addOrderBy($viewName, ['codgrupo'], 'code');
         $this->addOrderBy($viewName, ['nombre'], 'name', 1);
+        $this->addOrderBy($viewName, ['tipoidfiscal'], 'fiscal-id');
+        $this->addOrderBy($viewName, ['cifnif'], 'fiscal-number');
     }
 }

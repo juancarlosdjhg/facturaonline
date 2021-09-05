@@ -72,9 +72,9 @@
                     <values source="agentes" fieldcode="codagente" fieldtitle="nombre" />
                 </widget>
             </column>
-            <column name="rate" titleurl="ListTarifa" numcolumns="3" order="110">
-                <widget type="select" fieldname="codtarifa" onclick="EditTarifa">
-                    <values source="tarifas" fieldcode="codtarifa" fieldtitle="nombre" />
+            <column name="default-discount" numcolumns="3" order="110">
+                <widget type="number" fieldname="defaultdescuento" icon="fas fa-percent">
+                    <values source="clientes" fieldtitle="defaultdescuento" />
                 </widget>
             </column>
             <column name="group" titleurl="ListCliente?activetab=ListGrupoClientes" numcolumns="3" order="120">
@@ -82,9 +82,13 @@
                     <values source="gruposclientes" fieldcode="codgrupo" fieldtitle="nombre" />
                 </widget>
             </column>
-            <column name="serie" titleurl="ListSerie" numcolumns="3" order="130">
-                <widget type="select" fieldname="codserie" onclick="EditSerie">
-                    <values source="series" fieldcode="codserie" fieldtitle="descripcion" />
+            <column name="default-pvp" numcolumns="3" order="130">
+                <widget type="select" fieldname="defaultpvp" icon="fas fa-tags" required="true">
+                    <values title="PVP 1">pvp1</values>
+                    <values title="PVP 2">pvp2</values>
+                    <values title="PVP 3">pvp3</values>
+                    <values title="PVP 4">pvp4</values>
+                    <values title="PVP 5">pvp5</values>
                 </widget>
             </column>
             <column name="payment-method" titleurl="ListFormaPago" numcolumns="3" order="140">
@@ -111,6 +115,16 @@
             </column>
             <column name="subaccount" description="customer-subaccount-p" titleurl="ListCuenta" numcolumns="3" order="200">
                 <widget type="text" fieldname="codsubcuenta" maxlength="15" icon="fas fa-balance-scale" />
+            </column>
+            <column name="serie" titleurl="ListSerie" numcolumns="3" order="210">
+                <widget type="select" fieldname="codserie" onclick="EditSerie">
+                    <values source="series" fieldcode="codserie" fieldtitle="descripcion" />
+                </widget>
+            </column>
+            <column name="rate" titleurl="ListTarifa" numcolumns="3" order="220">
+                <widget type="select" fieldname="codtarifa" onclick="EditTarifa">
+                    <values source="tarifas" fieldcode="codtarifa" fieldtitle="nombre" />
+                </widget>
             </column>
         </group>
         <group name="notes" numcolumns="9">

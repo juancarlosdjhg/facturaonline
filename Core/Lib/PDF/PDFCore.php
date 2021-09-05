@@ -287,8 +287,8 @@ abstract class PDFCore extends ExportBase
     {
         if ($this->pdf === null) {
             $this->pdf = new Cezpdf('a4', $orientation);
-            $this->pdf->addInfo('Creator', 'FacturaScripts');
-            $this->pdf->addInfo('Producer', 'FacturaScripts');
+            $this->pdf->addInfo('Creator', 'FacturaOnline');
+            $this->pdf->addInfo('Producer', 'FacturaOnline');
             $this->pdf->addInfo('Title', $this->getFileName());
             $this->pdf->tempPath = \FS_FOLDER . '/MyFiles/Cache';
 

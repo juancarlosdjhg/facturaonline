@@ -45,6 +45,15 @@
         <column name="phone2" display="none" order="170">
             <widget type="text" fieldname="telefono2" />
         </column>
+        <column name="default-pvp" display="none" order="171">
+            <widget type="select" fieldname="defaultpvp" >
+                    <values title="PVP 1">pvp1</values>
+                    <values title="PVP 2">pvp2</values>
+                    <values title="PVP 3">pvp3</values>
+                    <values title="PVP 4">pvp4</values>
+                    <values title="PVP 5">pvp5</values>
+            </widget>
+        </column>
         <column name="rate" display="none" order="175">
             <widget type="select" fieldname="codtarifa" onclick="EditTarifa">
                 <values source="tarifas" fieldcode="codtarifa" fieldtitle="nombre" />

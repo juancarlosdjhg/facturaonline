@@ -127,6 +127,15 @@
         <name>web</name>
         <type>character varying(100)</type>
     </column>
+    <column>
+        <name>defaultpvp</name>
+        <type>character varying(100)</type>
+    </column>
+    <column>
+        <name>defaultdescuento</name>
+        <type>double precision</type>
+        <default>0</default>
+    </column>
     <constraint>
         <name>clientes_pkey</name>
         <type>PRIMARY KEY (codcliente)</type>

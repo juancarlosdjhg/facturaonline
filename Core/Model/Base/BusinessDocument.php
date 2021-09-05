@@ -74,6 +74,13 @@ abstract class BusinessDocument extends ModelOnChangeClass
     public $dtopor2;
 
     /**
+     * Customer percentage of discount.
+     *
+     * @var float
+     */
+    public $defaultdescuento;
+
+    /**
      * Date of the document.
      *
      * @var string
@@ -233,6 +240,7 @@ abstract class BusinessDocument extends ModelOnChangeClass
         $this->codserie = $appSettings->get('default', 'codserie');
         $this->dtopor1 = 0.0;
         $this->dtopor2 = 0.0;
+        $this->defaultdescuento = 0.0;
         $this->fecha = \date(self::DATE_STYLE);
         $this->hora = \date(self::HOUR_STYLE);
         $this->idempresa = $appSettings->get('default', 'idempresa');
@@ -256,7 +264,7 @@ abstract class BusinessDocument extends ModelOnChangeClass
     public function getEUDiscount()
     {
         $eud = 1.0;
-        foreach ([$this->dtopor1, $this->dtopor2] as $dto) {
+        foreach ([$this->dtopor1, $this->defaultdescuento] as $dto) {
             $eud *= 1 - $dto / 100;
         }
 

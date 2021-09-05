@@ -32,7 +32,7 @@
         <column name="code" order="110">
             <widget type="text" fieldname="codigo" />
         </column>
-        <column name="number2" order="120">
+        <column name="externalordernumber" order="120" display="left">
             <widget type="text" fieldname="numero2" />
         </column>
         <column name="customer-code" display="none" order="130">

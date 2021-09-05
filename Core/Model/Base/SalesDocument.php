@@ -28,6 +28,7 @@ use FacturaScripts\Dinamic\Model\Pais;
 use FacturaScripts\Dinamic\Model\Tarifa;
 use FacturaScripts\Dinamic\Model\User;
 use FacturaScripts\Dinamic\Model\Variante;
+use FacturaScripts\Plugins\CustomerPriceList\Model\CustomerPriceList;
 
 /**
  * Description of SalesDocument
@@ -85,6 +86,13 @@ abstract class SalesDocument extends TransformerDocument
      * @var string
      */
     public $codpostal;
+
+    /**
+     * Customer's default discount.
+     *
+     * @var string
+     */
+    public $defaultdescuento;
 
     /**
      * Shipping code for the shipment.
@@ -212,19 +220,134 @@ abstract class SalesDocument extends TransformerDocument
         $where2 = [new DataBaseWhere('codbarras', $this->toolBox()->utils()->noHtml($reference))];
         if ($variant->loadFromCode('', $where1) || $variant->loadFromCode('', $where2)) {
             $product = $variant->getProducto();
-
+            $referencia = $variant->referencia;
             $newLine->codimpuesto = $product->getTax()->codimpuesto;
             $newLine->descripcion = $variant->description();
+            $newLine->description = $variant->description_eng();
             $newLine->idproducto = $product->idproducto;
             $newLine->iva = $product->getTax()->iva;
-            $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
+            $defaultpvpcustomer = 'x';            
+            
+            $customer = $this->getSubject();
+            if (empty($customer->codcliente)) {
+                $defaultpvpcustomer = 'None';     
+                switch ($defaultpvpcustomer) {
+                    case 'None':
+                        $defaultpvp = $variant->defaultPvp();
+                        switch ($defaultpvp) {
+                            case 'pvp1': 
+                                $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
+                                $newLine->margen = $variant->margen1;
+                                break;
+                
+                            case 'pvp2': 
+                                $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
+                                $newLine->margen = $variant->margen2;
+                                break;
+                
+                            case 'pvp3': 
+                                $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
+                                $newLine->margen = $variant->margen3;
+                                break;
+                
+                            case 'pvp4': 
+                                $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
+                                $newLine->margen = $variant->margen4;
+                                break;
+                
+                            case 'pvp5': 
+                                $newLine->pvpunitario = $this->getRate()->applyTo($variant, $product);
+                                $newLine->margen = $variant->margen5;
+                                break;
+                        }    
+                        break;
+                
+                }       
+            }
+            
+            else {
+
+                $codcliente = $customer->codcliente;
+                $customerpricelist = new CustomerPriceList();
+
+                $wherecpl = [
+                        new DataBaseWhere('codcliente', $codcliente),
+                        new DataBaseWhere('idproducto', $referencia)
+                    ];
+
+                if ($customerpricelist->loadFromCode('',$wherecpl)){
+                    $this->getRate()->applyTo($variant, $product);
+                    $newLine->pvpunitario = $customerpricelist->pvp;
+                    $defaultpvp = $variant->defaultPvp();
+                    switch ($defaultpvp) {
+                        case 'pvp1': 
+                            $newLine->margen = 0;
+                            break;
+                            
+                        case 'pvp2': 
+                            $newLine->margen = 0;
+                            break;
+                                
+                        case 'pvp3': 
+                            $newLine->margen = 0;
+                            break;
+                                    
+                        case 'pvp4': 
+                            $newLine->margen = 0;
+                            break;
+                                        
+                        case 'pvp5': 
+                            $newLine->margen = 0;
+                            break;
+                    }    
+                }
+
+                else {
+
+                $defaultpvpcustomer = $customer->defaultpvp;
+
+                    switch ($defaultpvpcustomer) {
+                        case 'pvp1': 
+                            $this->getRate()->applyTo($variant, $product);
+                            $newLine->pvpunitario = $variant->pvp1;
+                            $newLine->margen = $variant->margen1;
+                            break;
+                        
+                        case 'pvp2': 
+                            $this->getRate()->applyTo($variant, $product);
+                            $newLine->pvpunitario = $variant->pvp2;
+                            $newLine->margen = $variant->margen2;
+                            break;
+                        
+                        case 'pvp3': 
+                            $this->getRate()->applyTo($variant, $product);
+                            $newLine->pvpunitario = $variant->pvp3;
+                            $newLine->margen = $variant->margen3;
+                            break;
+                        
+                        case 'pvp4': 
+                            $this->getRate()->applyTo($variant, $product);
+                            $newLine->pvpunitario = $variant->pvp4;
+                            $newLine->margen = $variant->margen4;
+                            break;
+                        
+                        case 'pvp5': 
+                            $this->getRate()->applyTo($variant, $product);
+                            $newLine->pvpunitario = $variant->pvp5;
+                            $newLine->margen = $variant->margen5;
+                            break;
+                    }
+                }
+            
+
+           
             $newLine->recargo = $product->getTax()->recargo;
             $newLine->referencia = $variant->referencia;
+            $newLine->coste = $variant->coste;
 
             /// allow extensions
             $this->pipe('getNewProductLine', $newLine, $variant, $product);
-        }
-
+        } }
         return $newLine;
     }
 
@@ -484,6 +607,7 @@ abstract class SalesDocument extends TransformerDocument
         $this->idcontactofact = $subject->idcontacto;
         $this->nombrecliente = empty($subject->empresa) ? $subject->fullName() : $subject->empresa;
         $this->provincia = $subject->provincia;
+        $this->defaultdescuento = $subject->defaultdescuento;
         return true;
     }
 
@@ -498,6 +622,7 @@ abstract class SalesDocument extends TransformerDocument
         $this->cifnif = $subject->cifnif ?? '';
         $this->codcliente = $subject->codcliente;
         $this->nombrecliente = $subject->razonsocial;
+        $this->defaultdescuento = $subject->defaultdescuento;
 
         /// commercial data
         $this->codagente = $this->codagente ?? $subject->codagente;

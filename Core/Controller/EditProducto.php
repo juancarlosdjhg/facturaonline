@@ -66,7 +66,19 @@ class EditProducto extends EditController
         $this->createViewsVariants();
         $this->createViewsStock();
         $this->createViewsSuppliers();
+        //$this->createViewsInvoices();
+        //$this->createViewsEstimations();
     }
+
+    //protected function createViewsInvoices(string $viewName = 'ListFacturaProducto')
+    //{
+    //    $this->addEditListView($viewName, 'FacturaProducto', 'invoices', 'fas fa-copy');
+    //}
+//
+    //protected function createViewsEstimations(string $viewName = 'ListPresupuestoProducto')
+    //{
+    //    $this->addEditListView($viewName, 'PresupuestoProducto', 'estimations', 'fas fa-copy');
+    //}
 
     /**
      * 
@@ -97,7 +109,7 @@ class EditProducto extends EditController
      */
     protected function createViewsVariants(string $viewName = 'EditVariante')
     {
-        $this->addEditListView($viewName, 'Variante', 'variants', 'fas fa-project-diagram');
+        $this->addEditListView($viewName, 'Variante', 'details', 'fas fa-project-diagram');
 
         $attribute = new Atributo();
         $attCount = $attribute->count();
@@ -190,6 +202,8 @@ class EditProducto extends EditController
 
             case 'EditVariante':
                 $view->loadData('', $where, ['idvariante' => 'DESC']);
+                $this->setSettings('EditVariante', 'btnNew', false);
+                $this->setSettings('EditVariante', 'btnDelete', false);
                 $this->loadCustomAttributeWidgets($viewName);
                 break;
 

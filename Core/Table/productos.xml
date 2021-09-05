@@ -44,6 +44,10 @@
         <type>text</type>
     </column>
     <column>
+        <name>description</name>
+        <type>text</type>
+    </column>
+    <column>
         <name>fechaalta</name>
         <type>date</type>
     </column>
@@ -93,6 +97,11 @@
     </column>
     <column>
         <name>ventasinstock</name>
+        <type>boolean</type>
+        <default>false</default>
+    </column>
+    <column>
+        <name>trazabilidad</name>
         <type>boolean</type>
         <default>false</default>
     </column>

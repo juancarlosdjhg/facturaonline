@@ -82,6 +82,12 @@ class Cliente extends Base\ComercialContact
 
     /**
      *
+     * @var string
+     */
+    public $defaultpvp;
+
+    /**
+     *
      * @var float
      */
     public $riesgomax;
@@ -90,6 +96,7 @@ class Cliente extends Base\ComercialContact
     {
         parent::clear();
         $this->codretencion = $this->toolBox()->appSettings()->get('default', 'codretencion');
+        $this->defaultpvp = 'pvp1';
     }
 
     /**
@@ -162,6 +169,11 @@ class Cliente extends Base\ComercialContact
         return $days;
     }
 
+    public function defaultPvp()
+    {
+        return $this->defaultpvp;
+    }
+    
     /**
      * This function is called when creating the model table. Returns the SQL
      * that will be executed after the creation of the table. Useful to insert values
