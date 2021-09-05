@@ -61,7 +61,7 @@
                 <widget type="percentage" fieldname="margen1" class="calc-margin1" min="0" />
             </column>
             <column name="recommended-price1" display="right" numcolumns="2" order="130">
-                <widget type="money" decimal="2" fieldname="preciorecomendado1" class="calc-recommended-price1" />
+                <widget type="money" decimal="2" fieldname="preciorecomendado1" class="calc-recommended-price1" readonly="true" />
             </column>
         </group>
         <group name="pvp2" numcolumns="12">
@@ -75,7 +75,7 @@
                 <widget type="percentage" fieldname="margen2" class="calc-margin2" min="0" />
             </column>
             <column name="recommended-price2" display="right" numcolumns="2" order="130">
-                <widget type="money" decimal="2" fieldname="preciorecomendado2" class="calc-recommended-price2" />
+                <widget type="money" decimal="2" fieldname="preciorecomendado2" class="calc-recommended-price2" readonly="true" />
             </column>
         </group>
         <group name="pvp3" numcolumns="12">
@@ -89,7 +89,7 @@
                 <widget type="percentage" fieldname="margen3" class="calc-margin3" min="0" />
             </column>
             <column name="recommended-price3" display="right" numcolumns="2" order="130">
-                <widget type="money" decimal="2" fieldname="preciorecomendado3" class="calc-recommended-price3" />
+                <widget type="money" decimal="2" fieldname="preciorecomendado3" class="calc-recommended-price3" readonly="true" />
             </column>
         </group>
         <group name="pvp4" numcolumns="12">
@@ -103,7 +103,7 @@
                 <widget type="percentage" fieldname="margen4" class="calc-margin4" min="0" />
             </column>
             <column name="recommended-price4" display="right" numcolumns="2" order="130">
-                <widget type="money" decimal="2" fieldname="preciorecomendado4" class="calc-recommended-price4" />
+                <widget type="money" decimal="2" fieldname="preciorecomendado4" class="calc-recommended-price4" readonly="true" />
             </column>
         </group>
         <group name="pvp5" numcolumns="12">
@@ -117,7 +117,7 @@
                 <widget type="percentage" fieldname="margen5" class="calc-margin5" min="0" />
             </column>
             <column name="recommended-price5" display="right" numcolumns="2" order="130">
-                <widget type="money" decimal="2" fieldname="preciorecomendado5" class="calc-recommended-price5" />
+                <widget type="money" decimal="2" fieldname="preciorecomendado5" class="calc-recommended-price5" readonly="true" />
             </column>
         </group>
         <group name="defaultpvp" numcolumns="12">
