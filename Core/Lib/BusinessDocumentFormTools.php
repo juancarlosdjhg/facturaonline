@@ -71,6 +71,39 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
         ]);
     }
 
+
+    public function recalculateFormMargenToPvp(BusinessDocument &$doc, array &$formLines)
+    {
+        $this->clearTotals($doc);
+
+        $lines = [];
+        foreach ($formLines as $fLine) {
+            $lines[] = $this->recalculateFormLineMargenToPvp($fLine, $doc);
+        }
+
+        foreach ($this->getSubtotals($lines, [$doc->dtopor1, $doc->dtopor2]) as $subt) {
+            $doc->neto += $subt['neto'];
+            $doc->netosindto += $subt['netosindto'];
+            $doc->totaliva += $subt['totaliva'];
+            $doc->totalirpf += $subt['totalirpf'];
+            $doc->totalrecargo += $subt['totalrecargo'];
+            $doc->totalsuplidos += $subt['totalsuplidos'];
+        }
+
+        /// rounding totals again
+        $doc->neto = \round($doc->neto, (int) \FS_NF0);
+        $doc->netosindto = \round($doc->netosindto, (int) \FS_NF0);
+        $doc->totalirpf = \round($doc->totalirpf, (int) \FS_NF0);
+        $doc->totaliva = \round($doc->totaliva, (int) \FS_NF0);
+        $doc->totalrecargo = \round($doc->totalrecargo, (int) \FS_NF0);
+        $doc->totalsuplidos = \round($doc->totalsuplidos, (int) \FS_NF0);
+        $doc->total = \round($doc->neto + $doc->totalsuplidos + $doc->totaliva + $doc->totalrecargo - $doc->totalirpf, (int) \FS_NF0);
+        return \json_encode([
+            'doc' => $doc,
+            'lines' => $lines
+        ]);
+    }
+
     /**
      *
      * @param array            $fLine
@@ -96,6 +129,7 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
+        $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / floatval($newLine->coste)) * 100);
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
 
@@ -109,6 +143,41 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         return $newLine;
     }
+    
+
+    protected function recalculateFormLineMargenToPvp(array $fLine, BusinessDocument $doc)
+    {
+        if (isset($fLine['cantidad']) && '' !== $fLine['cantidad']) {
+            /// edit line
+            $newLine = $doc->getNewLine($fLine, ['actualizastock']);
+        } elseif (isset($fLine['referencia']) && '' !== $fLine['referencia']) {
+            /// new line with reference
+            $newLine = $doc->getNewProductLine($fLine['referencia']);
+        } else {
+            /// new line without reference
+            $newLine = $doc->getNewLine();
+            $newLine->descripcion = $fLine['descripcion'] ?? '';
+        }
+
+        $this->recalculateFormLineTaxZones($newLine);
+        
+        $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
+        $newLine->pvpunitario = floatval(($newLine->coste * (100 + $newLine->margen) / 100 ) * $newLine->cantidad);
+        $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
+        $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
+        $newLine->referencia = Utils::fixHtml($newLine->referencia);
+        
+        $suplido = isset($fLine['suplido']) && $fLine['suplido'] === 'true';
+        if ($this->siniva || $newLine->codimpuesto === null || $suplido) {
+            $newLine->codimpuesto = null;
+            $newLine->iva = $newLine->recargo = 0.0;
+        } elseif ($this->recargo === false) {
+            $newLine->recargo = 0.0;
+        }
+
+        return $newLine;
+    }
+
 
     /**
      *

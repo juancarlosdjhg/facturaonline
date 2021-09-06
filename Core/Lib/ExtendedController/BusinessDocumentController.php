@@ -138,6 +138,9 @@ abstract class BusinessDocumentController extends PanelController
             case 'recalculate-document':
                 return $this->recalculateDocumentAction();
 
+            case 'recalculate-document-margen-to-pvp':
+                return $this->recalculateDocumentMargenToPvpAction();
+
             case 'save-document':
                 return $this->saveDocumentAction();
 
@@ -247,6 +250,26 @@ abstract class BusinessDocumentController extends PanelController
 
         /// recalculate
         $result = $this->documentTools->recalculateForm($this->views[$this->active]->model, $data['lines']);
+        $this->response->setContent($result);
+        return false;
+    }
+
+    protected function recalculateDocumentMargenToPvpAction()
+    {
+        $this->setTemplate(false);
+
+        /// loads model
+        $data = $this->getBusinessFormData();
+        $merged = \array_merge($data['custom'], $data['final'], $data['form'], $data['subject']);
+        $this->views[$this->active]->loadFromData($merged);
+
+        /// update subject data?
+        if (false === $this->views[$this->active]->model->exists()) {
+            $this->views[$this->active]->model->updateSubject();
+        }
+
+        /// recalculate
+        $result = $this->documentTools->recalculateFormMargenToPvp($this->views[$this->active]->model, $data['lines']);
         $this->response->setContent($result);
         return false;
     }

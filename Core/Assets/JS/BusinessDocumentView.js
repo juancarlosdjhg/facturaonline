@@ -112,6 +112,43 @@ function businessDocViewRecalculate() {
             $("#doc_totaliva").val(results.doc.totaliva);
             $("#doc_totalrecargo").val(results.doc.totalrecargo);
             $("#doc_totalirpf").val(results.doc.totalirpf);
+            
+            var rowPos = 0;
+            results.lines.forEach(function (element) {
+                var visualRow = hsTable.toVisualRow(rowPos);
+                businessDocViewLineData.rows[visualRow] = element;
+                rowPos++;
+            });
+
+            hsTable.render();
+            //console.log("results", results);
+        },
+        error: function (xhr, status, error) {
+            alert(xhr.responseText);
+        }
+    });
+}
+
+function businessDocViewRecalculateProfit() {
+    var data = {};
+    $.each($("#" + businessDocViewFormName).serializeArray(), function (key, value) {
+        data[value.name] = value.value;
+    });
+    data.action = "recalculate-document-margen-to-pvp";
+    data.lines = getGridData();
+    $.ajax({
+        type: "POST",
+        url: businessDocViewUrl,
+        dataType: "json",
+        data: data,
+        success: function (results) {
+            $("#doc_neto").val(results.doc.neto);
+            $("#doc_netosindto").val(results.doc.netosindto);
+            $("#doc_total").val(results.doc.total);
+            $("#doc_total2").val(results.doc.total);
+            $("#doc_totaliva").val(results.doc.totaliva);
+            $("#doc_totalrecargo").val(results.doc.totalrecargo);
+            $("#doc_totalirpf").val(results.doc.totalirpf);
 
             var rowPos = 0;
             results.lines.forEach(function (element) {
@@ -121,7 +158,7 @@ function businessDocViewRecalculate() {
             });
 
             hsTable.render();
-            console.log("results", results);
+            //console.log("results_margen-to-pvp", results);
         },
         error: function (xhr, status, error) {
             alert(xhr.responseText);
@@ -247,11 +284,27 @@ $(document).ready(function () {
             if (width > 500) {
                 return 500;
             }
+        },
+        afterChange: function(changes, source){
+            $.each(changes, function (index, element) {
+                var row = element[0];
+                var campo = element[1];
+                var oldValue = element[2];
+                var newValue = element[3];
+                if (campo === 'margen'){
+                    businessDocViewRecalculateProfit();
+                }
+                else {
+                    businessDocViewRecalculate();
+                }
+           }); 
         }
     });
 
     Handsontable.hooks.add("beforeChange", beforeChange);
-    Handsontable.hooks.add("afterChange", businessDocViewRecalculate);
+    //Handsontable.hooks.add("afterChange", businessDocViewRecalculateProfit);
+    //Handsontable.hooks.add("afterChange", businessDocViewRecalculate);
+
 
     $("#mainTabs li:first-child a").on('shown.bs.tab', function (e) {
         hsTable.render();
