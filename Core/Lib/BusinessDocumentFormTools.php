@@ -129,7 +129,7 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
-        $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / floatval($newLine->coste)) * 100);
+        $newLine->margen = floatval((($newLine->pvpunitario - ($newLine->coste ?? 1)) / floatval(($newLine->coste ?? 1))) * 100);
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
 
@@ -162,7 +162,7 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
         $this->recalculateFormLineTaxZones($newLine);
         
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
-        $newLine->pvpunitario = floatval(($newLine->coste * (100 + $newLine->margen) / 100 ) * $newLine->cantidad);
+        $newLine->pvpunitario = floatval((($newLine->coste ?? 1) * (100 + $newLine->margen) / 100 ) * $newLine->cantidad);
         $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
