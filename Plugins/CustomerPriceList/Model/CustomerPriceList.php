@@ -2,7 +2,8 @@
 namespace FacturaScripts\Plugins\CustomerPriceList\Model;
 
 use FacturaScripts\Core\Model\Base;
-
+use FacturaScripts\Core\Base\DataBase;
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Model\Cliente as DinCliente;
 
 class CustomerPriceList extends Base\ModelClass {
@@ -32,11 +33,27 @@ class CustomerPriceList extends Base\ModelClass {
 
     public function save()
     {
-        if (parent::save()) {
-            return true;
-        }
 
-        $this->toolBox()->log()->warning('Ya existe el producto indicado en la lista de precios.');
+
+        //$dataBase = new DataBase();
+        //$data = $dataBase->select('SELECT * from customerpricelists where codcliente='.$this->codcliente.' and idproducto='.$this->idproducto.' and ('.$this->fechainicio.' between fechainicio and fechafin or '.$this->fechafin.' between fechainicio and fechafin);');
+        //
+        //$string = $data[0];
+        //$total= (integer) $string["total"];
+        //if ($total === 0) {
+
+            if (parent::save()) {
+                return true;
+            }
+            
+            $this->toolBox()->log()->warning('Ha ocurrido un error al guardar los datos, por favor contacte con Soporte.');
+        //}
+        
+        //else {
+        //    
+        //    $this->toolBox()->log()->warning('El rango de fecha indicado coincide con otro rango ya existente para el producto en la lista de precios.');
+        //}
+
         return false;
     }
 

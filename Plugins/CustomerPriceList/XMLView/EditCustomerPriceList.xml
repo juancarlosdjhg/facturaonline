@@ -6,17 +6,17 @@
                 <widget type="text" fieldname="codcustomerpricelist" required="true" readonly="true"/>
             </column>
             <column name="customer" display="center" order="105">
-                <widget type="autocomplete" fieldname="codcliente" onclick="EditCliente">
+                <widget type="autocomplete" fieldname="codcliente" fieldcode="codcliente" onclick="EditCliente" required="true">
                     <values source="clientes" fieldcode="codcliente" fieldtitle="nombre" />
                 </widget>
             </column>
             <column name="product" order="110">
-                <widget type="autocomplete" fieldname="idproducto">
+                <widget type="autocomplete" fieldname="idproducto" required="true">
                     <values source="Variante" fieldcode="referencia"/>
                 </widget>
             </column>
             <column name="pvp" order="120" required="true">
-                <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-money" />
+                <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-money" required="true" />
             </column>
             <column name="status" order="130">
                 <widget type="select" fieldname="estado" required="true" >
@@ -28,8 +28,11 @@
             <column name="external-code"  order="140" >
                 <widget type="text" fieldname="codigoexterno" maxlength="50"  />
             </column>
-            <column name="expiration-date" display="center" order="145">
-                <widget type="date" fieldname="fechacaducidad" />
+            <column name="start-date" display="center" order="145" required="true">
+                <widget type="date" fieldname="fechainicio" />
+            </column>
+            <column name="end-date" display="center" order="150" required="true">
+                <widget type="date" fieldname="fechafin" />
             </column>
         </group>
     </columns>

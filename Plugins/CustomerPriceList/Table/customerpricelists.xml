@@ -10,7 +10,11 @@
         <type>integer</type>
     </column>
     <column>
-        <name>fechacaducidad</name>
+        <name>fechainicio</name>
+        <type>date</type>
+    </column>
+    <column>
+        <name>fechafin</name>
         <type>date</type>
     </column>
     <column>
@@ -33,9 +37,5 @@
     <constraint>
         <name>customerpricelists_pkey</name>
         <type>PRIMARY KEY (codcustomerpricelist)</type>
-    </constraint>
-    <constraint>
-        <name>uniq_codcliente_idproducto</name>
-        <type>UNIQUE (codcliente,idproducto)</type>
     </constraint>
 </table>
