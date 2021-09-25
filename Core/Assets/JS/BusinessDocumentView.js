@@ -286,15 +286,14 @@ $(document).ready(function () {
             }
         },
         afterChange: function(changes, source){
-            $.each(changes, function (index, element) {
-                var row = element[0];
-                var campo = element[1];
-                var oldValue = element[2];
-                var newValue = element[3];
+            $.each(changes, function (index, element) {               
+                var campo = element[1];                                
                 if (campo === 'margen'){
+                    console.log('Calculando margen...', campo);
                     businessDocViewRecalculateProfit();
                 }
                 else {
+                    console.log('Calculando documento...', campo);
                     businessDocViewRecalculate();
                 }
            }); 

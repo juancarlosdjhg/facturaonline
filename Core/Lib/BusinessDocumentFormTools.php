@@ -127,11 +127,15 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         $this->recalculateFormLineTaxZones($newLine);
 
+        if (isset($fLine['coste'])){
+            $newLine->coste = $fLine['coste'];
+        }
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
         $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / floatval($newLine->coste)) * 100);
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
+        
 
         $suplido = isset($fLine['suplido']) && $fLine['suplido'] === 'true';
         if ($this->siniva || $newLine->codimpuesto === null || $suplido) {
@@ -161,12 +165,13 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         $this->recalculateFormLineTaxZones($newLine);
         
+        $newLine->coste = $fLine['coste'];
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
-        $newLine->pvpunitario = floatval(($newLine->coste * (100 + $newLine->margen) / 100 ) * $newLine->cantidad);
+        $newLine->pvpunitario = floatval($newLine->coste * (100 + $newLine->margen) / 100 ) ;
         $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
-        
+
         $suplido = isset($fLine['suplido']) && $fLine['suplido'] === 'true';
         if ($this->siniva || $newLine->codimpuesto === null || $suplido) {
             $newLine->codimpuesto = null;
