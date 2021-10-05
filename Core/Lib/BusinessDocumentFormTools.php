@@ -132,7 +132,12 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
         }
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
-        $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / floatval($newLine->coste)) * 100);
+        if (isset($newLine->coste)){
+            $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / floatval($newLine->coste)) * 100);            
+        }
+        else {
+            $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / 1) * 100);                        
+        }
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
         
