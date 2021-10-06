@@ -5,18 +5,16 @@
             <column name="code" display="none" order="100" >
                 <widget type="text" fieldname="codcustomerpricelist" required="true" readonly="true"/>
             </column>
-            <column name="customer" display="center" order="105">
-                <widget type="autocomplete" fieldname="codcliente" onclick="EditCliente">
-                    <values source="clientes" fieldcode="codcliente" fieldtitle="nombre" />
-                </widget>
+            <column name="customer" display="none" order="110">
+                <widget type="text" fieldname="codcliente" />
             </column>
             <column name="product" order="110">
-                <widget type="autocomplete" fieldname="idproducto">
+                <widget type="autocomplete" fieldname="idproducto" required="true">
                     <values source="Variante" fieldcode="referencia"/>
                 </widget>
             </column>
             <column name="pvp" order="120" required="true">
-                <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-money" />
+                <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-euro-sign fa-fw" required="true" />
             </column>
             <column name="status" order="130">
                 <widget type="select" fieldname="estado" required="true" >
@@ -26,10 +24,13 @@
                 </widget>
             </column>
             <column name="external-code"  order="140" >
-                <widget type="text" fieldname="codigoexterno" maxlength="50"  />
+                <widget type="text" fieldname="codigoexterno" maxlength="50" required="true" />
             </column>
-            <column name="expiration-date" display="center" order="145">
-                <widget type="date" fieldname="fechacaducidad" />
+            <column name="start-date" display="center" order="145" >
+                <widget type="date" fieldname="fechainicio" required="true" />
+            </column>
+            <column name="end-date" display="center" order="150" >
+                <widget type="date" fieldname="fechafin" required="true"/>
             </column>
         </group>
     </columns>

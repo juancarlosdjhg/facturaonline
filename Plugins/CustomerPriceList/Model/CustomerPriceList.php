@@ -20,7 +20,7 @@ class CustomerPriceList extends Base\ModelClass {
     public function clear() {
         parent::clear();
         $this->codcustomerpricelist = (string) $this->newCode('codcustomerpricelist');
-
+        
     }
 
     public static function primaryColumn(): string {
@@ -33,28 +33,68 @@ class CustomerPriceList extends Base\ModelClass {
 
     public function save()
     {
+        $timeInicio = strtotime($this->fechainicio);
+        $timeFin = strtotime($this->fechafin);
+        $newFormatInicio = date('Y-m-d',$timeInicio);
+        $newFormatFin = date('Y-m-d',$timeFin);
+        if ($newFormatFin < $newFormatInicio){
+            $this->toolBox()->log()->warning('Rango de fechas no válido.');
+        }
+        else {
+            $dataBase = new DataBase();
+            $sql = '
+            SELECT 
+                count(*) as total 
+            from 
+                customerpricelists 
+            where 
+                codcliente='.$this->codcliente.' 
+            and 
+                idproducto='.$this->idproducto.' 
+            and 
+                (
+                    (
+                        (
+                            CAST(fechainicio AS DATE) <= CAST("'.$newFormatInicio.'" AS DATE) and CAST(fechafin AS DATE) >= CAST("'.$newFormatInicio.'" AS DATE)
+                        )
+                    or 
+                        (
+                            CAST(fechainicio AS DATE) <= CAST("'.$newFormatFin.'" AS DATE) and CAST(fechafin AS DATE) >= CAST("'.$newFormatFin.'" AS DATE)
+                        )
+                    )
+                or
+                    (
+                        (
+                            CAST("'.$newFormatInicio.'" AS DATE) <= CAST(fechainicio AS DATE) and CAST("'.$newFormatFin.'" AS DATE) >= CAST(fechainicio AS DATE)
+                        )
+                    or 
+                        (
+                            CAST("'.$newFormatInicio.'" AS DATE) <= CAST(fechafin AS DATE) and CAST("'.$newFormatFin.'" AS DATE) >= CAST(fechafin AS DATE)
+                        )
+                    )
+                )
+            and 
+                codcustomerpricelist <> '.$this->codcustomerpricelist.'
+            and 
+                estado = "Activo"
+            ;'; 
 
+            $data = $dataBase->select($sql);
+            $total= (integer) $data[0]['total'];
 
-        //$dataBase = new DataBase();
-        //$data = $dataBase->select('SELECT * from customerpricelists where codcliente='.$this->codcliente.' and idproducto='.$this->idproducto.' and ('.$this->fechainicio.' between fechainicio and fechafin or '.$this->fechafin.' between fechainicio and fechafin);');
-        //
-        //$string = $data[0];
-        //$total= (integer) $string["total"];
-        //if ($total === 0) {
-
-            if (parent::save()) {
-                return true;
+            if ($total === 0) {
+                if (parent::save()) {
+                    return true;
+                }            
+                $this->toolBox()->log()->warning('Ha ocurrido un error al guardar los datos, por favor contacte con Soporte.');
             }
-            
-            $this->toolBox()->log()->warning('Ha ocurrido un error al guardar los datos, por favor contacte con Soporte.');
-        //}
-        
-        //else {
-        //    
-        //    $this->toolBox()->log()->warning('El rango de fecha indicado coincide con otro rango ya existente para el producto en la lista de precios.');
-        //}
 
-        return false;
+            else {            
+                $this->toolBox()->log()->warning('El rango de fecha indicado coincide con otro rango ya existente para el producto en la lista de precios.');
+            }
+
+            return false;
+        }
     }
 
 

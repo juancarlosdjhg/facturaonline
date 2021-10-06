@@ -127,16 +127,23 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         $this->recalculateFormLineTaxZones($newLine);
 
-        if (isset($fLine['coste'])){
-            $newLine->coste = $fLine['coste'];
+        if (isset($fLine['coste']) && !isset($newLine->coste)){
+            $newLine->coste = (float) $fLine['coste'];
         }
+
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
-        $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
-        if (isset($newLine->coste)){
-            $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / floatval($newLine->coste)) * 100);            
+        $newLine->pvpsindto = bcdiv($newLine->pvpunitario, '1', 2)  * $newLine->cantidad;
+        if (isset($newLine->coste) && !empty($newLine->coste) ){
+            $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / (float)$newLine->coste) * 100);            
         }
         else {
-            $newLine->margen = floatval((($newLine->pvpunitario - $newLine->coste) / 1) * 100);                        
+            $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / 1) * 100);                        
+            if ( isset($fLine['coste']) ){
+                $newLine->coste = (float) $fLine['coste'];
+            }
+            else {
+                $newLine->coste = 1;
+            }            
         }
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
@@ -173,7 +180,7 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
         $newLine->coste = $fLine['coste'];
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpunitario = floatval($newLine->coste * (100 + $newLine->margen) / 100 ) ;
-        $newLine->pvpsindto = $newLine->pvpunitario * $newLine->cantidad;
+        $newLine->pvpsindto = bcdiv($newLine->pvpunitario, '1', 2)  * $newLine->cantidad;
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
 

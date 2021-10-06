@@ -487,7 +487,8 @@ abstract class BaseTemplate
             'pvpunitario' => 'price',
             'pvptotal' => 'net',
             'recargo' => 're',
-            'referencia' => 'reference'
+            'referencia' => 'reference',
+            'codigoexterno' => 'external-code'
         ];
 
         return isset($codes[$txt]) ? $this->toolBox()->i18n()->trans($codes[$txt]) : $this->toolBox()->i18n()->trans($txt);

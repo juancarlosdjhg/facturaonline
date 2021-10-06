@@ -356,6 +356,7 @@ class ExportManager
         if (empty(static::$options)) {
             static::$options = [
                 'PDF' => ['description' => 'print', 'icon' => 'fas fa-print'],
+                'PDFEnglish' => ['description' => 'print-english', 'icon' => 'fas fa-print'],
                 'XLS' => ['description' => 'spreadsheet-xls', 'icon' => 'fas fa-file-excel'],
                 'CSV' => ['description' => 'structured-data-csv', 'icon' => 'fas fa-file-csv'],
                 'MAIL' => ['description' => 'email', 'icon' => 'fas fa-envelope']

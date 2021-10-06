@@ -230,7 +230,9 @@ abstract class SalesDocument extends TransformerDocument
             
             $customer = $this->getSubject();
             if (empty($customer->codcliente)) {
-                $defaultpvpcustomer = 'None';     
+                $newLine->referencia = $variant->referencia;   
+                $defaultpvpcustomer = 'None'; 
+
                 switch ($defaultpvpcustomer) {
                     case 'None':
                         $defaultpvp = $variant->defaultPvp();
@@ -272,12 +274,15 @@ abstract class SalesDocument extends TransformerDocument
 
                 $wherecpl = [
                         new DataBaseWhere('codcliente', $codcliente),
-                        new DataBaseWhere('idproducto', $referencia)
+                        new DataBaseWhere('idproducto', $referencia),
+                        new DataBaseWhere('fechainicio', date("Y-m-d"), '<='),
+                        new DataBaseWhere('fechafin', date("Y-m-d"), '>=')
                     ];
 
                 if ($customerpricelist->loadFromCode('',$wherecpl)){
                     $this->getRate()->applyTo($variant, $product);
                     $newLine->pvpunitario = $customerpricelist->pvp;
+                    $newLine->codigoexterno = $customerpricelist->codigoexterno;
                     $defaultpvp = $variant->defaultPvp();
                     switch ($defaultpvp) {
                         case 'pvp1': 
@@ -305,6 +310,7 @@ abstract class SalesDocument extends TransformerDocument
                 else {
 
                 $defaultpvpcustomer = $customer->defaultpvp;
+                $newLine->codigoexterno = $customerpricelist->codigoexterno;
 
                     switch ($defaultpvpcustomer) {
                         case 'pvp1': 
@@ -343,7 +349,7 @@ abstract class SalesDocument extends TransformerDocument
            
             $newLine->recargo = $product->getTax()->recargo;
             $newLine->referencia = $variant->referencia;
-            $newLine->coste = $variant->coste;
+            $newLine->coste = (float) $variant->coste;
 
             /// allow extensions
             $this->pipe('getNewProductLine', $newLine, $variant, $product);
