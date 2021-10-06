@@ -216,8 +216,23 @@ abstract class SalesDocument extends TransformerDocument
         }
 
         $variant = new Variante();
-        $where1 = [new DataBaseWhere('referencia', $this->toolBox()->utils()->noHtml($reference))];
-        $where2 = [new DataBaseWhere('codbarras', $this->toolBox()->utils()->noHtml($reference))];
+        $cpl = new CustomerPriceList();
+        $customer = $this->getSubject();
+        $where3 = [
+            new DataBaseWhere('codcliente', $customer->codcliente),
+            new DataBaseWhere('codigoexterno', $this->toolBox()->utils()->noHtml($reference))
+        ];
+        
+        if ($cpl->loadFromCode('', $where3)) {
+            $where1 = [new DataBaseWhere('referencia', $cpl->idproducto)];
+            $where2 = [new DataBaseWhere('codbarras', $cpl->idproducto)];          
+        }
+
+        else {
+            $where1 = [new DataBaseWhere('referencia', $this->toolBox()->utils()->noHtml($reference))];
+            $where2 = [new DataBaseWhere('codbarras', $this->toolBox()->utils()->noHtml($reference))];
+        }
+
         if ($variant->loadFromCode('', $where1) || $variant->loadFromCode('', $where2)) {
             $product = $variant->getProducto();
             $referencia = $variant->referencia;
