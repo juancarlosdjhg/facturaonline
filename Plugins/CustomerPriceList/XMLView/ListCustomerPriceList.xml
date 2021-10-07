@@ -9,7 +9,7 @@
                 <widget type="text" fieldname="codcliente" />
             </column>
             <column name="product" order="110">
-                <widget type="autocomplete" fieldname="idproducto" required="true">
+                <widget type="autocomplete" fieldname="idproducto" required="true" readonly="dinamic">
                     <values source="Variante" fieldcode="referencia"/>
                 </widget>
             </column>

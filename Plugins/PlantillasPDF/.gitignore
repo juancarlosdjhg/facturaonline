@@ -1,6 +1,5 @@
 /nbproject/
 /node_modules/
-/vendor/
 .DS_Store
 package-lock.json
 *.cache
