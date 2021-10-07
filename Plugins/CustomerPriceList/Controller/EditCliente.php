@@ -18,6 +18,7 @@
  */
 namespace FacturaScripts\Plugins\CustomerPriceList\Controller;
 
+use Symfony\Component\HttpFoundation\Cookie;
 use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Lib\ExtendedController\BaseView;
 use FacturaScripts\Core\Lib\ExtendedController\ComercialContactController;
@@ -211,8 +212,8 @@ class EditCliente extends ComercialContactController
                 $inSQL = 'SELECT codcustomerpricelist FROM customerpricelists WHERE codcliente = ' . $this->dataBase->var2str($codcliente);
                 $where = [new DataBaseWhere('codcustomerpricelist', $inSQL, 'IN')];
                 $view->loadData('', $where);
-                $view->codcliente = $codcliente;
-                //var_dump($view);
+                $this->views['EditCustomerPriceList']->model->codcliente = $codcliente;
+                
                 break;
 
             default:

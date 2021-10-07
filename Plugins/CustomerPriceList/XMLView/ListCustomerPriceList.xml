@@ -6,11 +6,11 @@
                 <widget type="text" fieldname="codcustomerpricelist" required="true" readonly="true"/>
             </column>
             <column name="customer" display="none" order="110">
-                <widget type="text" fieldname="codcliente" />
+                <widget type="text" fieldname="codcliente" readonly="true"/>
             </column>
             <column name="product" order="110">
-                <widget type="autocomplete" fieldname="idproducto" required="true" readonly="dinamic">
-                    <values source="Variante" fieldcode="referencia"/>
+                <widget type="autocomplete" fieldname="idproducto" required="true">
+                    <values source="productos" fieldcode="referencia" fieldtitle="descripcion" />
                 </widget>
             </column>
             <column name="pvp" order="120" required="true">

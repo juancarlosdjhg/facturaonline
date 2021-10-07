@@ -11,6 +11,12 @@ class CustomerPriceList extends Base\ModelClass {
     use Base\ModelTrait;
 
     public $codcustomerpricelist;
+
+    /**
+     * Customer code.
+     *
+     * @var string
+     */
     public $codcliente;
     public $fechacaducidad;
     public $idproducto;
@@ -20,17 +26,16 @@ class CustomerPriceList extends Base\ModelClass {
     public function clear() {
         parent::clear();
         $this->codcustomerpricelist = (string) $this->newCode('codcustomerpricelist');
-        
     }
-
+    
     public static function primaryColumn(): string {
         return 'codcustomerpricelist';
     }
-
+    
     public static function tableName(): string{
         return 'customerpricelists';
     }
-
+    
     public function save()
     {
         $timeInicio = strtotime($this->fechainicio);
