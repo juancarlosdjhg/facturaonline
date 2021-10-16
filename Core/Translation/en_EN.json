@@ -424,7 +424,7 @@
     "exit": "Exit",
     "expense-subaccount": "Expense subaccount",
     "expenses": "Expenses",
-    "expiration": "Expiration",
+    "expiration": "Due date",
     "expiration-type": "Expiration type",
     "expired": "Expired",
     "export": "Export",
@@ -1173,6 +1173,6 @@
     "your": "Your",
     "zip-code": "Zip code",
     "zip-error-wrong-structure": "The zip structure is incorrect. It must contain the plugin folder and only one plugin.",
-    "externalordernumber": "External order number",
+    "externalordernumber": "PO Number",
     "external-code": "External code"
 }

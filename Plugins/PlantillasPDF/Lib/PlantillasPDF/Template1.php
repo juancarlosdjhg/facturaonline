@@ -93,15 +93,26 @@ class Template1 extends BaseTemplate
         $this->autoHideLineColumns($lines);
 
         $html = '<thead><tr>';
+        $html .= '<th> </th>';
         foreach ($this->getInvoiceLineFields() as $field) {
             $html .= '<th align="' . $field['align'] . '">' . $field['title'] . '</th>';
         }
         $html .= '</tr></thead>';
 
+        $count = 0;
         foreach ($lines as $line) {
+            $count = $count + 1 ;
             $html .= '<tr>';
+            $html .= '<td>' . $count . '</td>';
+        
             foreach ($this->getInvoiceLineFields() as $field) {
-                $html .= '<td align="' . $field['align'] . '" valign="top">' . $this->getInvoiceLineValue($line, $field) . '</td>';
+                if ($field['key'] === 'descripcion' && $field['title'] === 'Description'){
+                    $html .= '<td align="' . $field['align'] . '" valign="top">' . $line->description . '</td>';
+                }
+                else {
+                    $html .= '<td align="' . $field['align'] . '" valign="top">' . $this->getInvoiceLineValue($line, $field) . '</td>';
+                }
+
             }
             $html .= '</tr>';
         }
@@ -154,14 +165,22 @@ class Template1 extends BaseTemplate
      */
     protected function getInvoiceHeaderBilling($model): string
     {
+        $i18n = $this->toolBox()->i18n();
         $subject = $model->getSubject();
         $address = isset($model->codproveedor) && !isset($model->direccion) ? $subject->getDefaultAddress() : $model;
         $customerCode = $this->get('showcustomercode') ? $model->subjectColumnValue() : '';
         $break = empty($model->cifnif) ? '' : '<br/>';
+        $observations = '' ;
+        
+        if (!empty($this->getObservations($model))) {
+            $observations .= '<p><br/>' . $this->getObservations($model) . '</p>&nbsp;';
+        }
+
         return '<td>'
             . '<b>' . $this->getSubjectTitle($model) . '</b> ' . $customerCode
             . '<br/>' . $this->getSubjectName($model) . $break . $this->getSubjectIdFiscalStr($model)
             . '<br/>' . $this->combineAddress($address) . $this->getInvoiceHeaderBillingPhones($subject)
+            . '<br/>' . $observations
             . '</td>';
     }
 
@@ -218,10 +237,13 @@ class Template1 extends BaseTemplate
         $extra2 = '';
         if (isset($model->numero2) && !empty($model->numero2) && (bool) $this->get('shownumero2')) {
             $extra2 .= '<tr>'
-                . '<td><b>' . $i18n->trans('externalordernumber') . '</b>:</td>'
+                . '<td><b>' . $i18n->trans('po-number') . '</b>:</td>'
                 . '<td align="right">' . $model->numero2 . '</td>'
                 . '</tr>';
         }
+
+
+
 
         $size = empty($extra2) ? 170 : 200;
         return '<td width="' . $size . '">'
@@ -240,6 +262,7 @@ class Template1 extends BaseTemplate
             . '<td align="right">' . $model->codserie . '</td>'
             . '</tr>'
             . $extra2
+
             . '</table>'
             . '</td>';
     }
@@ -252,16 +275,17 @@ class Template1 extends BaseTemplate
      */
     protected function getInvoiceHeaderShipping($model): string
     {
-        $contacto = new Contacto();
+        
+        $contacto = new Contacto();  
         if ($this->get('hideshipping') || !isset($model->idcontactoenv) || $model->idcontactoenv == $model->idcontactofact) {
             return '';
-        } elseif (!empty($model->idcontactoenv) && $contacto->loadFromCode($model->idcontactoenv)) {
+            
+        } elseif (!empty($model->idcontactoenv) && $contacto->loadFromCode($model->idcontactoenv)) {            
             return '<td>'
                 . '<b>' . $this->toolBox()->i18n()->trans('shipping-address') . '</b>'
-                . '<br/>' . $this->combineAddress($contacto)
+                . '<br/>' . $this->combineAddress($contacto)        
                 . '</td>';
         }
-
         return '';
     }
 
@@ -277,9 +301,9 @@ class Template1 extends BaseTemplate
         $i18n = $this->toolBox()->i18n();
         $numers = $this->toolBox()->numbers();
         $observations = '';
-        if (!empty($this->getObservations($model))) {
-            $observations .= '<p><b>' . $i18n->trans('observations') . '</b><br/>' . $this->getObservations($model) . '</p>&nbsp;';
-        }
+        //if (!empty($this->getObservations($model))) {
+        //    $observations .= '<p><b>' . $i18n->trans('observations') . '</b><br/>' . $this->getObservations($model) . '</p>&nbsp;';
+        //}
 
         if ($this->format->hidetotals) {
             return $observations;

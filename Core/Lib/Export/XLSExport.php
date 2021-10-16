@@ -63,17 +63,96 @@ class XLSExport extends ExportBase
             if (empty($lineHeaders)) {
                 $lineHeaders = $this->getModelHeaders($line);
             }
-
-            $cursor[] = $line;
+                $cursor[] = $line;         
         }
 
         $lineRows = $this->getCursorRawData($cursor);
-        $this->writer->writeSheet($lineRows, $this->toolBox()->i18n()->trans('lines'), $lineHeaders);
+        
+        $cabeceras = [];
+        $lineas = [];
+        $count = 0;
 
-        /// model
+        foreach($lineHeaders as $key => $value){
+            if ( $key === 'referencia'|| $key === 'descripcion'|| $key === 'description'|| $key === 'codigoexterno'|| $key === 'cantidad'|| $key === 'coste'|| $key === 'margen'|| $key === 'pvpunitario'|| $key === 'dtopor'|| $key === 'dtopor2'|| $key === 'pvpsindto'|| $key === 'irpf'|| $key === 'iva'|| $key === 'pedir'|| $key === 'codproveedor') {
+                $cabeceras[$key] = $value;
+            }
+        }
+        
+        $countArray = count($lineRows);
+        while ($count < $countArray){
+            foreach($lineRows[$count] as $key => $value){
+                if ( $key === 'referencia'|| $key === 'descripcion'|| $key === 'description'|| $key === 'codigoexterno'|| $key === 'cantidad'|| $key === 'coste'|| $key === 'margen'|| $key === 'pvpunitario'|| $key === 'dtopor'|| $key === 'dtopor2'|| $key === 'pvpsindto'|| $key === 'irpf'|| $key === 'iva'|| $key === 'pedir'|| $key === 'codproveedor') {
+                    $lineas[$count][$key] = $value;
+                }
+            }
+            $count++;
+        }
+
         $headers = $this->getModelHeaders($model);
         $rows = $this->getCursorRawData([$model]);
-        $this->writer->writeSheet($rows, $model->primaryDescription(), $headers);
+                
+        $cabecerasHeader = [];
+        $lineasHeader = [];
+        foreach($headers as $key => $value){
+            if ( $key === 'nombrecliente'|| $key === 'cifnif' || $key === 'emision_hora' || $key === 'codserie'|| $key === 'emision_fecha'|| $key === 'numero2'|| $key === 'codpago'|| $key === 'total'|| $key === 'netosindto'|| $key === 'dtopor2'|| $key === 'dtopor1'|| $key === 'neto'|| $key === 'totalirpf'|| $key === 'totaliva'|| $key === 'total'|| $key === 'observaciones') {
+                $cabecerasHeader[$key] = $value;
+            }
+        }
+        
+        foreach($rows[0] as $key => $value){
+            if ( $key === 'nombrecliente'|| $key === 'cifnif' || $key === 'emision_hora' || $key === 'codserie'|| $key === 'emision_fecha'|| $key === 'numero2'|| $key === 'codpago'|| $key === 'total'|| $key === 'netosindto'|| $key === 'dtopor2'|| $key === 'dtopor1'|| $key === 'neto'|| $key === 'totalirpf'|| $key === 'totaliva'|| $key === 'total'|| $key === 'observaciones') {
+                $lineasHeader[0][$key] = $value;
+            }
+        }
+
+        $cabecerasHeader['descuentocliente'] = $cabecerasHeader['dtopor2'];
+        unset($cabecerasHeader['dtopor2']);
+        $lineasHeader[0]['descuentocliente'] = $lineasHeader[0]['dtopor2'];
+        unset($lineasHeader[0]['dtopor2']);
+
+        $cabecerasHeader['descuento'] = $cabecerasHeader['dtopor1'];
+        unset($cabecerasHeader['dtopor1']);
+        $lineasHeader[0]['descuento'] = $lineasHeader[0]['dtopor1'];
+        unset($lineasHeader[0]['dtopor1']);
+
+        $cabecerasHeader['tipodepago'] = $cabecerasHeader['codpago'];
+        unset($cabecerasHeader['codpago']);
+        $lineasHeader[0]['tipodepago'] = $lineasHeader[0]['codpago'];
+        unset($lineasHeader[0]['codpago']);
+
+        $cabecerasHeader['seriedocumento'] = $cabecerasHeader['codserie'];
+        unset($cabecerasHeader['codserie']);
+        $lineasHeader[0]['seriedocumento'] = $lineasHeader[0]['codserie'];
+        unset($lineasHeader[0]['codserie']);
+
+        $cabecerasHeader['numerofiscalcliente'] = $cabecerasHeader['cifnif'];
+        unset($cabecerasHeader['cifnif']);
+        $lineasHeader[0]['numerofiscalcliente'] = $lineasHeader[0]['cifnif'];
+        unset($lineasHeader[0]['cifnif']);
+
+        $cabecerasHeader['numeropedidoexterno'] = $cabecerasHeader['numero2'];
+        unset($cabecerasHeader['numero2']);
+        $lineasHeader[0]['numeropedidoexterno'] = $lineasHeader[0]['numero2'];
+        unset($lineasHeader[0]['numero2']);
+
+        $primaryDescription = $model->primaryDescription();
+        $cabecerasHeader['documento'] = $cabecerasHeader['numerofiscalcliente'];
+        $cabecerasHeader['documento'] = 'string';
+        $lineasHeader[0]['documento'] = $lineasHeader[0]['numerofiscalcliente'];
+        $lineasHeader[0]['documento'] = $primaryDescription;
+
+        $myfile = fopen("C:\Users\Juan\Desktop\File.txt", "w") or die("Unable to open file!");
+        fwrite($myfile, print_r($cabecerasHeader, true));
+        fwrite($myfile, print_r($lineasHeader, true));
+        fclose($myfile);
+
+        ksort($cabecerasHeader);
+        ksort($lineasHeader[0]);
+
+
+
+        $this->writer->writeSheet($lineasHeader, $model->primaryDescription(), $cabecerasHeader);
+        $this->writer->writeSheet($lineas, $this->toolBox()->i18n()->trans('lines'), $cabeceras);
 
         /// do not continue with export
         return false;
@@ -171,7 +250,7 @@ class XLSExport extends ExportBase
     {
         $this->setFileName($title);
         $this->writer = new XLSXWriter();
-        $this->writer->setAuthor('FacturaScripts');
+        $this->writer->setAuthor('FacturaOnline');
         $this->writer->setTitle($title);
     }
 

@@ -149,7 +149,6 @@ abstract class BaseTemplate
             }
             $html .= '</tr>';
         }
-
         $this->writeHTML('<table class="table-big table-list">' . $html . '</table><br/>');
     }
 

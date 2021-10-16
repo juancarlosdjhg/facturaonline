@@ -1274,5 +1274,7 @@
     "thanks-text": "Texto agradecimiento",
     "thanks-title": "Título agradecimiento",
     "title-font-size": "Tamaño fuente título",
-    "top-margin": "Margen superior"
+    "top-margin": "Margen superior",
+    "po-number": "PO Number",
+    "due-date": "Due date"
 }
