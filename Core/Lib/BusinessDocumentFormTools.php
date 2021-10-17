@@ -130,20 +130,27 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
         if (isset($fLine['coste']) && !isset($newLine->coste)){
             $newLine->coste = (float) $fLine['coste'];
         }
-
+        else {
+            $newLine->coste = 0;
+        }
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpsindto = bcdiv($newLine->pvpunitario, '1', 2)  * $newLine->cantidad;
         if (isset($newLine->coste) && !empty($newLine->coste) ){
             $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / (float)$newLine->coste) * 100);            
         }
         else {
-            $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / 1) * 100);                        
-            if ( isset($fLine['coste']) ){
-                $newLine->coste = (float) $fLine['coste'];
+            if (!empty($newLine->coste)) {
+                $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  / 1) * 100));                      
             }
             else {
-                $newLine->coste = 1;
-            }            
+                $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / 1) * 100);                        
+                if ( isset($fLine['coste']) ){
+                    $newLine->coste = (float) $fLine['coste'];
+                }
+                else {
+                    $newLine->coste = 1;
+                }            
+            }
         }
         $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
         $newLine->referencia = Utils::fixHtml($newLine->referencia);
