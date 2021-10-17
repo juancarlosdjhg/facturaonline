@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) ATHOS TRADER SL <info@athosonline.com>
+-->
+<view>
+    <columns>
+        <column name="code" display="none">
+            <widget type="number" fieldname="idemailempresa" />
+        </column>
+        <column name="name" order="100">
+            <widget type="text" fieldname="fromname" />
+        </column>
+        <column name="email" order="110">
+            <widget type="select" fieldname="idemail" required="true">
+                <values source="emails" fieldcode="idemail" fieldtitle="email" />
+            </widget>
+        </column>
+        <column name="emaildefault" title="default" order="120" display="center">
+            <widget type="checkbox" fieldname="emaildefault" />
+        </column>
+    </columns>
+</view>

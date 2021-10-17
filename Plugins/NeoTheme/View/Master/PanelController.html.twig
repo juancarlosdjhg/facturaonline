@@ -1,0 +1,203 @@
+{% extends "Master/MenuTemplate.html.twig" %}
+
+{% block navbarContent %}
+    {% set pageData = fsc.getPageData() %}
+    {% set firstView = fsc.views | first %}
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item" title="{{ i18n.trans('all') }}">
+            <a class="nav-link" href="{{ firstView.model.url('list') }}">
+                <i class="fas fa-chevron-left fa-fw" aria-hidden="true"></i>
+                <span class="d-none d-lg-inline-block">{{ i18n.trans('all') }}</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ firstView.model.url('edit') }}">{{ fsc.title | raw }}</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        {% if fsc.hasData and firstView.settings.btnNew %}
+            <li class="nav-item" title="{{ i18n.trans('new') }}">
+                <a class="nav-link" href="{{ firstView.model.url('new') }}">
+                    <i class="fas fa-plus fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-lg-inline-block">{{ i18n.trans('new') }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if fsc.hasData and firstView.settings.btnPrint %}
+            <li class="nav-item dropdown" title="{{ i18n.trans('print') }}">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-print fa-fw" aria-hidden="true"></i>
+                    <span class="d-none d-lg-inline-block">{{ i18n.trans('print') }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    {% for key, option in fsc.exportManager.options() %}
+                        {% if key == fsc.exportManager.defaultOption() %}
+                            <a href="{{ firstView.model.url() }}&action=export&option={{ key }}" target="_blank" class="dropdown-item">
+                                <i class="{{ option.icon }} fa-fw" aria-hidden="true"></i>
+                                {{ i18n.trans(option.description) }}
+                            </a>
+                        {% else %}
+                            <a href="{{ firstView.model.url() }}&action=export&option={{ key }}" class="dropdown-item">
+                                <i class="{{ option.icon }} fa-fw" aria-hidden="true"></i>
+                                {{ i18n.trans(option.description) }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#advancedExportModal">
+                        <i class="fas fa-tools fa-fw" aria-hidden="true"></i>
+                        {{ i18n.trans('advanced') }}
+                    </a>
+                    {% set tools = fsc.exportManager.tools() %}
+                    {% if tools is not empty %}
+                        <div class="dropdown-divider"></div>
+                        {% for key, tool in tools %}
+                            <a href="{{ tool.link }}" target="_blank" class="dropdown-item">
+                                <i class="{{ tool.icon }} fa-fw" aria-hidden="true"></i>
+                                {{ i18n.trans(tool.description) }}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block navbarContentRight %}
+    {{ parent() }}
+    {% set pageData = fsc.getPageData() %}
+    {% set firstView = fsc.views | first %}
+    <li class="nav-item dropdown" title="{{ i18n.trans('customize') }}">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-wrench fa-fw" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            {% for viewName, view in fsc.views %}
+                {% if view.settings.active and view.columns is not empty %}
+                    <a class="dropdown-item" href="EditPageOption?code={{ viewName }}&url={{ firstView.model.url() | url_encode }}">
+                        <i class="{{ view.icon }} fa-fw" aria-hidden="true"></i> {{ view.title }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </li>
+{% endblock %}
+
+{% block body %}
+    {% set firstView = fsc.views | first %}
+    <div class="container-fluid">
+        <div class="row">
+            {# -- Left Panel -- #}
+            {% if fsc.views | length > 1 %}
+                <div class="col-lg-2 d-none d-lg-inline-block">
+                    <div class="nav flex-column nav-pills" id="mainTabs" role="tablist">
+                        {% for viewName, view in fsc.views %}
+                            {% set active = (viewName == fsc.active) ? ' active' : '' %}
+                            {% set disable = view.settings.active ? '' : ' disabled' %}
+                            <a class="nav-link{{ active }}{{ disable }}" id="{{ viewName }}-tab" data-toggle="tab" href="#{{ viewName }}"
+                               role="tab" aria-controls="{{ viewName }}" aria-expanded="true">
+                                {% if view.count >= 1 and viewName != firstView.getViewName() %}
+                                    <span class='badge badge-secondary float-right'>{{ view.count }}</span>
+                                {% endif %}
+                                <i class="{{ view.icon }} fa-fw d-none d-xl-inline-block" aria-hidden="true"></i> {{ view.title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {# -- Right Panel -- #}
+            {% set rightPanelClass = (fsc.views | length > 1) ? 'col-lg-10' : 'col' %}
+            <div class="{{ rightPanelClass }}">
+                {# -- Tabs on top when screen is small -- #}
+                {% if fsc.views | length > 1 %}
+                    <div class="nav nav-tabs d-lg-none" role="tablist">
+                        {% for viewName, view in fsc.views %}
+                            {% set active = (viewName == fsc.active) ? ' active' : '' %}
+                            {% set disable = view.settings.active ? '' : ' disabled' %}
+                            <a class="nav-link{{ active }}{{ disable }}" id="{{ viewName }}-tab2" data-toggle="pill" href="#{{ viewName }}"
+                               role="tab" aria-controls="{{ viewName }}" aria-expanded="true">
+                                {% if view.count > 1 %}<span class='badge badge-secondary float-right'>{{ view.count }}</span>{% endif %}
+                                <i class="{{ view.icon }} fa-fw" aria-hidden="true"></i>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {# -- Tab content -- #}
+                <div class="tab-content" id="mainTabsContent">
+                    {% for viewName, view in fsc.views %}
+                        {% set active = (viewName == fsc.active) ? ' show active' : '' %}
+                        <div class="tab-pane fade{{ active }}" id="{{ viewName }}" role="tabpanel" aria-labelledby="{{ viewName }}-tab">
+                            {% do fsc.setCurrentView(viewName) %}
+                            {{ include(view.template) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if fsc.hasData and firstView.settings.btnPrint %}
+        <form action="{{ firstView.model.url() }}" method="post" target="_blank">
+            <input type="hidden" name="action" value="export" />
+            <div class="modal fade" id="advancedExportModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <i class="fas fa-tools fa-fw" aria-hidden="true"></i>
+                                {{ i18n.trans('advanced') }}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-left">
+                            <div class="form-group">
+                                <select name="option" class="form-control">
+                                    {% for key, option in fsc.exportManager.options() %}
+                                        <option value="{{ key }}">{{ i18n.trans(option.description) }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                {{ i18n.trans('format') }}
+                                <select name="idformat" class="form-control">
+                                    <option value="">{{ i18n.trans('default') }}</option>
+                                    <option value="">------</option>
+                                    {% for format in fsc.exportManager.getFormats(firstView.model) %}
+                                        <option value="{{ format.id }}">{{ format.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                {{ i18n.trans('language') }}
+                                <select name="langcode" class="form-control">
+                                    <option value="">{{ i18n.trans('default') }}</option>
+                                    <option value="">------</option>
+                                    {% for code, lang in i18n.getAvailableLanguages() %}
+                                        <option value="{{ code }}">{{ lang }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ i18n.trans('accept') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <style>
+        body {
+            background-color: #FAFBFC;
+        }
+    </style>
+{% endblock %}

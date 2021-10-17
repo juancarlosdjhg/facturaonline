@@ -1,0 +1,19 @@
+{
+    "burn-project-stock": "Stocka erre",
+    "calendar": "Egutegia",
+    "canceled": "Ezeztatua",
+    "completed": "Osatuta",
+    "phase": "Fasea",
+    "phases": "Faseak",
+    "private": "Pribatua",
+    "processing": "Prozesatzen",
+    "project": "Proiektua",
+    "project-stock-rebuild-error": "Errore bat gertatu da stocka sortzerakoan",
+    "project-stock-rebuild-ok": "Stocka ondo birsortu da",
+    "projects": "Proiektuak",
+    "show-project-stock": "Proiektuaren stocka erakutsi",
+    "task": "Lana",
+    "tasks": "Lanak",
+    "total-purchases": "Erosketa totala",
+    "total-sales": "Salmenta totala"
+}

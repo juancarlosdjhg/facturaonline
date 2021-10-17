@@ -101,6 +101,13 @@ class Variante extends Base\ModelClass
      *
      * @var int|float
      */
+    public $precio;
+
+    /**
+     * Price of the variant. Without tax.
+     *
+     * @var int|float
+     */
     public $pvp1;
 
     /**
@@ -248,6 +255,7 @@ class Variante extends Base\ModelClass
     {
         parent::clear();
         $this->coste = 0.0;
+        $this->precio = 0.0;
         $this->margen = 0.0;
         $this->margen1 = 0.0;
         $this->pvp1 = 0.0;
@@ -458,42 +466,46 @@ class Variante extends Base\ModelClass
      */
     public function save()
     {
-
-                if ($this->margen1 > 0) {
-                    $newPrice = $this->coste * (100 + $this->margen1) / 100;
-                    $newMargen = $this->margen1;
-                    $this->pvp1 = \round($newPrice, DinProducto::ROUND_DECIMALS);
-                    $this->margen = $newMargen;
-                }
-                if ($this->margen2 > 0) {
-                    $newPrice = $this->coste * (100 + $this->margen2) / 100;
-                    $newMargen = $this->margen2;
-                    $this->pvp2 = \round($newPrice, DinProducto::ROUND_DECIMALS);
-                    $this->margen = $newMargen;
-                }
-                if ($this->margen3 > 0) {
-                    $newPrice = $this->coste * (100 + $this->margen3) / 100;
-                    $newMargen = $this->margen3;
-                    $this->pvp3 = \round($newPrice, DinProducto::ROUND_DECIMALS);
-                    $this->margen = $newMargen;
-                }
-                if ($this->margen4 > 0) {
-                    $newPrice = $this->coste * (100 + $this->margen4) / 100;
-                    $newMargen = $this->margen4;
-                    $this->pvp4 = \round($newPrice, DinProducto::ROUND_DECIMALS);
-                    $this->margen = $newMargen;
-                }
-                if ($this->margen5 > 0) {
-                    $newPrice = $this->coste * (100 + $this->margen5) / 100;
-                    $newMargen = $this->margen5;
-                    $this->pvp5 = \round($newPrice, DinProducto::ROUND_DECIMALS);
-                    $this->margen = $newMargen;
-                }
+        if ($this->margen1 > 0) {
+            $newPrice = $this->coste * (100 + $this->margen1) / 100;
+            $newMargen = $this->margen1;
+            $this->pvp1 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+            $this->margen = $newMargen;
+            $this->precio = $this->pvp1;
+        }
+        if ($this->margen2 > 0) {
+            $newPrice = $this->coste * (100 + $this->margen2) / 100;
+            $newMargen = $this->margen2;
+            $this->pvp2 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+            $this->margen = $newMargen;
+            $this->precio = $this->pvp2;
+        }
+        if ($this->margen3 > 0) {
+            $newPrice = $this->coste * (100 + $this->margen3) / 100;
+            $newMargen = $this->margen3;
+            $this->pvp3 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+            $this->margen = $newMargen;
+            $this->precio = $this->pvp3;
+        }
+        if ($this->margen4 > 0) {
+            $newPrice = $this->coste * (100 + $this->margen4) / 100;
+            $newMargen = $this->margen4;
+            $this->pvp4 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+            $this->margen = $newMargen;
+            $this->precio = $this->pvp4;
+        }
+        if ($this->margen5 > 0) {
+            $newPrice = $this->coste * (100 + $this->margen5) / 100;
+            $newMargen = $this->margen5;
+            $this->pvp5 = \round($newPrice, DinProducto::ROUND_DECIMALS);
+            $this->margen = $newMargen;
+            $this->precio = $this->pvp5;
+        }
         
-                if (parent::save()) {
-                    $this->getProducto()->update();
-                    return true;
-                }
+        if (parent::save()) {
+            $this->getProducto()->update();
+            return true;
+        }
         
         return false;
 

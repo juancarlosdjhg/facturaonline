@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <column name="idcategory" display="none" order="100">
+            <widget type="text" fieldname="idcategory"/>
+        </column>
+        <column name="namecategory" order="110">
+            <widget type="textarea" fieldname="namecategory"/>
+        </column>
+    </columns>
+</view>

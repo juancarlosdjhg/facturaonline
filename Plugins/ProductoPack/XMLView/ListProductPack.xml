@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of ProductoPack plugin for FacturaScripts.
+ * FacturaScripts  Copyright (C) 2019 Carlos Garcia Gomez <carlos@facturascripts.com>
+ * ProductoPack    Copyright (C) 2019 Jose Antonio Cuello Principal <yopli2000@gmail.com>
+ *
+ * This program and its files are under the terms of the license specified in the LICENSE file.
+-->
+<view>
+    <columns>
+        <column name="code" display="none" order="100">
+            <widget type="text" fieldname="id" />
+        </column>
+        <column name="product" display="none" order="110">
+            <widget type="text" fieldname="idproduct" />
+        </column>
+        <column name="reference" order="120">
+            <widget type="text" fieldname="reference" />
+        </column>
+        <column name="attribute-value-1" order="130">
+            <widget type="text" fieldname="nameattribute1" />
+        </column>
+        <column name="attribute-value-2" order="140">
+            <widget type="text" fieldname="nameattribute2" />
+        </column>
+        <column name="description" order="150">
+            <widget type="text" fieldname="name" />
+        </column>
+        <column name="items" display="right" order="160">
+            <widget type="number" decimal="0" fieldname="items" />
+        </column>
+        <column name="priceitems" display="right" order="170">
+            <widget type="money" fieldname="priceitems" />
+        </column>
+        <column name="price" display="right" order="180">
+            <widget type="money" fieldname="price" />
+        </column>
+    </columns>
+</view>

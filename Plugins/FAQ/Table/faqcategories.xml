@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table>
+    <column>
+        <name>idcategory</name>
+        <type>serial</type> //entero autonumérico
+        <null>NO</null>
+    </column>
+    <column>
+        <name>namecategory</name>
+        <type>character varying(100)</type>
+    </column>
+    <constraint>
+        <name>faqcategories_pkey</name>
+        <type>PRIMARY KEY (idcategory)</type>
+    </constraint>
+</table>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) ATHOS TRADER SL <info@athosonline.com>
+-->
+<table>
+    <column>
+        <name>fromname</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idemail</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>email</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>emailcc</name>
+        <type>character varying(500)</type>
+    </column>
+    <column>
+        <name>emailbcc</name>
+        <type>character varying(500)</type>
+    </column>
+    <column>
+        <name>password</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>signature</name>
+        <type>character varying(4000)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>user</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>host</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>port</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>enc</name>
+        <type>character varying(100)</type>
+    </column>
+    <column>
+        <name>mailer</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>authtype</name>
+        <type>character varying(100)</type>
+        <null>YES</null>
+    </column>
+    <column>
+        <name>lowsecure</name>
+        <type>integer</type>
+    </column>
+    <column>
+        <name>emaildefault</name>
+        <type>integer</type>
+    </column>
+    <constraint>
+        <name>emails_pkey</name>
+        <type>PRIMARY KEY (idemail)</type>
+    </constraint>
+    <constraint>
+        <name>uniq_emails</name>
+        <type>UNIQUE (email)</type>
+    </constraint>
+</table>

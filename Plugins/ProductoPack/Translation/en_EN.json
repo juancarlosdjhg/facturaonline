@@ -1,0 +1,11 @@
+{
+    "error-quantity-non-zero": "The quantity cannot be zero",
+    "error-reference-exists": "The reference already exists in the pack",
+    "error-same-reference-parent": "Cannot include pack reference",
+    "item": "Item",
+    "items": "Items",
+    "pack": "Pack",
+    "packs": "Packs",
+    "priceitems": "P. Items",
+    "required": "Required"
+}

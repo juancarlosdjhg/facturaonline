@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : serviciosat_estados.xml
+    Description:
+        Estructura de la tabla serviciosat_estados.
+-->
+<table>
+    <column>
+        <name>editable</name>
+        <type>boolean</type>
+    </column>
+    <column>
+        <name>id</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>nombre</name>
+        <type>character varying(50)</type>
+    </column>
+    <column>
+        <name>predeterminado</name>
+        <type>boolean</type>
+    </column>
+    <constraint>
+        <name>serviciosat_estados_pkey</name>
+        <type>PRIMARY KEY (id)</type>
+    </constraint>
+</table>

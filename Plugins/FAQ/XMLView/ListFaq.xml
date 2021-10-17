@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view>
+    <columns>
+        <column name="idfaq" display="none" order="100">
+            <widget type="text" fieldname="idfaq"/>
+        </column>
+        <column name="creationdate" order="110">
+            <widget type="date" fieldname="creationdate"/>
+        </column>
+        <column name="idcategory" order="120">
+            <widget type="autocomplete" fieldname="idcategory" onclick="EditFaqcategory">
+                <values source="faqcategories" fieldcode="idcategory" fieldtitle="namecategory"></values>
+            </widget>
+        </column>
+        <column name="symptom" order="130">
+            <widget type="textarea" fieldname="symptom"/>
+        </column>
+        <column name="cause" order="140">
+            <widget type="textarea" fieldname="cause"/>
+        </column>
+        <column name="solution" order="150">
+            <widget type="textarea" fieldname="solution"/>
+        </column>
+        <column name="comments" order="160">
+            <widget type="textarea" fieldname="comments"/>
+        </column>
+    </columns>
+</view>

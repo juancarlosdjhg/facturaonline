@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    This file is part of ProductoPack plugin for FacturaScripts.
+    Copyright (C) 2019 Jose Antonio Cuello Principal <yopli2000@gmail.com>
+
+    Document   : productopack_pack.xml
+    Author     : Jose Antonio Cuello Principal
+    Description:
+        Structure for the product pack table.
+-->
+
+<table>
+    <column>
+        <name>id</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idproduct</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>name</name>
+        <type>character varying(100)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>reference</name>
+        <type>character varying(30)</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>productopack_pkey</name>
+        <type>PRIMARY KEY (id)</type>
+    </constraint>
+    <constraint>
+        <name>ca_productopack_product</name>
+        <type>FOREIGN KEY (idproduct) REFERENCES productos (idproducto) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>ca_productopack_variantes</name>
+        <type>FOREIGN KEY (reference) REFERENCES variantes (referencia) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>uniq_productopack_reference</name>
+        <type>UNIQUE (reference)</type>
+    </constraint>
+</table>

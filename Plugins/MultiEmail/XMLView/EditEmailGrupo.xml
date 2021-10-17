@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) ATHOS TRADER SL <info@athosonline.com>
+-->
+<view>
+    <columns>
+        <column name="code" display="none">
+            <widget type="number" fieldname="idemailgrupo" />
+        </column>
+        <column name="email" display="none">
+            <widget type="number" fieldname="idemail" />
+        </column>
+        <column name="role">
+            <widget type="select" fieldname="codrole" required="true">
+                <values source="roles" fieldcode="codrole" fieldtitle="descripcion" />
+            </widget>
+        </column>
+    </columns>
+</view>

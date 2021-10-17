@@ -1,0 +1,19 @@
+{
+    "burn-project-stock": "Queimar stock",
+    "calendar": "Calendario",
+    "canceled": "Cancelado",
+    "completed": "Completado",
+    "phase": "Fase",
+    "phases": "Fases",
+    "private": "Privado",
+    "processing": "Procesando",
+    "project": "Proxecto",
+    "project-stock-rebuild-error": "Erro ao rexenerar o stock",
+    "project-stock-rebuild-ok": "Stock rexenerado correctamente",
+    "projects": "Proxectos",
+    "show-project-stock": "Mostrar o stock do proxecto.",
+    "task": "Tarefa",
+    "tasks": "Tarefas",
+    "total-purchases": "Total compras",
+    "total-sales": "Total vendas"
+}

@@ -1,0 +1,11 @@
+{
+    "error-quantity-non-zero": "La quantitat no pot ser zero",
+    "error-reference-exists": "Ja hi ha la referència en el pack",
+    "error-same-reference-parent": "No es pot incloure la referència de l'pack",
+    "item": "Item",
+    "items": "Items",
+    "pack": "Pack",
+    "packs": "Packs",
+    "priceitems": "P. Items",
+    "required": "Obligatori"
+}

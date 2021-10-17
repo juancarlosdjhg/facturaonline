@@ -1,0 +1,11 @@
+{
+    "email-send": "Email de envío",
+    "email-send-desc": "Este es el email que se usará cuando se envien correos electrónicos desde la aplicación.",
+    "email-send-role": "Este es el email de la empresa que se usará cuando se envien correos electrónicos desde la aplicación para este grupo.",
+    "emails": "Emails",
+    "email-role-exist": "Ya existe un email de la misma empresa asociado a este grupo.",
+    "email-default": "Usar este email por defecto",
+    "from": "Desde",
+    "email-replies-to": "Las respuestas a este email irán a quien mande el email.",
+    "fromname": "Este nombre será visible por el destinatario."
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) ATHOS TRADER SL <info@athosonline.com>
+-->
+<table>
+    <column>
+        <name>idemailempresa</name>
+        <type>serial</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idempresa</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>idemail</name>
+        <type>integer</type>
+        <null>NO</null>
+    </column>
+    <constraint>
+        <name>email_empresas_pkey</name>
+        <type>PRIMARY KEY (idemailempresa)</type>
+    </constraint>
+    <constraint>
+        <name>uniq_emails_empresas</name>
+        <type>UNIQUE (idempresa, idemail)</type>
+    </constraint>
+    <constraint>
+        <name>ca_emails_empresas_empresas</name>
+        <type>FOREIGN KEY (idempresa) REFERENCES empresas (idempresa) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+    <constraint>
+        <name>ca_emails_empresas_emails</name>
+        <type>FOREIGN KEY (idemail) REFERENCES emails (idemail) ON DELETE RESTRICT ON UPDATE CASCADE</type>
+    </constraint>
+</table>
