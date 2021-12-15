@@ -50,6 +50,7 @@ class ListAlbaranCliente extends ListBusinessDocument
     protected function createViews()
     {
         $this->createViewSales('ListAlbaranCliente', 'AlbaranCliente', 'delivery-notes');
+        $this->setSettings('ListAlbaranCliente', 'btnDelete', false);
         $this->addButtonGroupDocument('ListAlbaranCliente');
         $this->addButtonApproveDocument('ListAlbaranCliente');
 

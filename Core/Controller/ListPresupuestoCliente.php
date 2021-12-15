@@ -55,6 +55,7 @@ class ListPresupuestoCliente extends ListBusinessDocument
         /// main view/tab
         $mainViewName = 'ListPresupuestoCliente';
         $this->createViewSales($mainViewName, 'PresupuestoCliente', 'estimations');
+        $this->setSettings($mainViewName, 'btnDelete', false);
         $this->views[$mainViewName]->addOrderBy(['finoferta'], 'expiration');
         $this->addButtonGroupDocument($mainViewName);
         $this->addButtonApproveDocument($mainViewName);

@@ -64,6 +64,7 @@ class ListFacturaCliente extends ListBusinessDocument
     protected function createViewSales(string $viewName, $modelName, $label)
     {
         parent::createViewSales($viewName, $modelName, $label);
+        $this->setSettings($viewName, 'btnDelete', false);
         $this->addFilterCheckbox('ListFacturaCliente', 'pagada', 'unpaid', 'pagada', '=', false);
         $this->addFilterCheckbox('ListFacturaCliente', 'idasiento', 'invoice-without-acc-entry', 'idasiento', 'IS', null);
         $this->addButtonLockInvoice('ListFacturaCliente');
@@ -76,6 +77,7 @@ class ListFacturaCliente extends ListBusinessDocument
     protected function createViewReceipts(string $viewName = 'ListReciboCliente')
     {
         $this->addView($viewName, 'ReciboCliente', 'receipts', 'fas fa-dollar-sign');
+        $this->setSettings($viewName, 'btnDelete', false);
         $this->addOrderBy($viewName, ['fecha', 'idrecibo'], 'date', 2);
         $this->addOrderBy($viewName, ['fechapago'], 'payment-date');
         $this->addOrderBy($viewName, ['vencimiento'], 'expiration');

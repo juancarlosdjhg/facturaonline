@@ -51,6 +51,7 @@ class ListPedidoCliente extends ListBusinessDocument
     protected function createViews()
     {
         $this->createViewSales('ListPedidoCliente', 'PedidoCliente', 'orders');
+        $this->setSettings('ListPedidoCliente', 'btnDelete', false);
         $this->addButtonGroupDocument('ListPedidoCliente');
         $this->addButtonApproveDocument('ListPedidoCliente');
 
