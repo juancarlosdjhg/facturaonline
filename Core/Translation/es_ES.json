@@ -912,12 +912,6 @@
     "purchased-quantity": "Cant. comprada",
     "purchases": "Compras",
     "purchases-subaccount-not-found": "Subcuenta de compras no encontrada",
-    "pvp": "PVP",
-    "pvp1": "PVP1",
-    "pvp2": "PVP2",
-    "pvp3": "PVP3",
-    "pvp4": "PVP4",
-    "pvp5": "PVP5",
     "pvp-total": "Precio total",
     "pvp-unit": "Precio minorista unitario",
     "pvpsindto-line-error": "Error en el valor de 'pvpsindto' de la línea %reference% del documento. Valor correcto: %totalWithoutDiscount%",
@@ -1268,7 +1262,6 @@
     "quantity-abb": "Cant.",
     "show-customer-code": "Mostrar código de cliente",
     "show-customer-phones": "Mostrar teléfonos del cliente",
-    "show-numero2": "Mostrar número de Pedido externo",
     "tax-abb": "Imp.",
     "texts": "Textos",
     "thanks-text": "Texto agradecimiento",
@@ -1276,5 +1269,6 @@
     "title-font-size": "Tamaño fuente título",
     "top-margin": "Margen superior",
     "po-number": "PO Number",
-    "due-date": "Due date"
+    "due-date": "Due date",
+    "price-list-sales-restriction": "Restringir la facturación vinculada a lista de precios"
 }

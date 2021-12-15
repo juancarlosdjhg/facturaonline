@@ -127,6 +127,11 @@
                 </widget>
             </column>
         </group>
+        <group name="price-list-sales-restriction" numcolumns="4">
+            <column name="price-list-sales-restriction" title="price-list-sales-restriction" order="230">
+                <widget type="checkbox" fieldname="restriccionventalistadeprecios" />
+            </column>
+        </group>
         <group name="notes" numcolumns="9">
             <column name="observations" order="100">
                 <widget type="textarea" fieldname="observaciones" rows="5" />

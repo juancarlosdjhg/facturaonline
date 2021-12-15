@@ -136,6 +136,11 @@
         <type>double precision</type>
         <default>0</default>
     </column>
+    <column>
+        <name>restriccionventalistadeprecios</name>
+        <type>boolean</type>
+        <default>false</default>
+    </column>
     <constraint>
         <name>clientes_pkey</name>
         <type>PRIMARY KEY (codcliente)</type>
