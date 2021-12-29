@@ -350,13 +350,17 @@ class ExportManager
 
     /**
      * Initialize options array
+     * 
+     * 
+     * HERE LAYS THE PDF IN ENGLISH OPTIONS
+     * FOR EXPORT MANAGER
+     * 'PDFEnglish' => ['description' => 'print-english', 'icon' => 'fas fa-print'],
      */
     protected static function init()
     {
         if (empty(static::$options)) {
             static::$options = [
                 'PDF' => ['description' => 'print', 'icon' => 'fas fa-print'],
-                'PDFEnglish' => ['description' => 'print-english', 'icon' => 'fas fa-print'],
                 'XLS' => ['description' => 'spreadsheet-xls', 'icon' => 'fas fa-file-excel'],
                 'CSV' => ['description' => 'structured-data-csv', 'icon' => 'fas fa-file-csv'],
                 'MAIL' => ['description' => 'email', 'icon' => 'fas fa-envelope']
