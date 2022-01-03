@@ -13,6 +13,12 @@
                     <values source="productos" fieldcode="referencia" fieldtitle="descripcion" />
                 </widget>
             </column>
+            <column name="description" order="115">
+                <widget type="text" fieldname="descripcionproducto" readonly="true" required="true" />
+            </column>
+            <column name="cost-price" order="115">
+                <widget type="text" fieldname="coste" readonly="true" required="true" />
+            </column>
             <column name="pvp" order="120" required="true">
                 <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-euro-sign fa-fw" required="true" />
             </column>
