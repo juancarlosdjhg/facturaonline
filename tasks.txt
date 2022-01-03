@@ -1,9 +1,29 @@
+Done:
+Setup:
+///Verificar logo de distribuidorags, se reemplazó por el default por alguna razón
+Ventas->Facturas:
+///Campo 'Referencia' poder buscar un producto usando el código externo del cliente cargado en el documento.
+Ventas->Todos->Export:
+///Cambiar ExportManager y ExportBase a la nueva clase newDoc(string $title, int $idformat, string $langcode)
+SalesDocuments:
+///Exportar a XLS - exportar los mismos campos que se ven en la pantalla.
+PlantillasPDF:
 ///Teléfonos en cabecera: por favor quitar los 2 números, con el correo basta
 ///En la versión inglés: sustituir la palabra CIF  POR VAT number / VAT nº
-Ver posibilidad de poner los países en inglés
+///Mostrar descripcion del documento
+x//Mostrar número de línea, primer campo
+///Cambiar "expiration date" por "Due date".
+Informe de CyV:
+///Mostrar solo documentos en estado COMPLETADO
+x//Ver posibilidad de poner los países en inglés
+CustomerPriceList:
+///Funcionalidad para restringir opcionalmente (ckechbox) facturar los productos de la lista de precios que no estén en un estado/rango válido.
 
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+
+Still to do:
 Informe de Compras y Ventas:
-    /// Mostrar solo documentos en estado COMPLETADO
 	(Consultar) Añadir mas filtros a la pantalla y a la query
 
 Documentos de venta:
