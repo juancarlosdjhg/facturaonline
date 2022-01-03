@@ -1,57 +1,39 @@
-Pantalla Almacén->Productos:
-- Añadir campo 'description' para descripción en ingles. 
-- Añadir los campos 'PVPs', incluyendo campos de calculos de % de margenes. (Pvp1-5, %M.Obj, %M.Act, PvpEst)
-- Quitar submenú 'Variantes', incluír campos (Referencia, Cod.Barras, Precio de coste, Stock) en submenú 'Producto'.
-- Añadir submenús de movimientos de documentos Compras y Ventas (Presupuestos y Facturas).
-- Añadir checkbox para habilitar 'Trazabilidad' al producto.
-- Añadir submenú de Trazabilidad 
-    - CRUD para lotes 
-    - Asociar los productos a un lote.
+///Teléfonos en cabecera: por favor quitar los 2 números, con el correo basta
+///En la versión inglés: sustituir la palabra CIF  POR VAT number / VAT nº
+Ver posibilidad de poner los países en inglés
 
-Pantalla Ventas->Clientes:
-- Grupos de clientes con el mismo CIF (--analizar).
-- Añadir parámetro 'Pvp por defecto', relacionado a los PVPs de los artículos.
-- Añadir nuevo campo en la tabla Clientes '% descuento por defecto', cargar este descuento en el campo 'Descuento global' en la pantalla de Ventas->Presupuestos, arrastrar a ->Albarán->Factura.
-- Añadir lista de precios personalizada por cliente.
-    - Añadir artículos con precio personalizado
-    - Copiar lista de precios de un cliente a otro
-    - Añadir campo 'Código externo' a productos en la lista.
+Informe de Compras y Ventas:
+    /// Mostrar solo documentos en estado COMPLETADO
+	(Consultar) Añadir mas filtros a la pantalla y a la query
 
-Pantalla Ventas->Presupuestos:
-- Mostrar 'Precio de coste' de los productos que se cargan.
-- Calcular 'Margen de ganancia' a los artículos cargados (PrecioCoste - Pvp), margen editable y vinculado al total del Presupuesto.
-- Añadir un desplegable 'Proveedor a Comprar' para seleccionar el proveedor por cada línea.
-- Añadir Checkbox de control 'Pedir' para saber si el producto está Ok o Pedir.
-- Añadir campo 'Número de Pedido Externo' en la cabecera del Presupuesto.
-- Añadir campo 'Fecha de Entrega - timestamp' en la cabecera del Presupuesto.
-- Imprimir el Presupuesto en Español / Inglés
-- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+Documentos de venta:
+	- Corregir el error al sobreescribir una línea del documento:
+        Al modificar la referencia de una línea ya cargada (buscar otro producto en la misma línea) no se carga ni se cambia el producto.
 
-NUEVA Pantalla Ventas->Mis Pedidos (PedidosPorCliente):
-- Añadir esta pantalla para que los Clientes puedan hacer pedidos y consultar sus pedidos realizados directamente en Factura Online. (--analizar)
+Factura de venta:
+	Imprimir un borrador de la factura en ingles y en español.
+	Al imprimir una factura (ingles o español) se pase la factura a estado Completada.
+	O al enviar una factura por EMAIL se pase la factura a estado Completada.
 
-NUEVA Pantalla Ventas->Mis Facturas(FacturasPorCliente):
-- Añadir esta pantalla para que los Clientes puedan visualizar todas las facturas a su nombre directamente en Factura Online. (--analizar)
+Facturas:
+	Poder imprimir facturas de multiples albaranes sin detalle de productos (solo información de albaranes)
 
-Pantalla Ventas->Pedidos:
-- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+(Task) Ventas -> Clientes -> Lista de precios
++	- Pasar a estado Caducado los rangos con fechafin > hoy.
+	- Mostrar nombre de producto.
+	- Mostrar coste de producto.
+	- Cuando se carga el mismo producto se debe mostrar el codigo externo ya existente
+	- Funcionalidad para copiar lista de precios de un cliente a otro sin copiar el campo codigoexterno.
+	- Poder cargar por lotes los codigos externos de los productos para un cliente. (Convertir en tabla handsontable o importar csv con datos.)
 
-Pantalla Ventas->Presupuestos:
-- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+(Task) Ventas -> Presupuestos/Pedidos/Albaranes/Facturas
+	- Transformar el campo 'Proveedor' a un campo autocomplete o select, que muestre los proveedores que venden el producto cargado en la línea.
 
-Pantalla Ventas->Albaranes:
-- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
+(Task) Informes -> Crear plantillas acorde a las que están en el correo.
++	- Cost & Sales como opcional en el desplegable
 
-Pantalla Ventas->Facturas:
-- Al cargar un cliente que posea una lista personalizada de precios se debe usar el PVP de cada artículo de esa lista si se carga dicho artículo en las líneas del documento.
-- Imprimir el Documento en Español / Inglés
-
-Pantalla Compras->Pedido:
-- Poder cargar pedidos asociados al proveedor seleccionado (Selección múltiple para poder seleccionar uno o varios presupuestos APROBADOS donde esté incluído el Proveedor cargado en las líneas de presupuesto).
-
-Informes:
-- Presupuestos 
-- Albaranes 
-- Facturas de Ventas
-- Ventas por Cliente / Grupo de Clientes
-- Facturas de Compras
+(Task) Almacén -> Trazabilidad
+	- Pasar a estado Caducado los lotes con fechavencimiento > hoy.
+	- Funcionalidad para asociar los lotes al stock
+	- Funcionalidad para facturar los productos de lotes válidos en función del stock, el lote, la partida o la fecha de vencimiento.
+    
