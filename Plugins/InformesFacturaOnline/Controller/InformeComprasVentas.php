@@ -168,13 +168,13 @@ class InformeComprasVentas extends Controller
      */
     protected function getCustomersDataInvoices(): array
     {
-        if ($this->fechadesde === NULL) {
-            $sql = "Select * From Facturascli Where False ";
+        if ($this->fechadesde === null) {
+            $sql = "select * from facturascli where false ";
         }
         
         else {
             $sql = 
-                "Select 
+                "select 
                     f.codigo,
                     f.codcliente,
                     f.codserie,
@@ -186,36 +186,36 @@ class InformeComprasVentas extends Controller
                     f.totaliva,
                     f.totalirpf,
                     f.total
-                From 
-                    Facturascli F
-                Inner Join
-                    Estados_Documentos ED On F.IdEstado = ED.IdEstado
-                Inner Join
-                    Clientes C On F.CodCliente = C.CodCliente
-                Where
-                    Lower(ED.Nombre) like '%completad%' " ;
+                from 
+                    facturascli f
+                inner join
+                    estados_documentos ed on f.idestado = ed.idestado
+                inner join
+                    clientes c on f.codcliente = c.codcliente
+                where
+                    lower(ed.nombre) like '%completad%' " ;
 
             if (!empty($this->fechadesde)) {
-                $sql .= " And ( fecha between '" . $this->fechadesde . "' And '" . $this->fechahasta . "') ";
+                $sql .= " and ( fecha between '" . $this->fechadesde . "' and '" . $this->fechahasta . "') ";
             }
 
             if (!empty($this->serie) ) {
-                $sql .= " And Upper(codserie) like Upper('" . $this->serie . "') ";
+                $sql .= " and upper(codserie) like upper('" . $this->serie . "') ";
             }
 
             if (!empty($this->divisa) ) {
-                $sql .= " And Upper(coddivisa) like Upper('" . $this->divisa . "') ";            
+                $sql .= " and upper(coddivisa) like upper('" . $this->divisa . "') ";            
             }
 
             if (!empty($this->estado) ) {
-                $sql .= " And Upper(estado) like Upper('" . $this->estado . "') ";            
+                $sql .= " and upper(estado) like upper('" . $this->estado . "') ";            
             }
 
             if (!empty($this->cliente) ) {
-                $sql .= " And ( Upper(c.cifnif) like Upper('%" . $this->cliente . "%') OR Upper(nombrecliente) like Upper('%" . $this->cliente . "%') OR UPPER(direccion) like UPPER('%" . $this->cliente . "%') OR UPPER(c.nombre) like UPPER('%" . $this->cliente . "%') OR UPPER(c.razonsocial) like UPPER('%" . $this->cliente . "%') ) ";
+                $sql .= " and ( upper(c.cifnif) like upper('%" . $this->cliente . "%') or upper(nombrecliente) like upper('%" . $this->cliente . "%') or upper(direccion) like upper('%" . $this->cliente . "%') or upper(c.nombre) like upper('%" . $this->cliente . "%') or upper(c.razonsocial) like upper('%" . $this->cliente . "%') ) ";
             }
 
-            $sql .= " ORDER BY codigo;";
+            $sql .= " order by codigo;";
         }
 
         //print($sql);
@@ -253,13 +253,13 @@ class InformeComprasVentas extends Controller
      */
     protected function getSuppliersDataInvoices(): array
     {
-        if ($this->fechadesde === NULL) {
-            $sql = "Select * From Facturasprov Where False ";
+        if ($this->fechadesde === null) {
+            $sql = "select * from facturasprov where false ";
         }
         
         else {
             $sql = 
-                "Select 
+                "select 
                     f.codproveedor,
                     f.codserie,
                     f.codigo,
@@ -271,36 +271,36 @@ class InformeComprasVentas extends Controller
                     f.totaliva,
                     f.totalirpf,
                     f.total
-                From 
-                    FacturasProv F
-                Inner Join
-                    Estados_Documentos ED On F.IdEstado = ED.IdEstado
-                Inner Join
-                    Proveedores P On P.CodProveedor = F.CodProveedor
-                Where
-                    Lower(ED.Nombre) like '%completad%' " ;
+                from 
+                    facturasprov f
+                inner join
+                    estados_documentos ed on f.idestado = ed.idestado
+                inner join
+                    proveedores p on p.codproveedor = f.codproveedor
+                where
+                    lower(ed.nombre) like '%completad%' " ;
 
             if (!empty($this->fechadesde) ) {
-                $sql .= " And ( fecha between '" . $this->fechadesde . "' And '" . $this->fechahasta . "') ";
+                $sql .= " and ( fecha between '" . $this->fechadesde . "' and '" . $this->fechahasta . "') ";
             }
 
             if (!empty($this->serie) ) {
-                $sql .= " And Upper(codserie) like Upper('" . $this->serie . "') ";
+                $sql .= " and upper(codserie) like upper('" . $this->serie . "') ";
             }
 
             if (!empty($this->divisa) ) {
-                $sql .= " And Upper(coddivisa) like Upper('" . $this->divisa . "') ";            
+                $sql .= " and upper(coddivisa) like upper('" . $this->divisa . "') ";            
             }
 
             if (!empty($this->estado) ) {
-                $sql .= " And Upper(estado) like Upper('" . $this->estado . "') ";            
+                $sql .= " and upper(estado) like upper('" . $this->estado . "') ";            
             }
 
             if (!empty($this->proveedor) ) {
-                $sql .= " And ( Upper(p.cifnif) like Upper('%" . $this->proveedor . "%') OR Upper(p.nombre) like Upper('%" . $this->proveedor . "%') OR UPPER(f.observaciones) like UPPER('%" . $this->proveedor . "%') OR UPPER(p.nombre) like UPPER('%" . $this->proveedor . "%') OR UPPER(p.razonsocial) like UPPER('%" . $this->proveedor . "%') ) ";
+                $sql .= " and ( upper(p.cifnif) like upper('%" . $this->proveedor . "%') or upper(p.nombre) like upper('%" . $this->proveedor . "%') or upper(f.observaciones) like upper('%" . $this->proveedor . "%') or upper(p.nombre) like upper('%" . $this->proveedor . "%') or upper(p.razonsocial) like upper('%" . $this->proveedor . "%') ) ";
             }
 
-            $sql .= " ORDER BY codigo;";
+            $sql .= " order by codigo;";
         }
 
         $items = [];
