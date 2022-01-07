@@ -1,26 +1,10 @@
-Done:
-Setup:
-///Verificar logo de distribuidorags, se reemplazó por el default por alguna razón
-Ventas->Facturas:
-///Campo 'Referencia' poder buscar un producto usando el código externo del cliente cargado en el documento.
-Ventas->Todos->Export:
-///Cambiar ExportManager y ExportBase a la nueva clase newDoc(string $title, int $idformat, string $langcode)
-SalesDocuments:
-///Exportar a XLS - exportar los mismos campos que se ven en la pantalla.
-PlantillasPDF:
-///Teléfonos en cabecera: por favor quitar los 2 números, con el correo basta
-///En la versión inglés: sustituir la palabra CIF  POR VAT number / VAT nº
-///Mostrar descripcion del documento
-x//Mostrar número de línea, primer campo
-///Cambiar "expiration date" por "Due date".
-Informe de CyV:
-///Mostrar solo documentos en estado COMPLETADO
-x//Ver posibilidad de poner los países en inglés
-CustomerPriceList:
-///Funcionalidad para restringir opcionalmente (ckechbox) facturar los productos de la lista de precios que no estén en un estado/rango válido.
+NEW
+Documentos de ventas:
+- Añadir nuevo campo: "% Descuento Adicional".
+- Vincular ese nuevo campo a los campos ya existentes ("% Desc.", "% Margen" y "Neto" a nivel de línea)
 
------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------
+PlantillasPDF:
+- Traducir CIF/NIF por VAT Nº en Customer (Plantilla en inglés)
 
 Still to do:
 Informe de Compras y Ventas:
@@ -57,3 +41,5 @@ Facturas:
 	- Funcionalidad para asociar los lotes al stock
 	- Funcionalidad para facturar los productos de lotes válidos en función del stock, el lote, la partida o la fecha de vencimiento.
     
+
+
