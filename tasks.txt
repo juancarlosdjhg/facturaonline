@@ -1,14 +1,18 @@
+Done:
+PlantillasPDF:
+- Traducir CIF/NIF por VAT Nº en Customer (Plantilla en inglés)
+
+Informe de Compras y Ventas:
+	(Consultar) Añadir mas filtros a la pantalla y a la query
+
+----------------------------------------
+
+Still to do:
+
 NEW
 Documentos de ventas:
 - Añadir nuevo campo: "% Descuento Adicional".
 - Vincular ese nuevo campo a los campos ya existentes ("% Desc.", "% Margen" y "Neto" a nivel de línea)
-
-PlantillasPDF:
-- Traducir CIF/NIF por VAT Nº en Customer (Plantilla en inglés)
-
-Still to do:
-Informe de Compras y Ventas:
-	(Consultar) Añadir mas filtros a la pantalla y a la query
 
 Documentos de venta:
 	- Corregir el error al sobreescribir una línea del documento:
@@ -41,6 +45,3 @@ Facturas:
 	- Pasar a estado Caducado los lotes con fechavencimiento > hoy.
 	- Funcionalidad para asociar los lotes al stock
 	- Funcionalidad para facturar los productos de lotes válidos en función del stock, el lote, la partida o la fecha de vencimiento.
-    
-
-
