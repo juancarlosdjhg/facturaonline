@@ -375,11 +375,13 @@ abstract class SalesDocument extends TransformerDocument
                     
             $newLine->recargo = $product->getTax()->recargo;
             $newLine->referencia = $variant->referencia;
-            $newLine->coste = (float) $variant->coste;
-
+            
             /// allow extensions
             $this->pipe('getNewProductLine', $newLine, $variant, $product);
-        } }
+            } 
+        }
+        
+        $newLine->coste = (float) $variant->coste;
         return $newLine;
     }
 
