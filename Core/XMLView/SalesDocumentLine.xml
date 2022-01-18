@@ -58,8 +58,13 @@
         <column name="percentage-discount" display="right" order="170">
             <widget type="number" fieldname="dtopor"/>
         </column>
-        <column name="dto-2" display="none" order="180">
-            <widget type="number" fieldname="dtopor2"/>
+        <column name="additional-discount" display="right" order="180">
+            <widget type="number" fieldname="dtopor2">
+                <option color="warning">gte:0</option>
+            </widget>
+        </column>
+        <column name="price-with-discount" display="right" order="185" >
+            <widget type="money" fieldname="pvpcondto" class="calc-precio"/>
         </column>
         <column name="net" display="right" order="190">
             <widget type="money" fieldname="pvptotal" readonly="true"/>
