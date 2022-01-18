@@ -29,9 +29,9 @@ use Mpdf\Output\Destination;
 abstract class BaseTemplate
 {
 
-    const DEFAULT_LOGO = 'Dinamic/Assets/Images/logo-100.png';
+    const DEFAULT_LOGO = 'Core/Assets/Images/horizontal-logo.png';
     const MAX_IMAGE_FILE_SIZE = 2048000;
-    const MEGACITY20_LOGO = 'Plugins/MC20Instance/Assets/Images/logo-100.png';
+    const MEGACITY20_LOGO = 'Plugins/MC20Instance/Assets/Images/horizontal-logo.png';
 
     /**
      *
