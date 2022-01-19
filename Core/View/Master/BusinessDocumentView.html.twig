@@ -135,17 +135,6 @@
             {% endif %}
             {{ _self.customInput('doc_netosindto', 'netosindto', thisView.model.netosindto, 'text', '',
                 {class: 'form-control', disabled: ''}, i18n.trans('subtotal')) }}
-            {% if thisView.model.editable %}
-                {{ _self.customInput('doc_dtopor2', 'dtopor2', thisView.model.dtopor2, 'number', 'fas fa-percentage',
-                    {class: 'form-control', readonly: ''}, i18n.trans('customer-default-discount')) }}
-                {{ _self.customInput('doc_dtopor1', 'dtopor1', thisView.model.dtopor1, 'number', 'fas fa-percentage',
-                    {class: 'form-control'}, i18n.trans('global-dto')) }}
-            {% else %}
-                {{ _self.customInput('doc_dtopor2', 'dtopor2', thisView.model.dtopor2, 'number', 'fas fa-percentage',
-                    {class: 'form-control', disabled: ''}, i18n.trans('default-discount')) }}
-                {{ _self.customInput('doc_dtopor1', 'dtopor1', thisView.model.dtopor1, 'number', 'fas fa-percentage',
-                    {class: 'form-control', disabled: ''}, i18n.trans('global-dto')) }}
-            {% endif %}
             {{ _self.customInput('doc_neto', 'neto', thisView.model.neto, 'text', '',
                 {class: 'form-control', disabled: ''}, i18n.trans('net')) }}
             {{ _self.customInput('doc_totaliva', 'totaliva', thisView.model.totaliva, 'text', '',
