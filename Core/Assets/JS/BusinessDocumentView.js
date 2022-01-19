@@ -117,16 +117,39 @@ function businessDocViewRecalculate() {
             results.lines.forEach(function (element) {
                 var visualRow = hsTable.toVisualRow(rowPos);
                 businessDocViewLineData.rows[visualRow] = element;
+                if (businessDocViewLineData.rows[visualRow].margen <= 40) {
+                    console.log("Valor menor a 40");
+                    
+                    var countColumn = 0;
+                    var businessDocViewLineDataColumns = businessDocViewLineData.columns;
+                    businessDocViewLineDataColumns.forEach(function (element) {
+                        if ( businessDocViewLineData.columns[countColumn].data === "margen" ) {
+                            //console.log("Elemento: -->", businessDocViewLineData.columns[countColumn]);
+                            businessDocViewLineData.columns[countColumn].className = "htRight text-danger";
+                        }
+                        countColumn++;
+                    });
+                    //console.log("Cambiada la clase a letras rojas ", businessDocViewLineData.columns);
+                }
                 rowPos++;
             });
-
+            
+            console.log("Esto es hsTable: --> ", hsTable);
             hsTable.render();
-            //console.log("results", results);
         },
         error: function (xhr, status, error) {
             alert(xhr.responseText);
         }
     });
+}
+
+function negativeValueRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+  
+    if (parseInt(value, 10) < 40) {
+      td.className = 'make-me-red';
+    }
+
 }
 
 function businessDocViewRecalculateProfit() {
@@ -300,10 +323,26 @@ $(document).ready(function () {
         }
     });
 
+    hsTable.updateSettings({
+        cells:function(row, col, prop){
+            var propiedadesCeldas = {};
+            if (prop === 'margen'){
+                if (businessDocViewLineData.rows[row].margen < 40) {
+                    propiedadesCeldas.className = 'htRight htNumber text-danger';
+                }
+
+                else {
+                    propiedadesCeldas.className = 'htRight htNumber';
+                }
+            }
+            
+            return propiedadesCeldas;
+        }
+    });
+
     Handsontable.hooks.add("beforeChange", beforeChange);
     //Handsontable.hooks.add("afterChange", businessDocViewRecalculateProfit);
     //Handsontable.hooks.add("afterChange", businessDocViewRecalculate);
-
 
     $("#mainTabs li:first-child a").on('shown.bs.tab', function (e) {
         hsTable.render();
