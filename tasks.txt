@@ -1,19 +1,12 @@
 Done:
-PlantillasPDF:
-- Traducir CIF/NIF por VAT Nº en Customer (Plantilla en inglés)
-
-Informe de Compras y Ventas:
-	(Consultar) Añadir mas filtros a la pantalla y a la query
-
-----------------------------------------
-
-Still to do:
-
-NEW
 Documentos de ventas:
 - Añadir nuevo campo: "% Descuento Adicional".
 - Vincular ese nuevo campo a los campos ya existentes ("% Desc.", "% Margen" y "Neto" a nivel de línea)
+- Nueva versión con descuento adicional para Makao.
 
+
+------------------------------
+Still to do:
 Documentos de venta:
 	- Corregir el error al sobreescribir una línea del documento:
         Al modificar la referencia de una línea ya cargada (buscar otro producto en la misma línea) no se carga ni se cambia el producto.
@@ -24,7 +17,8 @@ Factura de venta:
 	O al enviar una factura por EMAIL se pase la factura a estado Completada.
 
 Facturas:
-	Poder imprimir facturas de multiples albaranes sin detalle de productos (solo información de albaranes)
+	Nuevo informe de facturas de multiples albaranes sin detalle de productos (solo información de albaranes)
+	Nuevo informe de beneficios por factura (ver email)
 
 (Task) Ventas -> Clientes -> Lista de precios
 +	- Pasar a estado Caducado los rangos con fechafin > hoy.
@@ -42,6 +36,6 @@ Facturas:
 +	- Cost & Sales como opcional en el desplegable
 
 (Task) Almacén -> Trazabilidad
-	- Pasar a estado Caducado los lotes con fechavencimiento > hoy.
++	- Pasar a estado Caducado los lotes con fechavencimiento > hoy.
 	- Funcionalidad para asociar los lotes al stock
 	- Funcionalidad para facturar los productos de lotes válidos en función del stock, el lote, la partida o la fecha de vencimiento.
