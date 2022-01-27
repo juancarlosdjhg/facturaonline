@@ -24,9 +24,9 @@ Facturas:
 
 (Task) Ventas -> Clientes -> Lista de precios
 +	- Pasar a estado Caducado los rangos con fechafin > hoy.
-	- Mostrar nombre de producto.
-	- Mostrar coste de producto.
-	- Cuando se carga el mismo producto se debe mostrar el codigo externo ya existente 
++	- Mostrar nombre de producto.
++	- Mostrar coste de producto.
++	- Cuando se carga el mismo producto se debe mostrar el codigo externo ya existente 
 		(Los campos que se muestran en pantalla deben ser Referencia(idproducto), Descripción(DescripcionProducto), Coste(Coste), Código Externo(CodigoExterno) )
 	- Funcionalidad para copiar lista de precios de un cliente a otro sin copiar el campo codigoexterno.
 	- Poder cargar por lotes los codigos externos de los productos para un cliente. (Convertir en tabla handsontable o importar csv con datos.)
