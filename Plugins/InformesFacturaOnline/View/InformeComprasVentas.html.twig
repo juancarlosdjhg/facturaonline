@@ -62,20 +62,42 @@
                         </select>
                     </div>
                 </div>
-                <!--
                 <div class="col-sm-3">
                     <div class="form-group">
                         {{ i18n.trans('status') }}
                         <select name="estado" class="form-control">
-                            <option value="">Todos</option>
-                            <option value="Nuevo">Nuevo</option>
-                            <option value="Completado">Completado</option>
-                            <option value="Cancelado">Cancelado</option>
-                            <option value="Caducado">Caducado</option>
+                            <option value="">Todas</option>
+                            {% if fsc.estado == "nueva" %}
+                                <option value="nueva" selected >Nuevas</option>
+                            {% else %}
+                                <option value="nueva">Nuevas</option>
+                            {% endif %}
+                            {% if fsc.estado == "completada" %}
+                                <option value="completada" selected >Completadas</option>
+                            {% else %}
+                                <option value="completada" >Completadas</option>
+                            {% endif %}
                         </select>
                     </div>
                 </div>
-                -->
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        {{ i18n.trans('payments') }}
+                        <select name="pagos" class="form-control">
+                            <option value="">Todas</option>
+                            {% if fsc.pagos == "Pagadas" %}
+                                <option value="Pagadas" selected >Pagadas</option>
+                            {% else %}
+                                <option value="Pagadas">Pagadas</option>
+                            {% endif %}
+                            {% if fsc.pagos == "Pendientes" %}
+                                <option value="Pendientes" selected >Pendientes de pago</option>
+                            {% else %}
+                                <option value="Pendientes" >Pendientes de pago</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         {{ i18n.trans('customer') }}

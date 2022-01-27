@@ -29,9 +29,9 @@ use Mpdf\Output\Destination;
 abstract class BaseTemplate
 {
 
-    const DEFAULT_LOGO = 'Dinamic/Assets/Images/logo-100.png';
+    const DEFAULT_LOGO = 'Core/Assets/Images/horizontal-logo.png';
     const MAX_IMAGE_FILE_SIZE = 2048000;
-    const MEGACITY20_LOGO = 'Plugins/MC20Instance/Assets/Images/logo-100.png';
+    const MEGACITY20_LOGO = 'Plugins/MC20Instance/Assets/Images/horizontal-logo.png';
 
     /**
      *
@@ -721,7 +721,7 @@ abstract class BaseTemplate
      */
     protected function getSubjectIdFiscalStr($model)
     {
-        return empty($model->cifnif) ? '' : $model->getSubject()->tipoidfiscal . ': ' . $model->cifnif;
+            return empty($model->cifnif) ? '' : $model->getSubject()->tipoidfiscal . ': ' . $model->cifnif;
     }
 
     /**
@@ -849,27 +849,29 @@ abstract class BaseTemplate
     {
         $contactData = [];
         foreach (['web', 'email', 'telefono1', 'telefono2'] as $field) {
+        //foreach (['web', 'email'] as $field) {
             if ($this->empresa->{$field}) {
                 $contactData[] = $this->empresa->{$field};
             }
         }
 
         $title = $this->showHeaderTitle ? '<h1 class="title text-center no-border">' . $this->get('headertitle') . '</h1>' : '';
-        return '<table class="table-big">'
-            . '<tr>'
-            . '<td valign="top" width="35%">'
-            . '<p><b>' . $this->empresa->nombre . '</b>'
-            . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
-            . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
-            . '</td>'
-            . '<td align="center" valign="top">'
-            . '<img src="' . $this->logoPath . '" height="' . $this->get('logosize') . '"/>'
-            . '</td>'
-            . '<td align="right" valign="top" width="35%">'
-            . '<p>' . \implode('<br/>', $contactData) . '</p>'
-            . '</td>'
-            . '</tr>'
-            . '</table>' . $title;
+            return '<table class="table-big">'
+                . '<tr>'
+                . '<td valign="top" width="35%">'
+                . '<p><b>' . $this->empresa->nombre . '</b>'
+                . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
+                . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
+                . '</td>'
+                . '<td align="center" valign="top">'
+                . '<img src="' . $this->logoPath . '" height="' . $this->get('logosize') . '"/>'
+                . '</td>'
+                . '<td align="right" valign="top" width="35%">'
+                . '<p>' . \implode('<br/>', $contactData) . '</p>'
+                . '</td>'
+                . '</tr>'
+                . '</table>' . $title;
+
     }
 
     /**
@@ -891,25 +893,27 @@ abstract class BaseTemplate
     {
         $contactData = [];
         foreach (['telefono1', 'telefono2', 'email', 'web'] as $field) {
+        //foreach (['email', 'web'] as $field) {
             if ($this->empresa->{$field}) {
                 $contactData[] = $this->empresa->{$field};
             }
         }
 
         $title = $this->showHeaderTitle ? '<h1 class="title">' . $this->get('headertitle') . '</h1>' . $this->spacer() : '';
-        return '<table class="table-big">'
-            . '<tr>'
-            . '<td valign="top"><img src="' . $this->logoPath . '" height="' . $this->get('logosize') . '"/></td>'
-            . '<td align="right" valign="top">'
-            . $title
-            . '<p><b>' . $this->empresa->nombre . '</b>'
-            . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
-            . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
-            . $this->spacer()
-            . '<p>' . \implode(' · ', $contactData) . '</p>'
-            . '</td>'
-            . '</tr>'
-            . '</table>';
+            return '<table class="table-big">'
+                . '<tr>'
+                . '<td valign="top"><img src="' . $this->logoPath . '" height="' . $this->get('logosize') . '"/></td>'
+                . '<td align="right" valign="top">'
+                . $title
+                . '<p><b>' . $this->empresa->nombre . '</b>'
+                . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
+                . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
+                . $this->spacer()
+                . '<p>' . \implode(' · ', $contactData) . '</p>'
+                . '</td>'
+                . '</tr>'
+                . '</table>';
+
     }
 
     /**
@@ -920,25 +924,27 @@ abstract class BaseTemplate
     {
         $contactData = [];
         foreach (['telefono1', 'telefono2', 'email', 'web'] as $field) {
+        //foreach (['email', 'web'] as $field) {
             if ($this->empresa->{$field}) {
                 $contactData[] = $this->empresa->{$field};
             }
         }
 
         $title = $this->showHeaderTitle ? '<h1 class="title">' . $this->get('headertitle') . '</h1>' . $this->spacer() : '';
-        return '<table class="table-big">'
-            . '<tr>'
-            . '<td>'
-            . $title
-            . '<p><b>' . $this->empresa->nombre . '</b>'
-            . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
-            . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
-            . $this->spacer()
-            . '<p>' . \implode(' · ', $contactData) . '</p>'
-            . '</td>'
-            . '<td align="right"><img src="' . $this->logoPath . '" height="' . $this->get('logosize') . '"/></td>'
-            . '</tr>'
-            . '</table>';
+            return '<table class="table-big">'
+                . '<tr>'
+                . '<td>'
+                . $title
+                . '<p><b>' . $this->empresa->nombre . '</b>'
+                . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
+                . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
+                . $this->spacer()
+                . '<p>' . \implode(' · ', $contactData) . '</p>'
+                . '</td>'
+                . '<td align="right"><img src="' . $this->logoPath . '" height="' . $this->get('logosize') . '"/></td>'
+                . '</tr>'
+                . '</table>';
+
     }
 
     /**

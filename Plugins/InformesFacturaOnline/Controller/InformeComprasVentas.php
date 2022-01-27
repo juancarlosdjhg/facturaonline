@@ -105,6 +105,7 @@ class InformeComprasVentas extends Controller
         $this->estado = $this->request->request->get('estado');
         $this->proveedor = $this->request->request->get('proveedor');
         $this->cliente = $this->request->request->get('cliente');
+        $this->pagos = $this->request->request->get('pagos');
 
 
         /*print("Fecha desde:" . $this->fechadesde . ", Fecha hasta: ". $this->fechahasta . $this->serie . $this->divisa . $this->estado . $this->proveedor . $this->cliente);*/
@@ -193,7 +194,7 @@ class InformeComprasVentas extends Controller
                 inner join
                     clientes c on f.codcliente = c.codcliente
                 where
-                    lower(ed.nombre) like '%completad%' " ;
+                    true " ;
 
             if (!empty($this->fechadesde)) {
                 $sql .= " and ( fecha between '" . $this->fechadesde . "' and '" . $this->fechahasta . "') ";
@@ -207,12 +208,22 @@ class InformeComprasVentas extends Controller
                 $sql .= " and upper(coddivisa) like upper('" . $this->divisa . "') ";            
             }
 
-            if (!empty($this->estado) ) {
-                $sql .= " and upper(estado) like upper('" . $this->estado . "') ";            
-            }
-
             if (!empty($this->cliente) ) {
                 $sql .= " and ( upper(c.cifnif) like upper('%" . $this->cliente . "%') or upper(nombrecliente) like upper('%" . $this->cliente . "%') or upper(direccion) like upper('%" . $this->cliente . "%') or upper(c.nombre) like upper('%" . $this->cliente . "%') or upper(c.razonsocial) like upper('%" . $this->cliente . "%') ) ";
+            }
+            
+            if (!empty($this->estado or $this->estado != NULL) ) {
+                $sql .= " and ( upper(ed.nombre) like upper('%" . $this->estado . "%') ) ";
+            }
+
+            if ( !empty($this->pagos) or $this->pagos != NULL ) {
+                if ( $this->pagos === 'Pagadas' ) {
+                    $sql .= " and ( f.pagada = 1) ";
+                }
+
+                elseif ( $this->pagos === 'Pendientes' ) {
+                    $sql .= " and ( f.pagada = 0 ) ";
+                }
             }
 
             $sql .= " order by codigo;";
@@ -278,7 +289,7 @@ class InformeComprasVentas extends Controller
                 inner join
                     proveedores p on p.codproveedor = f.codproveedor
                 where
-                    lower(ed.nombre) like '%completad%' " ;
+                    true " ;
 
             if (!empty($this->fechadesde) ) {
                 $sql .= " and ( fecha between '" . $this->fechadesde . "' and '" . $this->fechahasta . "') ";
@@ -292,12 +303,22 @@ class InformeComprasVentas extends Controller
                 $sql .= " and upper(coddivisa) like upper('" . $this->divisa . "') ";            
             }
 
-            if (!empty($this->estado) ) {
-                $sql .= " and upper(estado) like upper('" . $this->estado . "') ";            
-            }
-
             if (!empty($this->proveedor) ) {
                 $sql .= " and ( upper(p.cifnif) like upper('%" . $this->proveedor . "%') or upper(p.nombre) like upper('%" . $this->proveedor . "%') or upper(f.observaciones) like upper('%" . $this->proveedor . "%') or upper(p.nombre) like upper('%" . $this->proveedor . "%') or upper(p.razonsocial) like upper('%" . $this->proveedor . "%') ) ";
+            }
+
+            if (!empty($this->estado or $this->estado != NULL) ) {
+                $sql .= " and ( upper(ed.nombre) like upper('%" . $this->estado . "%') ) ";
+            }
+
+            if ( !empty($this->pagos) or $this->pagos != NULL ) {
+                if ( $this->pagos === 'Pagadas' ) {
+                    $sql .= " and ( f.pagada = 1) ";
+                }
+
+                elseif ( $this->pagos === 'Pendientes' ) {
+                    $sql .= " and ( f.pagada = 0 ) ";
+                }
             }
 
             $sql .= " order by codigo;";
