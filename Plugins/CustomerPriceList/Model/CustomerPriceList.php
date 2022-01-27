@@ -3,8 +3,8 @@ namespace FacturaScripts\Plugins\CustomerPriceList\Model;
 
 use FacturaScripts\Core\Model\Base;
 use FacturaScripts\Core\Base\DataBase;
-use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 use FacturaScripts\Core\Model\Cliente as DinCliente;
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
 
 class CustomerPriceList extends Base\ModelClass {
 
@@ -35,6 +35,24 @@ class CustomerPriceList extends Base\ModelClass {
     public static function tableName(): string{
         return 'customerpricelists';
     }
+
+    public function find(array $columns = [], array $where = []) 
+    {
+        $offset = 0;
+        $limit  = 1;
+
+        $stringColumns = !empty($columns) ? implode(", ", $columns) : '*';
+
+        $sql  = "SELECT {$stringColumns} ";
+        $sql .= "FROM " . static::tableName() . " ";
+        $sql .= DatabaseWhere::getSQLWhere($where);
+
+        foreach (self::$dataBase->selectLimit($sql, $limit, $offset) as $row) {
+            $model = new static($row);
+        }
+
+        return $model ?? $this;
+    }
     
     public function save()
     {
@@ -53,9 +71,9 @@ class CustomerPriceList extends Base\ModelClass {
             from 
                 customerpricelists 
             where 
-                codcliente='.$this->codcliente.' 
+                codcliente="'.$this->codcliente.'"  
             and 
-                idproducto='.$this->idproducto.' 
+                idproducto="'.$this->idproducto.'"  
             and 
                 (
                     (
@@ -82,9 +100,10 @@ class CustomerPriceList extends Base\ModelClass {
                 codcustomerpricelist <> '.$this->codcustomerpricelist.'
             and 
                 estado = "Activo"
-            ;'; 
+            ;';
 
             $data = $dataBase->select($sql);
+
             $total= (integer) $data[0]['total'];
 
             if ($total === 0) {

@@ -24,6 +24,8 @@ use FacturaScripts\Core\Lib\ExtendedController\BaseView;
 use FacturaScripts\Core\Lib\ExtendedController\ComercialContactController;
 use FacturaScripts\Dinamic\Lib\CustomerRiskTools;
 use FacturaScripts\Dinamic\Lib\RegimenIVA;
+use FacturaScripts\Dinamic\Model\Variante;
+use FacturaScripts\Plugins\CustomerPriceList\Model\CustomerPriceList;
 
 /**
  * Controller to edit a single item from the Cliente model
@@ -34,6 +36,72 @@ use FacturaScripts\Dinamic\Lib\RegimenIVA;
  */
 class EditCliente extends ComercialContactController
 {
+    protected function autocompleteAction(): array
+    {
+        $data = $this->requestGet([
+            'field',
+            'fieldcode', 
+            'fieldfilter', 
+            'fieldtitle', 
+            'formname', 
+            'source', 
+            'strict', 
+            'term',
+            'activetab',
+            'idproducto',
+            'codcliente'
+        ]);
+
+        if ($data['source'] == '') {
+            return $this->getAutocompleteValues($data['formname'], $data['field']);
+        }
+
+        $where = [];
+        foreach (DataBaseWhere::applyOperation($data['fieldfilter'] ?? '') as $field => $operation) {
+            $value = $this->request->get($field);
+            $where[] = new DataBaseWhere($field, $value, '=', $operation);
+        }
+
+        $results = [];
+
+        $utils = $this->toolBox()->utils();
+
+        $customerPriceList = new CustomerPriceList();
+
+        $values = $this->codeModel->search($data['source'], $data['fieldcode'], $data['fieldtitle'], $data['term'], $where);
+
+        foreach ($values as $value) {
+            $modelData = null;
+
+            if($data['activetab'] == 'EditCustomerPriceList') {
+                $modelData = $customerPriceList->find(['codigoexterno', 'idproducto'], [
+                    new DataBaseWhere('idproducto', $value->code, '='), 
+                    new DataBaseWhere('codcliente', $_GET['code'], '='), 
+                ]);
+
+                $variants = array_filter((new Variante)->all(), fn($variant) => $variant->referencia === $value->code);
+
+                $variant = array_shift($variants);
+
+                $modelData->coste               = $variant->coste;
+                $modelData->descripcionproducto = $utils->fixHtml($value->description);
+            }
+
+            $results[] = [
+                'key'        => $utils->fixHtml($value->code), 
+                'value'      => $utils->fixHtml($value->description),
+                'model_data' => $modelData
+            ];
+        }
+
+        if (empty($results) && '0' == $data['strict']) {
+            $results[] = ['key' => $data['term'], 'value' => $data['term']];
+        } elseif (empty($results)) {
+            $results[] = ['key' => null, 'value' => $this->toolBox()->i18n()->trans('no-data')];
+        }
+
+        return $results;
+    }
 
     /**
      * Returns the customer's risk on pending delivery notes.
