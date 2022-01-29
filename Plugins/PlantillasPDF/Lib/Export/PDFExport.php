@@ -127,6 +127,7 @@ class PDFExport extends ExportBase
     public function addTablePage($headers, $rows): bool
     {
         $alignments = [];
+
         foreach (\array_keys($headers) as $key) {
             $alignments[$key] = \in_array($key, ['debe', 'haber', 'saldo', 'saldoprev']) ? 'right' : 'left';
         }

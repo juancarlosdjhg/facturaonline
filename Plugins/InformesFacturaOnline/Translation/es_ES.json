@@ -1,8 +1,15 @@
 {
+    "benefit": "Beneficio",
+    "benefits-report-p": "El Informe de Beneficios provee una lista con información relativa al beneficio de las compras y ventas para el periodo de fechas seleccionado.",
+    "benefits-report-p2": "Seleccione un rango de fechas válido.",
+    "bought-amount": "Imp. compras",
+    "bought-units": "Cant. Compras",
     "buys-sales-report": "Informe de Compras y Ventas",
     "buys-sales-report-p": "El Informe de Compras y Ventas provee una lista de los documentos de compras y ventas para el periodo de fechas seleccionado.",
     "buys-sales-report-p2": "El buscador de Proveedor o Cliente buscará los documentos que contengan el texto ingresado.",
     "date-from": "Desde: ",
     "date-to": "Hasta: ",
+    "sales-amount": "Imp. ventas",
+    "sales-units": "Cant. Ventas",
     "xls-download": "Descargar XLS"
 }

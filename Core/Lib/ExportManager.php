@@ -19,6 +19,8 @@
 namespace FacturaScripts\Core\Lib;
 
 use FacturaScripts\Core\Lib\Export\ExportBase;
+use FacturaScripts\Core\Base\DataBase\DataBaseWhere;
+use FacturaScripts\Core\Model\DocTransformation;
 use FacturaScripts\Dinamic\Model\FormatoDocumento;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -359,12 +361,13 @@ class ExportManager
     protected static function init()
     {
         if (empty(static::$options)) {
-            static::$options = [
-                'PDF' => ['description' => 'print', 'icon' => 'fas fa-print'],
-                'XLS' => ['description' => 'spreadsheet-xls', 'icon' => 'fas fa-file-excel'],
-                'CSV' => ['description' => 'structured-data-csv', 'icon' => 'fas fa-file-csv'],
-                'MAIL' => ['description' => 'email', 'icon' => 'fas fa-envelope']
-            ];
+                static::$options = [
+                    'PDF' => ['description' => 'print', 'icon' => 'fas fa-print'],
+                    'XLS' => ['description' => 'spreadsheet-xls', 'icon' => 'fas fa-file-excel'],
+                    'CSV' => ['description' => 'structured-data-csv', 'icon' => 'fas fa-file-csv'],
+                    'MAIL' => ['description' => 'email', 'icon' => 'fas fa-envelope'],
+                    'PDFAlbaranes' => ['description' =>'delivery-note-report', 'icon' => 'fas fa-print']
+                ];
         }
 
         if (empty(static::$tools)) {
@@ -377,4 +380,33 @@ class ExportManager
             ];
         }
     }
+
+    /**public static function init_optional($idfactura)
+    {
+        $docTransformation = new DocTransformation();
+        
+        $docTransformationWhere = [
+            new DataBaseWhere('iddoc2', $idfactura),
+            new DataBaseWhere('model2', 'FacturaCliente')
+        ];
+        
+        $count = $docTransformation->count($docTransformationWhere);
+        
+        $array = [];
+
+        if ($count > 1) {
+            static::$options = [
+                'PDF' => ['description' => 'print', 'icon' => 'fas fa-print'],
+                'XLS' => ['description' => 'spreadsheet-xls', 'icon' => 'fas fa-file-excel'],
+                'CSV' => ['description' => 'structured-data-csv', 'icon' => 'fas fa-file-csv'],
+                'MAIL' => ['description' => 'email', 'icon' => 'fas fa-envelope'],
+                'PDFAlbaranes' => ['description' =>'delivery-note-report', 'icon' => 'fas fa-print']
+            ];
+            return static::$options;
+        }
+        
+        else {
+            return $array;
+        }
+    }*/
 }
