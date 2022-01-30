@@ -11,12 +11,6 @@ class CustomerPriceList extends Base\ModelClass {
     use Base\ModelTrait;
 
     public $codcustomerpricelist;
-
-    /**
-     * Customer code.
-     *
-     * @var string
-     */
     public $codcliente;
     public $fechacaducidad;
     public $idproducto;

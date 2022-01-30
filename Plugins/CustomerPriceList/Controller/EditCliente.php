@@ -38,6 +38,7 @@ class EditCliente extends ComercialContactController
 {
     protected function autocompleteAction(): array
     {
+        $codcliente = $this->getViewModelValue('EditCliente', 'codcliente');
         $data = $this->requestGet([
             'field',
             'fieldcode', 
@@ -72,19 +73,23 @@ class EditCliente extends ComercialContactController
 
         foreach ($values as $value) {
             $modelData = null;
-
+            
             if($data['activetab'] == 'EditCustomerPriceList') {
-                $modelData = $customerPriceList->find(['codigoexterno', 'idproducto'], [
-                    new DataBaseWhere('idproducto', $value->code, '='), 
-                    new DataBaseWhere('codcliente', $_GET['code'], '='), 
-                ]);
+                $where = [
+                    new DataBaseWhere('idproducto', $value->code), 
+                    new DataBaseWhere('codcliente', $data['codcliente']), 
+                ];
+                $modelData = $customerPriceList->find(['codigoexterno', 'idproducto', 'pvp'], $where);
 
                 $variants = array_filter((new Variante)->all(), fn($variant) => $variant->referencia === $value->code);
 
                 $variant = array_shift($variants);
 
-                $modelData->coste               = $variant->coste;
-                $modelData->descripcionproducto = $utils->fixHtml($value->description);
+                $modelData->coste                = $variant->coste;
+                $modelData->descripcionproducto  = $utils->fixHtml($value->description);
+                $modelData->codcustomerpricelist = $customerPriceList->codcustomerpricelist;
+                $modelData->codcliente           = $_GET['code'];
+                $modelData->idproducto           = $value->code;
             }
 
             $results[] = [
