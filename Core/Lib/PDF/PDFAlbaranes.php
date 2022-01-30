@@ -230,8 +230,6 @@ abstract class PDFAlbaranes extends PDFCore
         ];
         
         $arrayAlbaranes = $docTransformation->all($whereAlbaranes);
-
-        //exit(print_r($this->lineHeaders));
         
         $headers = [];
         $tableOptions = [
