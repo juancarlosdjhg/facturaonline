@@ -109,7 +109,7 @@ class InformeBeneficios extends Controller
                 . '</tr>'
                 . '</table>';
         
-        $mpdf->SetHTMLHeader($title);
+        $this->title = $title;
 
         $mpdf->WriteHTML($this->html($headers, $rows));
 
@@ -156,7 +156,7 @@ class InformeBeneficios extends Controller
             . '<title>Informe de Beneficios</title>'
             . '<style>' . $css . '</style>'
             . '</head>'
-            . '<body><br><br><br><br><br><br><br><br><br>' . $this->body . '</body>'
+            . '<body>' . $this->title . '<br><br><br>' . $this->body . '</body>'
             . '</html>';
     }
 

@@ -247,8 +247,8 @@ abstract class PDFAlbaranes extends PDFCore
             }
         }
 
-        $tableData = [];
-        
+        $tableData = [];        
+
         foreach ($arrayAlbaranes as $line) {
             $idAlbaran = $line->iddoc1;
             $albaran = new AlbaranCliente();
@@ -260,10 +260,10 @@ abstract class PDFAlbaranes extends PDFCore
                 $data['albaran'] = $linea->codigo;
                 $data['total'] = $linea->total;
             }
-
             $tableData[] = $data;            
         }
-        
+
+        $tableData = array_unique($tableData, SORT_REGULAR);
         $this->removeEmptyCols($tableData, $headers, $this->numberTools->format(0));
         $this->pdf->ezTable($tableData, $headers, '', $tableOptions);
     }
