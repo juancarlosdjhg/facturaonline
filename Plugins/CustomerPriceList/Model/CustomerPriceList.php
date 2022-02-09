@@ -12,7 +12,11 @@ class CustomerPriceList extends Base\ModelClass {
 
     public $codcustomerpricelist;
     public $codcliente;
-    public $fechacaducidad;
+    public $descripcionproducto;
+    public $coste;
+    public $fechainicio;
+    public $fechafin;
+    public $estado;
     public $idproducto;
     public $pvp;
     public $codigoexterno;

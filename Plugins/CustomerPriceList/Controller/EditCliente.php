@@ -25,6 +25,7 @@ use FacturaScripts\Core\Lib\ExtendedController\ComercialContactController;
 use FacturaScripts\Dinamic\Lib\CustomerRiskTools;
 use FacturaScripts\Dinamic\Lib\RegimenIVA;
 use FacturaScripts\Dinamic\Model\Variante;
+use FacturaScripts\Dinamic\Model\Producto;
 use FacturaScripts\Plugins\CustomerPriceList\Model\CustomerPriceList;
 
 /**
@@ -84,9 +85,15 @@ class EditCliente extends ComercialContactController
                 $variants = array_filter((new Variante)->all(), fn($variant) => $variant->referencia === $value->code);
 
                 $variant = array_shift($variants);
+                
+                $producto = new Producto();
+                $whereProducto = [
+                    new DataBaseWhere('referencia', $value->description)
+                ];
+                $productoModel = $producto->all($whereProducto);
 
                 $modelData->coste                = $variant->coste;
-                $modelData->descripcionproducto  = $utils->fixHtml($value->description);
+                $modelData->descripcionproducto  = $utils->fixHtml($productoModel[0]->descripcion);
                 $modelData->codcustomerpricelist = $customerPriceList->codcustomerpricelist;
                 $modelData->codcliente           = $_GET['code'];
                 $modelData->idproducto           = $value->code;
@@ -104,7 +111,6 @@ class EditCliente extends ComercialContactController
         } elseif (empty($results)) {
             $results[] = ['key' => null, 'value' => $this->toolBox()->i18n()->trans('no-data')];
         }
-
         return $results;
     }
 

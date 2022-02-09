@@ -67,7 +67,6 @@ $(document).ready(function () {
                     $("form[id=" + formId + "] input[name=" + data.field + "]").val(ui.item.value);
                     if(data.modelData.length >= 1) {
                         var model = data.modelData.find(item => Object.values(item).includes(ui.item.key));
-                        console.log(ui.item.key);
                         if (model) {
                             Object.keys(model).forEach(i => {$(`form[id=${formId}] input[name=${i}]`).val(model[i]);});
                         } 
@@ -96,7 +95,6 @@ $(document).ready(function () {
                             }}));
                         }
                     }
-
                     var value = ui.item.value.split(" | ");
                     ui.item.value = value[0];
                 }
