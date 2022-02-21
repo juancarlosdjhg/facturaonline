@@ -172,15 +172,14 @@ class Template1 extends BaseTemplate
         $break = empty($model->cifnif) ? '' : '<br/>';
         $observations = '' ;
         
-        if (!empty($this->getObservations($model))) {
-            $observations .= '<p><br/>' . $this->getObservations($model) . '</p>&nbsp;';
-        }
+        //if (!empty($this->getObservations($model))) {
+        //    $observations .= '<p><br/>' . $this->getObservations($model) . '</p>&nbsp;';
+        //}
 
         return '<td>'
             . '<b>' . $this->getSubjectTitle($model) . '</b> ' . $customerCode
             . '<br/>' . $this->getSubjectName($model) . $break . $this->getSubjectIdFiscalStr($model)
             . '<br/>' . $this->combineAddress($address) . $this->getInvoiceHeaderBillingPhones($subject)
-            . '<br/>' . $observations
             . '</td>';
     }
 
@@ -301,9 +300,9 @@ class Template1 extends BaseTemplate
         $i18n = $this->toolBox()->i18n();
         $numers = $this->toolBox()->numbers();
         $observations = '';
-        //if (!empty($this->getObservations($model))) {
-        //    $observations .= '<p><b>' . $i18n->trans('observations') . '</b><br/>' . $this->getObservations($model) . '</p>&nbsp;';
-        //}
+        if (!empty($this->getObservations($model))) {
+            $observations .= '<p><b>' . $i18n->trans('observations') . '</b><br/>' . $this->getObservations($model) . '</p>&nbsp;';
+        }
 
         if ($this->format->hidetotals) {
             return $observations;
