@@ -25,6 +25,7 @@ use FacturaScripts\Core\Lib\ExtendedController\ComercialContactController;
 use FacturaScripts\Dinamic\Lib\CustomerRiskTools;
 use FacturaScripts\Dinamic\Lib\RegimenIVA;
 use FacturaScripts\Dinamic\Model\Variante;
+use FacturaScripts\Dinamic\Model\Producto;
 use FacturaScripts\Plugins\CustomerPriceList\Model\CustomerPriceList;
 
 /**
@@ -38,6 +39,7 @@ class EditCliente extends ComercialContactController
 {
     protected function autocompleteAction(): array
     {
+        $codcliente = $this->getViewModelValue('EditCliente', 'codcliente');
         $data = $this->requestGet([
             'field',
             'fieldcode', 
@@ -72,19 +74,29 @@ class EditCliente extends ComercialContactController
 
         foreach ($values as $value) {
             $modelData = null;
-
+            
             if($data['activetab'] == 'EditCustomerPriceList') {
-                $modelData = $customerPriceList->find(['codigoexterno', 'idproducto'], [
-                    new DataBaseWhere('idproducto', $value->code, '='), 
-                    new DataBaseWhere('codcliente', $_GET['code'], '='), 
-                ]);
+                $where = [
+                    new DataBaseWhere('idproducto', $value->code), 
+                    new DataBaseWhere('codcliente', $data['codcliente']), 
+                ];
+                $modelData = $customerPriceList->find(['codigoexterno', 'idproducto', 'pvp'], $where);
 
                 $variants = array_filter((new Variante)->all(), fn($variant) => $variant->referencia === $value->code);
 
                 $variant = array_shift($variants);
+                
+                $producto = new Producto();
+                $whereProducto = [
+                    new DataBaseWhere('referencia', $value->description)
+                ];
+                $productoModel = $producto->all($whereProducto);
 
-                $modelData->coste               = $variant->coste;
-                $modelData->descripcionproducto = $utils->fixHtml($value->description);
+                $modelData->coste                = $variant->coste;
+                $modelData->descripcionproducto  = $utils->fixHtml($productoModel[0]->descripcion);
+                $modelData->codcustomerpricelist = $customerPriceList->codcustomerpricelist;
+                $modelData->codcliente           = $_GET['code'];
+                $modelData->idproducto           = $value->code;
             }
 
             $results[] = [
@@ -99,7 +111,6 @@ class EditCliente extends ComercialContactController
         } elseif (empty($results)) {
             $results[] = ['key' => null, 'value' => $this->toolBox()->i18n()->trans('no-data')];
         }
-
         return $results;
     }
 

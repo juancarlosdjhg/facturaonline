@@ -2,40 +2,40 @@
 <view>
     <columns>
         <group name="data" numcolumns="12">
-            <column name="code" display="none" order="100" >
+            <column name="code" display="none" order="100" numcolumns="2" >
                 <widget type="text" fieldname="codcustomerpricelist" required="true" readonly="true"/>
             </column>
-            <column name="customer" display="none" order="110">
+            <column name="customer" display="none" order="110" numcolumns="2">
                 <widget type="text" fieldname="codcliente" readonly="true"/>
             </column>
-            <column name="product" order="110">
+            <column name="product" order="110" numcolumns="1">
                 <widget type="autocomplete" fieldname="idproducto" required="true">
-                    <values source="productos" fieldcode="referencia" fieldtitle="descripcion" />
+                    <values source="productos" fieldcode="referencia" fieldtitle="referencia" />
                 </widget>
             </column>
-            <column name="description" order="115">
+            <column name="description" order="115" numcolumns="3">
                 <widget type="text" fieldname="descripcionproducto" readonly="true" required="true" />
             </column>
-            <column name="cost-price" order="115">
-                <widget type="text" fieldname="coste" readonly="true" required="true" />
+            <column name="cost-price" order="115" numcolumns="1">
+                <widget type="money" fieldname="coste" maxlength="100" icon="fas fa-euro-sign fa-fw" required="true" />
             </column>
-            <column name="pvp" order="120" required="true">
+            <column name="pvp" order="120" required="true" numcolumns="1">
                 <widget type="money" fieldname="pvp" maxlength="100" icon="fas fa-euro-sign fa-fw" required="true" />
             </column>
-            <column name="status" order="130">
+            <column name="status" order="130" numcolumns="1">
                 <widget type="select" fieldname="estado" required="true" >
                         <values title="Activo">Activo</values>
                         <values title="Bloqueado">Bloqueado</values>
                         <values title="Caducado">Caducado</values>
                 </widget>
             </column>
-            <column name="external-code"  order="140" >
+            <column name="external-code"  order="140" numcolumns="1" >
                 <widget type="text" fieldname="codigoexterno" maxlength="50" required="true" />
             </column>
-            <column name="start-date" display="center" order="145" >
+            <column name="start-date" display="center" order="145" numcolumns="2" >
                 <widget type="date" fieldname="fechainicio" required="true" />
             </column>
-            <column name="end-date" display="center" order="150" >
+            <column name="end-date" display="center" order="150" numcolumns="2" >
                 <widget type="date" fieldname="fechafin" required="true"/>
             </column>
         </group>

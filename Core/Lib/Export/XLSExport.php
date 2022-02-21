@@ -230,6 +230,28 @@ class XLSExport extends ExportBase
     }
 
     /**
+     * Adds a new page with the table with a custom name.
+     *
+     * @param array $headers
+     * @param array $rows
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function addTablePageName($headers, $rows, $name): bool
+    {
+        $this->numSheets++;
+        $sheetName = $name;
+
+        $this->writer->writeSheetRow($sheetName, $headers);
+        foreach ($rows as $row) {
+            $this->writer->writeSheetRow($sheetName, $row);
+        }
+
+        return true;
+    }
+
+    /**
      * Return the full document.
      *
      * @return string

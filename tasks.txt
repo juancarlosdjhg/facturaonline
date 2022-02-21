@@ -1,10 +1,14 @@
 Done:
-Documentos de ventas:
-- Añadir nuevo campo: "% Descuento Adicional".
-- Vincular ese nuevo campo a los campos ya existentes ("% Desc.", "% Margen" y "Neto" a nivel de línea)
-- Nueva versión con descuento adicional para Makao.
-
-
+	Informes:
+		Nuevo informe de facturas de multiples albaranes sin detalle de productos (solo información de albaranes)
+		Nuevo informe de beneficios por factura (ver email)
+	
+	(Task) Ventas -> Clientes -> Lista de precios:
+		+ Pasar a estado Caducado los rangos con fechafin > hoy.
+		- Mostrar nombre de producto.
+		- Mostrar coste de producto.
+		- Cuando se carga el mismo producto se debe mostrar el codigo externo ya existente 
+			(Los campos que se muestran en pantalla deben ser Referencia(idproducto), Descripción(DescripcionProducto), Coste(Coste), Código Externo(CodigoExterno) )
 ------------------------------
 Still to do:
 Documentos de venta:
@@ -16,16 +20,7 @@ Factura de venta:
 	Al imprimir una factura (ingles o español) se pase la factura a estado Completada.
 	O al enviar una factura por EMAIL se pase la factura a estado Completada.
 
-Facturas:
-	Nuevo informe de facturas de multiples albaranes sin detalle de productos (solo información de albaranes)
-	Nuevo informe de beneficios por factura (ver email)
-
 (Task) Ventas -> Clientes -> Lista de precios
-+	- Pasar a estado Caducado los rangos con fechafin > hoy.
-	- Mostrar nombre de producto.
-	- Mostrar coste de producto.
-	- Cuando se carga el mismo producto se debe mostrar el codigo externo ya existente 
-		(Los campos que se muestran en pantalla deben ser Referencia(idproducto), Descripción(DescripcionProducto), Coste(Coste), Código Externo(CodigoExterno) )
 	- Funcionalidad para copiar lista de precios de un cliente a otro sin copiar el campo codigoexterno.
 	- Poder cargar por lotes los codigos externos de los productos para un cliente. (Convertir en tabla handsontable o importar csv con datos.)
 

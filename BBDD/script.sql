@@ -20,6 +20,12 @@ $$
 
 
 create event evento_caducar
-on schedule every 1 month starts timestamp('2021-10-17 17:14:30')
+on schedule every 1 day starts (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 5 MINUTE)
 on completion preserve
 do call caducar;
+
+
+-- Execute this query by itself
+-- in order to activate the events scheduler.
+SET GLOBAL event_scheduler=ON
+

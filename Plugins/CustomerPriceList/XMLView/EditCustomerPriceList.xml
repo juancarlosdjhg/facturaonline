@@ -10,7 +10,7 @@
             </column>
             <column name="product" order="110" numcolumns="1">
                 <widget type="autocomplete" fieldname="idproducto" required="true">
-                    <values source="productos" fieldcode="referencia" fieldtitle="descripcion" />
+                    <values source="productos" fieldcode="referencia" fieldtitle="referencia" />
                 </widget>
             </column>
             <column name="description" order="115" numcolumns="3">

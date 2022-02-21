@@ -11,6 +11,16 @@
         <null>NO</null>
     </column>
     <column>
+        <name>descripcionproducto</name>
+        <type>character varying(255)</type>
+        <null>NO</null>
+    </column>
+    <column>
+        <name>coste</name>
+        <type>double precision</type>
+        <null>NO</null>
+    </column>
+    <column>
         <name>fechainicio</name>
         <type>date</type>
     </column>

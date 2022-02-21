@@ -65,24 +65,38 @@ $(document).ready(function () {
             select: function (event, ui) {
                 if (ui.item.key !== null) {
                     $("form[id=" + formId + "] input[name=" + data.field + "]").val(ui.item.value);
-
-                    if(data.modelData.length > 1) {
-                        const model = data.modelData.find(item => Object.values(item).includes(ui.item.key));
-
+                    if(data.modelData.length >= 1) {
+                        var model = data.modelData.find(item => Object.values(item).includes(ui.item.key));
                         if (model) {
-                            Object.keys(model).forEach(i => $(`form[id=${formId}] input[name=${i}]`).val(model[i]));
-                        } else {
-                            data.modelData.forEach(item => Object.keys(item).forEach(i => $(`form[id=${formId}] input[name=${i}]`).val('')));
+                            Object.keys(model).forEach(i => {$(`form[id=${formId}] input[name=${i}]`).val(model[i]);});
+                        } 
+                        else {
+                            data.modelData.forEach(item => Object.keys(item).forEach(i => {
+                                switch(i){
+                                    case "idproducto":
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val('');
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].idproducto);
+                                        break;
+                                    case "descripcionproducto":
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val('');
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].descripcionproducto);
+                                        break;
+                                    case "coste":
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val('');
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].coste);
+                                        break;
+                                    case "codigoexterno":
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val('');
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].codigoexterno);
+                                        break;
+                                    case "pvp":
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val('0');
+                                        break;
+                            }}));
                         }
                     }
-
                     var value = ui.item.value.split(" | ");
-
-                    if (value.length > 1) {
-                        ui.item.value = value[0];
-                    } else {
-                        ui.item.value = value[0];
-                    }
+                    ui.item.value = value[0];
                 }
             }
         });

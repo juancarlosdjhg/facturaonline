@@ -127,23 +127,24 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
 
         $this->recalculateFormLineTaxZones($newLine);
 
-        if (isset($fLine['coste']) && !isset($newLine->coste)){
-            $newLine->coste = (float) $fLine['coste'];
-        }
-        else {
-            $newLine->coste = 0;
-        }
+        //if ( isset($fLine['coste']) && (!empty($newLine->coste || $newLine->coste === NULL)) ){
+        //    $newLine->coste = (float) $fLine['coste'];
+        //}
+        
         $newLine->descripcion = Utils::fixHtml($newLine->descripcion);
         $newLine->pvpsindto = bcdiv($newLine->pvpunitario, '1', 2)  * $newLine->cantidad;
+        $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
+           
         if (isset($newLine->coste) && !empty($newLine->coste) ){
-            $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / (float)$newLine->coste) * 100);            
+            $newLine->margen =  floatval( ( (bcdiv( ($newLine->pvptotal / $newLine->cantidad), '1', 2)  - $newLine->coste) / (float)$newLine->coste) * 100) ;  
         }
+        
         else {
             if (!empty($newLine->coste)) {
-                $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  / 1) * 100));                      
+                $newLine->margen =  floatval(((bcdiv( ($newLine->pvptotal / $newLine->cantidad), '1', 2)  / 1) * 100)) ; 
             }
             else {
-                $newLine->margen = floatval(((bcdiv($newLine->pvpunitario, '1', 2)  - $newLine->coste) / 1) * 100);                        
+                $newLine->margen =  floatval(((bcdiv( ($newLine->pvptotal / $newLine->cantidad), '1', 2)  - $newLine->coste) / 1) * 100) ;  
                 if ( isset($fLine['coste']) ){
                     $newLine->coste = (float) $fLine['coste'];
                 }
@@ -152,10 +153,10 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
                 }            
             }
         }
-        $newLine->pvptotal = $newLine->pvpsindto * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
-        $newLine->referencia = Utils::fixHtml($newLine->referencia);
-        
 
+        $newLine->referencia = Utils::fixHtml($newLine->referencia);       
+        $newLine->pvpcondto = $newLine->pvpunitario * (100 - $newLine->dtopor) / 100 * (100 - $newLine->dtopor2) / 100;
+        
         $suplido = isset($fLine['suplido']) && $fLine['suplido'] === 'true';
         if ($this->siniva || $newLine->codimpuesto === null || $suplido) {
             $newLine->codimpuesto = null;
@@ -163,7 +164,7 @@ class BusinessDocumentFormTools extends DinBusinessDocumentTools
         } elseif ($this->recargo === false) {
             $newLine->recargo = 0.0;
         }
-
+        
         return $newLine;
     }
     
