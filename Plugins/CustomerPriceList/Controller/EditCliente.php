@@ -39,6 +39,7 @@ class EditCliente extends ComercialContactController
 {
     protected function autocompleteAction(): array
     {
+        $pos = 0;
         $codcliente = $this->getViewModelValue('EditCliente', 'codcliente');
         $data = $this->requestGet([
             'field',
@@ -69,41 +70,47 @@ class EditCliente extends ComercialContactController
         $utils = $this->toolBox()->utils();
 
         $customerPriceList = new CustomerPriceList();
-
+        
         $values = $this->codeModel->search($data['source'], $data['fieldcode'], $data['fieldtitle'], $data['term'], $where);
 
+        if ( isset($values) ) {
+            $values = $this->codeModel->search($data['source'], $data['fieldcode'], 'descripcion', $data['term'], $where);
+        }
+        
         foreach ($values as $value) {
             $modelData = null;
-            
+        
             if($data['activetab'] == 'EditCustomerPriceList') {
-                $where = [
-                    new DataBaseWhere('idproducto', $value->code), 
-                    new DataBaseWhere('codcliente', $data['codcliente']), 
-                ];
-                $modelData = $customerPriceList->find(['codigoexterno', 'idproducto', 'pvp'], $where);
-
+                $arrayCustomerPriceList = $customerPriceList->find(['codigoexterno', 'idproducto'], [
+                    new DataBaseWhere('idproducto', $value->code, '='), 
+                    new DataBaseWhere('codcliente', $data['codcliente'], '='), 
+                ]);
+            
                 $variants = array_filter((new Variante)->all(), fn($variant) => $variant->referencia === $value->code);
-
+            
                 $variant = array_shift($variants);
                 
                 $producto = new Producto();
                 $whereProducto = [
-                    new DataBaseWhere('referencia', $value->description)
+                    new DataBaseWhere('referencia', $value->code),
+                    new DataBaseWhere('descripcion', $value->description, '=', 'OR')
                 ];
                 $productoModel = $producto->all($whereProducto);
 
-                $modelData->coste                = $variant->coste;
-                $modelData->descripcionproducto  = $utils->fixHtml($productoModel[0]->descripcion);
-                $modelData->codcustomerpricelist = $customerPriceList->codcustomerpricelist;
-                $modelData->codcliente           = $_GET['code'];
-                $modelData->idproducto           = $value->code;
-            }
-
-            $results[] = [
+                $modelData['idproducto']          = $value->code;
+                $modelData['coste']               = $variant->coste;
+                $modelData['descripcionproducto'] = $utils->fixHtml($productoModel[0]->descripcion) === null ? ' ' : $utils->fixHtml($productoModel[0]->descripcion);
+                $modelData['codigoexterno']       = $arrayCustomerPriceList->codigoexterno === null ? null :  $arrayCustomerPriceList->codigoexterno;
+                $modelData['pvp']                 = $arrayCustomerPriceList->pvp === null ? null :  $arrayCustomerPriceList->pvp;
+            
+            $results[$pos] = [
                 'key'        => $utils->fixHtml($value->code), 
-                'value'      => $utils->fixHtml($value->description),
+                'value'      => $utils->fixHtml($productoModel[0]->descripcion),
                 'model_data' => $modelData
             ];
+            $pos++;
+            
+            }
         }
 
         if (empty($results) && '0' == $data['strict']) {

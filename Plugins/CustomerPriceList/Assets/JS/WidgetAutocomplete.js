@@ -28,6 +28,7 @@ function widgetAutocompleteGetData(formId, formData, term) {
 
 $(document).ready(function () {
     $(".widget-autocomplete").each(function () {
+        delete data;
         var data = {
             field: $(this).attr("data-field"),
             fieldcode: $(this).attr("data-fieldcode"),
@@ -48,7 +49,7 @@ $(document).ready(function () {
                     success: function (results) {
                         var values = [];
                         results.forEach((element) => {
-                            values.push(element.key === null || element.key === element.value ? element : {key: element.key, value: element.key + " | " + element.value});
+                            values.push(element.key === null ? element : {key: element.key, value: element.key + " | " + element.value});
                             
                             if(element['model_data']) {
                                 data.modelData.push(element['model_data']);
@@ -64,37 +65,38 @@ $(document).ready(function () {
             },
             select: function (event, ui) {
                 if (ui.item.key !== null) {
+                    //console.log(ui.item);
                     $("form[id=" + formId + "] input[name=" + data.field + "]").val(ui.item.value);
-                    if(data.modelData.length >= 1) {
-                        var model = data.modelData.find(item => Object.values(item).includes(ui.item.key));
+
+                    if(data.modelData.length > 1) {
+                        const model = data.modelData.find(item => Object.values(item).includes(ui.item.key));
+
                         if (model) {
-                            Object.keys(model).forEach(i => {$(`form[id=${formId}] input[name=${i}]`).val(model[i]);});
-                        } 
-                        else {
+                            Object.keys(model).forEach(i => $(`form[id=${formId}] input[name=${i}]`).val(model[i]));
+                        } else {
+                            console.log("modelData -> ", data.modelData)
                             data.modelData.forEach(item => Object.keys(item).forEach(i => {
                                 switch(i){
                                     case "idproducto":
                                         $(`form[id="${formId}"] input[name="${i}"]`).val('');
-                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].idproducto);
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData.find(idproducto === ui.item.key).idproducto);
                                         break;
                                     case "descripcionproducto":
                                         $(`form[id="${formId}"] input[name="${i}"]`).val('');
-                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].descripcionproducto);
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData.find(idproducto === ui.item.key).descripcionproducto);
                                         break;
                                     case "coste":
                                         $(`form[id="${formId}"] input[name="${i}"]`).val('');
-                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].coste);
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData.find(idproducto === ui.item.key).coste);
                                         break;
                                     case "codigoexterno":
                                         $(`form[id="${formId}"] input[name="${i}"]`).val('');
-                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData[data.modelData.length-1].codigoexterno);
-                                        break;
-                                    case "pvp":
-                                        $(`form[id="${formId}"] input[name="${i}"]`).val('0');
+                                        $(`form[id="${formId}"] input[name="${i}"]`).val(data.modelData.find(idproducto === ui.item.key).codigoexterno);
                                         break;
                             }}));
                         }
                     }
+                    $(`form[id="${formId}"] input[name="pvp"]`).val('0');
                     var value = ui.item.value.split(" | ");
                     ui.item.value = value[0];
                 }

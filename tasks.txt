@@ -1,16 +1,17 @@
 Done:
-	Informes:
-		Nuevo informe de facturas de multiples albaranes sin detalle de productos (solo información de albaranes)
-		Nuevo informe de beneficios por factura (ver email)
-	
-	(Task) Ventas -> Clientes -> Lista de precios:
-		+ Pasar a estado Caducado los rangos con fechafin > hoy.
-		- Mostrar nombre de producto.
-		- Mostrar coste de producto.
-		- Cuando se carga el mismo producto se debe mostrar el codigo externo ya existente 
-			(Los campos que se muestran en pantalla deben ser Referencia(idproducto), Descripción(DescripcionProducto), Coste(Coste), Código Externo(CodigoExterno) )
+	[BUG] Plugins->CustomerPriceList:
+		Fix for CustomerPriceList plugin: 
+			-"Code | Descripcion" on autocomplete list.
+			-Autoload for fields "referencia, descripcion, coste, codigoexterno" on select.
+			
 ------------------------------
+
 Still to do:
+(Task) Informes -> Informe de Compras y Ventas:
+	- Mover campo "Fecha" a la primera posición de columnas.
+	- Descargar como PDF (copiar de Informe de Beneficios).
+	- Agregar campo "Observaciones" para añadir al informe generado en PDF.
+
 Documentos de venta:
 	- Corregir el error al sobreescribir una línea del documento:
         Al modificar la referencia de una línea ya cargada (buscar otro producto en la misma línea) no se carga ni se cambia el producto.
@@ -23,9 +24,6 @@ Factura de venta:
 (Task) Ventas -> Clientes -> Lista de precios
 	- Funcionalidad para copiar lista de precios de un cliente a otro sin copiar el campo codigoexterno.
 	- Poder cargar por lotes los codigos externos de los productos para un cliente. (Convertir en tabla handsontable o importar csv con datos.)
-
-(Task) Ventas -> Presupuestos/Pedidos/Albaranes/Facturas
-	- Transformar el campo 'Proveedor' a un campo autocomplete o select, que muestre los proveedores que venden el producto cargado en la línea.
 
 (Task) Informes -> Crear plantillas acorde a las que están en el correo.
 +	- Cost & Sales como opcional en el desplegable
