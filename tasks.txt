@@ -4,13 +4,16 @@ Done:
 			-"Code | Descripcion" on autocomplete list.
 			-Autoload for fields "referencia, descripcion, coste, codigoexterno" on select.
 			
+(Task) Informes -> Informe de Beneficios:
+	- Crear versión sin margen.
+(Task) Informes -> Informe de Compras y Ventas:
+	- Mover campo "Fecha" a la primera posición de columnas.
+	- Agregar campo "Observaciones" para añadir al informe generado en PDF.
+	- Descargar como PDF (copiar de Informe de Beneficios).
+
 ------------------------------
 
 Still to do:
-(Task) Informes -> Informe de Compras y Ventas:
-	- Mover campo "Fecha" a la primera posición de columnas.
-	- Descargar como PDF (copiar de Informe de Beneficios).
-	- Agregar campo "Observaciones" para añadir al informe generado en PDF.
 
 Documentos de venta:
 	- Corregir el error al sobreescribir una línea del documento:

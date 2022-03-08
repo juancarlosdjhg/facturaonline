@@ -277,15 +277,15 @@ class InformeBeneficios extends Controller
             round(coalesce(sum(compras.importecompras), 0), 2) as importecompras,
             coalesce(sum(ventas.cantidadventas), 0) as cantidadventas,
             round(coalesce(sum(ventas.importeventas), 0), 2) as importeventas,
-            round(coalesce(sum(ventas.cantidadventas), 0) - coalesce(sum(compras.cantidadcompras), 0)) as beneficio,
-            round(coalesce(round( ( ( coalesce(sum(ventas.importeventas), 0) - coalesce(sum(compras.importecompras), 0) ) / coalesce(sum(compras.importecompras), 0) ) * 100 ), 100), 2) as porcentaje
+            round(coalesce(sum(ventas.importeventas), 0) - coalesce(sum(compras.importecompras), 0),2) as beneficio,
+            round(coalesce(( ( coalesce(sum(ventas.importeventas), 0) - coalesce(sum(compras.importecompras), 0) ) / coalesce(sum(compras.importecompras), 0) * 100 ), 100), 2) as porcentaje
         from
             productos as p
         left join
             (
                 select
                     sum(cantidadcompras) as cantidadcompras,
-                    (sum(importecompras) / count(importecompras)) as importecompras,
+                    sum(importecompras) as importecompras,
                     pvpunitario,
                     idproducto
                 from 
@@ -312,10 +312,8 @@ class InformeBeneficios extends Controller
             (
                 select
                     sum(cantidadventas) as cantidadventas,
-                    (sum(importeventas) / count(importeventas)) as importeventas,
+                    sum(importeventas) as importeventas,
                     pvpunitario,
-                    margen,
-                    cantidad,
                     idproducto
                 from 
                 (
@@ -323,8 +321,6 @@ class InformeBeneficios extends Controller
                         sum(lfc.cantidad) as cantidadventas,
                         sum(lfc.pvptotal) as importeventas,
                         pvpunitario,
-                        sum(lfc.margen) as margen,
-                        count(lfc.margen) as cantidad,
                         idproducto
                     from
                         lineasfacturascli as lfc

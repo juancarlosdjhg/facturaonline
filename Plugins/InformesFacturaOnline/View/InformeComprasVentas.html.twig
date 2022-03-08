@@ -110,6 +110,12 @@
                         <input type="text" name="proveedor" class="form-control" placeholder="Cualquier proveedor" value="{{ fsc.proveedor }}" />
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ i18n.trans('observations') }}
+                        <input type="text" name="observaciones" class="form-control" placeholder="Añadir observaciones (opcional)" maxlength="255"/>
+                    </div>
+                </div>
                 <div class="col">
                     <div class="form-group">
                         <button type="submit" name="action" value="show" class="btn btn-primary">
@@ -117,6 +123,12 @@
                         </button>
                         <button type="submit" name="action" value="download" class="btn btn-primary">
                             <i class="fas fa-arrow-down fa-fw"></i> {{ i18n.trans('xls-download') }}
+                        </button>
+                        <button type="submit" name="action" value="pdfcustomersdownload" class="btn btn-primary">
+                            <i class="fas fa-arrow-down fa-fw"></i> {{ i18n.trans('customers-pdf-download') }}
+                        </button>
+                        <button type="submit" name="action" value="pdfsuppliersdownload" class="btn btn-primary">
+                            <i class="fas fa-arrow-down fa-fw"></i> {{ i18n.trans('suppliers-pdf-download') }}
                         </button>
                     </div>
                 </div>
@@ -155,10 +167,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>{{ i18n.trans('date') }}</th>
                     <th>{{ i18n.trans('code') }}</th>
                     <th>{{ i18n.trans('serie') }}</th>
                     <th>{{ i18n.trans('externalordernumber') }}</th>
-                    <th>{{ i18n.trans('date') }}</th>
                     <th>{{ i18n.trans('cifnif') }}</th>
                     <th>{{ i18n.trans('customer') }}</th>
                     <th>{{ i18n.trans('net') }}</th>
@@ -170,10 +182,10 @@
             <tbody>
                 {% for row in fsc.customersData %}
                     <tr>
+                        <td>{{ row.fecha }}</td>
                         <td>{{ row.codigo }}</td>
                         <td>{{ row.codserie }}</td>
                         <td>{{ row.numero2 }}</td>
-                        <td>{{ row.fecha }}</td>
                         <td>{{ row.cifnif }}</td>
                         <td>{{ row.nombrecliente }}</td>
                         <td>{{ fsc.toolBox().coins().format(row.neto) }}</td>
@@ -192,10 +204,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>{{ i18n.trans('date')  }}</th>
                     <th>{{ i18n.trans('code')  }}</th>
                     <th>{{ i18n.trans('serie') }}</th>
                     <th>{{ i18n.trans('number') }}</th>
-                    <th>{{ i18n.trans('date')  }}</th>
                     <th>{{ i18n.trans('cifnif') }}</th>
                     <th>{{ i18n.trans('provider') }}</th>
                     <th>{{ i18n.trans('net')  }}</th>
@@ -207,10 +219,10 @@
             <tbody>
                 {% for row in fsc.suppliersData %}
                     <tr>
+                        <td>{{ row.fecha }}</td>
                         <td>{{ row.codigo }}</td>
                         <td>{{ row.codserie }}</td>
                         <td>{{ row.numproveedor }}</td>
-                        <td>{{ row.fecha }}</td>
                         <td>{{ row.cifnif }}</td>
                         <td>{{ row.nombre }}</td>
                         <td>{{ fsc.toolBox().coins().format(row.neto) }}</td>

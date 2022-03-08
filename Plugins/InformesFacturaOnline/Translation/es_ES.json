@@ -12,5 +12,8 @@
     "date-to": "Hasta: ",
     "sales-amount": "Imp. ventas",
     "sales-units": "Cant. Ventas",
-    "xls-download": "Descargar XLS"
+    "xls-download": "Descargar XLS",
+    "pdf-download": "Descargar PDF",
+    "customers-pdf-download": "Descargar PDF Ventas",
+    "suppliers-pdf-download": "Descargar PDF Compras"
 }
