@@ -10,6 +10,7 @@ use FacturaScripts\Core\Model\Base\BusinessDocument;
 use FacturaScripts\Core\Model\Base\BusinessDocumentLine;
 use FacturaScripts\Dinamic\Model\AttachedFile;
 use FacturaScripts\Dinamic\Model\Contacto;
+use FacturaScripts\Dinamic\Model\Cliente;
 use FacturaScripts\Dinamic\Model\CuentaBanco;
 use FacturaScripts\Dinamic\Model\CuentaBancoCliente;
 use FacturaScripts\Dinamic\Model\Empresa;
@@ -732,7 +733,21 @@ abstract class BaseTemplate
      */
     protected function getSubjectName($model)
     {
-        return isset($model->nombrecliente) ? $model->nombrecliente : $model->nombre;
+        if ( isset($model->nombrecliente) ) {
+            $cliente = new Cliente();
+            if($cliente->loadFromCode($model->codcliente)) {
+                if (!empty($cliente->nombre)){
+                    $break = '<br/>';
+                }
+                else {
+                    $break = '';
+                }
+                return $cliente->razonsocial . $break . $cliente->nombre;
+            } 
+        }
+        else {
+            return $model->nombre;
+        }
     }
 
     /**
@@ -860,6 +875,7 @@ abstract class BaseTemplate
                 . '<tr>'
                 . '<td valign="top" width="35%">'
                 . '<p><b>' . $this->empresa->nombre . '</b>'
+                . '<br/><b>' . $this->empresa->administrador . '</b>'
                 . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
                 . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
                 . '</td>'
@@ -906,6 +922,7 @@ abstract class BaseTemplate
                 . '<td align="right" valign="top">'
                 . $title
                 . '<p><b>' . $this->empresa->nombre . '</b>'
+                . '<br/><b>' . $this->empresa->administrador . '</b>'
                 . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
                 . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
                 . $this->spacer()
@@ -936,6 +953,7 @@ abstract class BaseTemplate
                 . '<td>'
                 . $title
                 . '<p><b>' . $this->empresa->nombre . '</b>'
+                . '<br/><b>' . $this->empresa->administrador . '</b>'
                 . '<br/>' . $this->empresa->tipoidfiscal . ': ' . $this->empresa->cifnif
                 . '<br/>' . $this->combineAddress($this->empresa) . '</p>'
                 . $this->spacer()
