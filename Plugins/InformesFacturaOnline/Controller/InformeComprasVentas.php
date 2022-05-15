@@ -595,11 +595,28 @@ class InformeComprasVentas extends Controller
 
         $html .= '</tr>    '
                 .'</thead> ';
-        
+        $totalNeto = 0;
+        $totalIVA = 0;
+        $totalIRPF = 0;
+        $totalTotal = 0;
+
         foreach ($rows as $row) {
             $html .= '<tr>';
             foreach ($row as $key => $cell) {
 
+                if ($key === 'neto'){
+                    $totalNeto += $cell;
+                }
+                if ($key === 'totaliva'){
+                    $totalIVA += $cell;
+                }
+                if ($key === 'totalirpf'){
+                    $totalIRPF += $cell;
+                }
+                if ($key === 'total'){
+                    $totalTotal += $cell;
+                }
+                
                 if ($key === 'numproveedor' || $key === 'numero2'){
                 }
 
@@ -611,7 +628,7 @@ class InformeComprasVentas extends Controller
                             $html .= '<td align="left" style="background-color: #EEE;">' . $cell . '</td>';
                         }
                 }
-
+                
                 elseif($key === 'neto' || $key === 'totaliva' || $key === 'totalirpf' || $key === 'total'){
                     if (strtoupper($this->divisa) === 'EUR'){
                         if ($countColor %2==0){
@@ -644,6 +661,25 @@ class InformeComprasVentas extends Controller
             }
             $html .= '</tr>';
         }
+
+        $totalNeto = $this->toolBox()->coins()->format($totalNeto, 2);
+        $totalIVA = $this->toolBox()->coins()->format($totalIVA, 2);
+        $totalIRPF = $this->toolBox()->coins()->format($totalIRPF, 2);
+        $totalTotal = $this->toolBox()->coins()->format($totalTotal, 2);
+
+        $totales = '<tr>'
+        . '<td> </td>'
+        . '<td> </td>'
+        . '<td> </td>'
+        . '<td> </td>'
+        . '<td align="right">Totales: </td>'
+        . '<td align="right">' . $totalNeto . '</td>'
+        . '<td align="right">' . $totalIVA . '</td>'
+        . '<td align="right">' . $totalIRPF . '</td>'
+        . '<td align="right">' . $totalTotal . '</td>'
+        . '</tr>';
+
+        $html .= $totales;
 
         $this->writeHTML('<table class="table-big table-list border1" style="width: 50%;">' . $html . '</table><br/>');
     }
