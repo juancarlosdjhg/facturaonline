@@ -35,3 +35,12 @@ Factura de venta:
 +	- Pasar a estado Caducado los lotes con fechavencimiento > hoy.
 	- Funcionalidad para asociar los lotes al stock
 	- Funcionalidad para facturar los productos de lotes válidos en función del stock, el lote, la partida o la fecha de vencimiento.
+
+
+---------------------------------
+
+Pending for budget aproval:
+    >Subir las observaciones a la cabecera del documento en lugar de tenerla en el final del documento
+    >Sumatoria Costes en la ventana de pedido del cliente
+	>>Campo TotalCoste (Coste x cantidad en linea)
+	>>Campo %Margen reformular para mostrar porcentaje sobre el precio de venta y no en funcion del coste (ej: 100euros + 20%=120€; 120€ - 20% = 96€)
